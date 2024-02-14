@@ -1,4 +1,4 @@
-package Models;
+package warzone.Models;
 import java.util.*;
 import java.io.*;
 /*
@@ -65,6 +65,12 @@ public class Map {
             }
         }
         // remove the country from the neighbouring/adjacenecy list
+        for(Country i:d_countriesList){
+            if(i.getAdjacentCountryID().contains(l_country.getCountryID())){
+                i.removeNeighbour(l_country.getCountryID);
+            }
+        }
+        
         d_countriesList.remove(l_country);
     }
 
@@ -77,7 +83,9 @@ public class Map {
         Continent l_continent=getContinentByName(p_continentName);
         for(Country i:l_continent.getCountries()){
             // updating the adjacenecy list
-            d_countriesList.remove(i);
+            
+            removeCountry(i.getCountryName);
+            
         }
 
         d_continentsList.remove(l_continent);
