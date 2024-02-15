@@ -1,4 +1,4 @@
-package warzone.Models;
+package Models;
 import java.util.*;
 
 import java.io.*;
