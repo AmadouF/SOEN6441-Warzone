@@ -1,5 +1,6 @@
 package warzone.Models;
 import java.util.*;
+
 import java.io.*;
 /*
  * Map model:
@@ -89,6 +90,97 @@ public class Map {
         }
 
         d_continentsList.remove(l_continent);
+    }
+
+
+    public boolean isValidMap(){
+        if(d_continents==null || d_continents.isEmpty() || d_countries==null || d_countries.isEmpty()){
+            return false;
+        }
+        
+        for(Country c: d_countries){
+            if(c.getAdjacentCountryID().size()<1){
+                return false;
+            }
+        }
+
+        for (Continent c:d_continents){
+			if (c.getCountries()==null || c.getCountries().size()<1){
+				return false;
+			}
+			if(!isContinentConnected(c)){
+				return false;
+			}
+		}
+
+        return true && areCountriesConnected();
+
+
+
+        return true;
+    }
+
+    public boolean areCountriesConnected(){
+        HashMap<Country, Boolean> l_visitedCountryMap = new HashMap<Country, Boolean>();
+
+        for (Country c : d_countriesList) {
+            l_visitedCountryMap.put(c.getD_countryId(), false);
+        }
+        dfsCountry(d_countriesList.get(0),l_visitedCountryMap);
+
+
+        return !l_visitedCountryMap.containsValue(false);
+    }
+
+    public void dfsCountry(Country p_country, HashMap<Country, Boolean> l_visitedCountryMap) {
+        l_visitedCountryMap.put(p_country, true);
+        List<Country> l_adjCountries = new ArrayList<Country>();
+
+        
+		for (int i : p_country.getAdjacentCountryID()) {
+            l_adjCountries.add(getCountry(i));
+        }
+        
+		
+        for (Country l_country : l_adjCountries) {
+            if (!l_visitedCountryMap.get(l_country)) {
+                dfsCountry(l_country);
+            }
+        }
+    }
+
+    // public Country getCountry(int p_countryId) {
+    //     return d_countriesList.stream().filter(l_country -> l_country.getD_countryId().equals(p_countryId)).findFirst().orElse(null);
+    // }
+
+    public boolean isContinentConnected(Continent p_continent){
+        HashMap<Country, Boolean> l_visitedCountryMap = new HashMap<Country, Boolean>();
+
+        for (Country c : p_continent.getCountries()) {
+            l_visitedCountryMap.put(c, false);
+        }
+        dfs(p_continent.getCountries().get(0), l_visitedCountryMap, p_continent);
+
+        
+        // for (Entry<Country, Boolean> entry : l_visitedCountryMap.entrySet()) {
+        //     if (!entry.getValue()) {
+        //         Country l_country = entry.getKey();
+        //         String l_messageException = l_country.getD_countryName() + " in Continent " + p_continent.getD_continentName() + " is not reachable";
+        //         throw new InvalidMap(l_messageException);
+        //     }
+        // }
+        return !l_visitedCountryMap.containsValue(false);
+    }
+
+    public void dfs(Country p_country, HashMap<Country, Boolean> l_visitedCountryMap, Continent p_continent){
+        l_visitedCountryMap.put(p_country, true);
+        for (Country l_country : p_continent.getCountries()) {
+            if (p_country.getAdjacentCountryID.contains(l_country.getCountryID())) {
+                if (!l_visitedCountryMap.get(l_country)) {
+                    dfs(l_country, l_visitedCountryMap, p_continent);
+                }
+            }
+        }
     }
 
 }
