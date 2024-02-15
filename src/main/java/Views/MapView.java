@@ -15,6 +15,7 @@ public class MapView {
     public final int CONSOLE_WIDTH = 80;
     public final String CONTROL_VALUE = "Control Value";
 
+    // Expects GameState Controller and related methods.
     public MapView(GameState p_gameState) {
         this.d_gameState = p_gameState;
         this.d_map = p_gameState.getD_map();
@@ -22,6 +23,7 @@ public class MapView {
         this.d_continents = d_map.getD_continents;
     }
 
+    // Expects GameState Controller and related methods.
     public MapView(GameState p_gameState, List<Player> p_players) {
         this.d_gameState = p_gameState;
         this.d_map = p_gameState.getD_map();
@@ -59,7 +61,7 @@ public class MapView {
         return String.format("%-30s", l_indexedString);
     }
 
-    private void printFormattedAdjacentCountryName(String p_countryName, List<Country> p_adjCountries){
+    private void printFormattedAdjacentCountryName(List<Country> p_adjCountries){
         StringBuilder l_commaSeparatedCountries = new StringBuilder();
 
         for(int i = 0; i < p_adjCountries.size(); i++) {
@@ -90,6 +92,7 @@ public class MapView {
         }
     }
 
+    // Expects gameState methods.
     private Integer getCountryArmies(String p_countryName) {
         Integer l_armies = d_gameState.getD_map().getCountryByName(p_countryName).getD_armies();
 
@@ -100,6 +103,9 @@ public class MapView {
         return l_armies;
     }
 
+    // Expects CommonUtil methods
+    // Expects Map Class, Continent Class and related methods
+    // Expects Custom Exception - InvalidMap
     public void showMap() {
         if (d_players != null) {
             printPlayers();
@@ -120,7 +126,7 @@ public class MapView {
                         try {
                             List<Country> l_adjCountries = d_map.getAdjacentCountry(l_country);
 
-                            printFormattedAdjacentCountryName(l_country.getD_name(), l_adjCountries);
+                            printFormattedAdjacentCountryName(l_adjCountries);
                         } catch (InvalidMap l_invalidMap) {
                             System.out.println(l_invalidMap.getMessage());
                         }
