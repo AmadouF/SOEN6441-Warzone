@@ -3,7 +3,7 @@ package Models;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Country {
+public class Country extends Object{
 
     /**
      * Country ID
