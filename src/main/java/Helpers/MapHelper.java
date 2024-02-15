@@ -102,4 +102,84 @@ public class MapHelper {
 
         return p_countries;
     }
+
+    public void edit(GameState p_state, String p_filePath){
+        String l_mapFilePath = CommonUtil.getMapFilePath(p_filePath);
+        File l_fileToBeEdited = new File(l_mapFilePath);
+
+		if (l_fileToBeEdited.createNewFile()) {
+			System.out.println("File has been created.");
+			Map l_map = new Map();
+			l_map.setMapFile(p_filePath);
+			p_state.setD_map(l_map);
+		} else {
+			System.out.println("File already exists.");
+			this.load(p_state, p_filePath);
+			if (null == p_state.getD_map()) {
+				p_state.setD_map(new Map());
+			}
+			p_state.getD_map().setD_mapFile(p_filePath);
+		}
+    }
+
+
+    public void editContinent(GameState p_state, String p_argument, String p_operation) {
+		String l_mapFileName = p_state.getD_map().getD_mapFile();
+		
+
+
+        Map l_currentMap=null;
+        if(p_state.getMap().getContinentsList()==null && p_state.getMap().getCountriesList()==null){
+            l_currentMap=this.load(p_state,l_mapFileName);
+        }else{
+            l_currentMap=p_state.getMap();
+        }
+                
+		if(!CommonUtil.isNull(l_currentMap)) {
+
+            if(p_operation.equalsIgnoreCase("add") && p_argument.split(" ").length==2){
+                String l_newContinent=p_argument.split(" ")[0];
+                int l_continentBonus=Integer.parseInt(p_argument.split(" ")[1]);
+                l_currentMap.addContinent(l_newContinent, l_continentBonus);
+            }
+			
+            if(p_operation.equalsIgnoreCase("remove") && p_argument.split(" ").length==1){
+                l_currentMap.removeContinent(p_argument.split(" ")[0]);
+            }
+
+			p_state.setMap(l_currentMap);
+			p_state.getMap().setMapFile(l_mapFileName);
+		}
+	}
+
+    public void editCountry(GameState p_state, String p_operation, String p_argument){
+		String l_mapFileName= p_state.getD_map().getD_mapFile();
+
+
+		Map l_currentMap=null;
+        if(p_state.getMap().getContinentsList()==null && p_state.getMap().getCountriesList()==null){
+            l_currentMap=this.load(p_state,l_mapFileName);
+        }else{
+            l_currentMap=p_state.getMap();
+        }
+
+		if(!CommonUtil.isNull(l_currentMap)) {
+
+            if(p_operation.equalsIgnoreCase("add") && p_argument.split(" ").length==2){
+                String l_newCountry=p_argument.split(" ")[0];
+                
+                String l_continentName=p_argument.trim().split(" ")[1];
+                l_currentMap.addCountry(l_newCountry, l_continentName);
+            }
+			
+            if(p_operation.equalsIgnoreCase("remove") && p_argument.split(" ").length==1){
+                l_currentMap.removeCountry(p_argument.split(" ")[0]);
+            }
+
+			p_state.setMap(l_currentMap);
+			p_state.getMap().setMapFile(l_mapFileName);
+		}
+	}
+
+
 }
