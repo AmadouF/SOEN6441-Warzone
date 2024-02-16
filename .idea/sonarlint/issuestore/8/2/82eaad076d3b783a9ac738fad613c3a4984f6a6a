@@ -1,0 +1,21 @@
+
+k	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ë®ºâüÿÿÿÿ
+k	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Îë˜Ìıÿÿÿÿ
+k	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İˆü±ûÿÿÿÿ
+f	java:S117'"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(òÑÈ
+k	java:S117/"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(í¡Øâşÿÿÿÿ
+k	java:S1177"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‰†™›ùÿÿÿÿ
+k	java:S117B"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ï¹İ´ùÿÿÿÿ
+f	java:S117C"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öÛ
+f	java:S117F"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ü€Õû
+f	java:S117L"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„îâÔ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ùæñÃûÿÿÿÿ
+l	java:S116	"WRename this field "d_playerName" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ïèØÒ
+u	java:S116
+"[Rename this field "d_ownedCountries" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡¼Ê¼şÿÿÿÿ
+q	java:S116"\Rename this field "d_ownedContinents" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘×¿
+t	java:S116"ZRename this field "d_reinforcement" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œ¥µøÿÿÿÿ
+n	java:S116"YRename this field "d_issuedOrders" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯ÜÈŒ
+h	java:S100?"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÌÍ¼Ùüÿÿÿÿ
+E	java:S106A"+Replace this use of System.out by a logger.(šÕ°éÿÿÿÿÿ
+c	java:S100K"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(š²…
