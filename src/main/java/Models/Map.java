@@ -32,6 +32,7 @@ import java.io.*;
 public class Map {
     private List<Continent> d_continentsList;
     private List<Country> d_countriesList;
+    private String d_mapFile;
     public void setContinents(List<Continent> p_continentsList){
         this.d_continentsList=p_continentsList;
     }
@@ -56,6 +57,13 @@ public class Map {
     public Continent getContinent(String p_continentName){
         return d_continentsList.stream().filter(l_continent -> l_continent.getContinentName().equals(p_continentName)).findFirst().orElse(null);
      }
+
+    public void setMapFile(String p_mapFile){
+        this.d_mapFile=p_mapFile;
+    }
+    public String getMapFile(){
+        return this.d_mapFile;
+    }
     public void addCountry(String p_countryName, String p_continentName){
         int l_countryID=0;
         l_countryID=d_countriesList.size()>0? Collections.max(getCountryIDs())+1:1;

@@ -1,9 +1,11 @@
 package Models;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-public class Country extends Object{
+public class Country {
 
     /**
      * Country ID
@@ -28,7 +30,7 @@ public class Country extends Object{
     /**
      * Set of all the countries which can be reached directly by this country
      */
-    private Set<Integer> d_adjacentCountryIds = new HashSet<>();;
+    private List<Integer> d_adjacentCountryIds = new ArrayList<Integer>();;
 
     /**
      * Constructor of Country class
@@ -112,9 +114,9 @@ public class Country extends Object{
      *
      * @return Set of adjacent country IDs
      */
-    public Set<Integer> getD_adjacentCountryIds() {
+    public List<Integer> getD_adjacentCountryIds() {
         if(d_adjacentCountryIds==null){
-            return new HashSet<Integer>();
+            return new ArrayList<Integer>();
         }
 
         return d_adjacentCountryIds;
@@ -125,7 +127,7 @@ public class Country extends Object{
      *
      * @param p_adjacentCountryIds Set of adjacent country IDs
      */
-    public void setD_adjacentCountryIds(Set<Integer> p_adjacentCountryIds) {
+    public void setD_adjacentCountryIds(List<Integer> p_adjacentCountryIds) {
         this.d_adjacentCountryIds = p_adjacentCountryIds;
     }
 
