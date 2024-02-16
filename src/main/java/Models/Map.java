@@ -32,21 +32,34 @@ import java.io.*;
 public class Map {
     private List<Continent> d_continentsList;
     private List<Country> d_countriesList;
-    public setContinents(List<Continent> p_continentsList){
+    public void setContinents(List<Continent> p_continentsList){
         this.d_continentsList=p_continentsList;
     }
-    public List<String> getContinentsList(){
+    public List<Continent> getContinentsList(){
         return this.d_continentsList;
     }
-    public setCountries(List<Country> p_countriesList){
+    public void setCountries(List<Country> p_countriesList){
         this.d_countriesList=p_countriesList;
     }
-    public List<String> getCountriesList(){
+    public List<Country> getCountriesList(){
         return this.d_countriesList;
     }
-    
+    public List<Integer> getCountryIDs(){
+        List<Integer> l_countryIDs = new ArrayList<Integer>();
+        if(!d_countriesList.isEmpty()){
+            for(Country c: d_countriesList){
+                l_countryIDs.add(c.getD_continentId());
+            }
+        }
+        return l_countryIDs;
+    }
+    public Continent getContinent(String p_continentName){
+        return d_continentsList.stream().filter(l_continent -> l_continent.getContinentName().equals(p_continentName)).findFirst().orElse(null);
+     }
     public void addCountry(String p_countryName, String p_continentName){
-        Country l_newCountry=new Country(p_countryName,p_continentName); //pass the continent name or id?
+        int l_countryID=0;
+        l_countryID=d_countriesList.size()>0? Collections.max(getCountryIDs())+1:1;
+        Country l_newCountry=new Country(l_countryID,getContinent(p_continentName).getD_continentID(),p_countryName); //pass the continent name or id?
         d_countriesList.add(l_newCountry);
         for(Continent i:d_continentsList){
             if(i.getContinentName().equals(p_continentName)){
@@ -55,28 +68,49 @@ public class Map {
         }
 
     }
-    
+    public Country getCountryByName(String p_countryName){
+        return d_countriesList.stream().filter(l_country -> l_country.getD_name().equals(p_countryName)).findFirst().orElse(null);
+    }
     public void removeCountry(String p_countryName){
         Country l_country=getCountryByName(p_countryName);
         //country->continentID
         //continent name list
         for(Continent i:d_continentsList){
-            if(l_country.getContinentID()==i.getContinentID()){
+            if(l_country.getD_continentId()==i.getD_continentID()){
                 i.removeCountry(l_country);
             }
         }
         // remove the country from the neighbouring/adjacenecy list
         for(Country i:d_countriesList){
-            if(i.getAdjacentCountryID().contains(l_country.getCountryID())){
-                i.removeNeighbour(l_country.getCountryID);
+            if(i.getD_adjacentCountryIds().contains(l_country.getD_id())){
+                i.removeAdjacentCountry(l_country.getD_id());
             }
         }
         
         d_countriesList.remove(l_country);
     }
 
+
+    public Continent getContinentByName(String p_continentName){
+        return d_continentsList.stream().filter(l_continent -> l_continent.getContinentName().equals(p_continentName)).findFirst().orElse(null);
+     }
+
+
+     public List<Integer> getContinentIDs(){
+        List<Integer> l_continentIDs = new ArrayList<Integer>();
+        if (!d_continentsList.isEmpty()) {
+            for(Continent c: d_continentsList){
+                l_continentIDs.add(c.getD_continentID());
+            }
+        }
+        return l_continentIDs;
+    }
+
+
     public void addContinent(String p_continentName, int bonus){
-        Continent l_newContinent=new Continent(p_continentName,bonus);
+        int l_continentId=0;
+        l_continentId=d_continentsList.size()>0?Collections.max(getContinentIDs())+1:1;
+        Continent l_newContinent=new Continent(l_continentId,p_continentName,bonus);
         d_continentsList.add(l_newContinent);
     }
 
@@ -85,7 +119,7 @@ public class Map {
         for(Country i:l_continent.getCountries()){
             // updating the adjacenecy list
             
-            removeCountry(i.getCountryName);
+            removeCountry(i.getD_name());
             
         }
 
@@ -94,17 +128,17 @@ public class Map {
 
 
     public boolean isValidMap(){
-        if(d_continents==null || d_continents.isEmpty() || d_countries==null || d_countries.isEmpty()){
+        if(d_continentsList==null || d_continentsList.isEmpty() || d_countriesList==null || d_countriesList.isEmpty()){
             return false;
         }
         
-        for(Country c: d_countries){
-            if(c.getAdjacentCountryID().size()<1){
+        for(Country c: d_countriesList){
+            if(c.getD_adjacentCountryIds().size()<1){
                 return false;
             }
         }
 
-        for (Continent c:d_continents){
+        for (Continent c:d_continentsList){
 			if (c.getCountries()==null || c.getCountries().size()<1){
 				return false;
 			}
@@ -117,14 +151,14 @@ public class Map {
 
 
 
-        return true;
+        
     }
 
     public boolean areCountriesConnected(){
         HashMap<Country, Boolean> l_visitedCountryMap = new HashMap<Country, Boolean>();
 
         for (Country c : d_countriesList) {
-            l_visitedCountryMap.put(c.getD_countryId(), false);
+            l_visitedCountryMap.put(c, false);
         }
         dfsCountry(d_countriesList.get(0),l_visitedCountryMap);
 
@@ -132,19 +166,23 @@ public class Map {
         return !l_visitedCountryMap.containsValue(false);
     }
 
+    public Country getCountry(Integer p_countryId) {
+        return d_countriesList.stream().filter(l_country -> l_country.getD_id().equals(p_countryId)).findFirst().orElse(null);
+    }
+
     public void dfsCountry(Country p_country, HashMap<Country, Boolean> l_visitedCountryMap) {
         l_visitedCountryMap.put(p_country, true);
         List<Country> l_adjCountries = new ArrayList<Country>();
 
         
-		for (int i : p_country.getAdjacentCountryID()) {
+		for (int i : p_country.getD_adjacentCountryIds()) {
             l_adjCountries.add(getCountry(i));
         }
         
 		
         for (Country l_country : l_adjCountries) {
             if (!l_visitedCountryMap.get(l_country)) {
-                dfsCountry(l_country);
+                dfsCountry(l_country,l_visitedCountryMap);
             }
         }
     }
@@ -175,7 +213,7 @@ public class Map {
     public void dfs(Country p_country, HashMap<Country, Boolean> l_visitedCountryMap, Continent p_continent){
         l_visitedCountryMap.put(p_country, true);
         for (Country l_country : p_continent.getCountries()) {
-            if (p_country.getAdjacentCountryID.contains(l_country.getCountryID())) {
+            if (p_country.getD_adjacentCountryIds().contains(l_country.getD_id())) {
                 if (!l_visitedCountryMap.get(l_country)) {
                     dfs(l_country, l_visitedCountryMap, p_continent);
                 }
