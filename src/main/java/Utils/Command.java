@@ -1,6 +1,8 @@
 package Utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,17 +38,39 @@ public class Command {
         return this.d_rootCommand;
     }
 
-    public List<Map<String, String>> getListOfOperations(){
+    public List<Map<String, String>> getListOfOperationsAndArguments(){
         List<Map<String , String>> l_listOfOperations  = new ArrayList<Map<String,String>>();
-        String l_operations = d_playerCommand.replace(d_rootCommand, "").trim();
-
-        if (l_operations.isEmpty()){
+        String l_operationsStr = d_playerCommand.replace(d_rootCommand, "").trim();
+        String OPERATION = "operation";
+        String ARGUMENTS = "arguments";
+        if (l_operationsStr.isEmpty()){
             return l_listOfOperations;
         }
-        //TODO finish the method
+        boolean doesCommandHaveArguments = l_operationsStr.contains("-") || l_operationsStr.contains(" ");
+        if (! doesCommandHaveArguments){
+            l_operationsStr = "-filename " + l_operationsStr;
+        }
+        String[] l_operationsList = l_operationsStr.split("-");
+        for (String l_operations : l_operationsList){
+            
+            if (! l_operations.isEmpty()){
+                Map<String, String> l_operationAndArgumentMap = new HashMap<String, String>();
+                String[] l_splitOperations = l_operations.split(" ");
+                String l_argugmentsString = "";
+                l_operationAndArgumentMap.put(OPERATION, l_splitOperations[0]);
+                
+                String[] l_argumentsList = Arrays.copyOfRange(l_splitOperations, 1, l_splitOperations.length);
+                if (l_argumentsList.length >= 1){
+                    l_argugmentsString = String.join(" ",l_argumentsList);
+                }
+                l_operationAndArgumentMap.put(ARGUMENTS, l_argugmentsString);
+                l_listOfOperations.add(l_operationAndArgumentMap);
+
+            }
+        }
+
         return l_listOfOperations;
 
-    }
 
-
+}
 }
