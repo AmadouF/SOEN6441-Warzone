@@ -1,4 +1,4 @@
-package Services;
+package Helpers;
 
 import Models.*;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class PlayerService {
+public class PlayerHelper {
     public boolean isPlayerNameUnique(List<Player> p_existingPlayers, String p_playerName) {
         boolean l_isUnique = true;
 
