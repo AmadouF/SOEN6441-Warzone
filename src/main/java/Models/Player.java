@@ -1,6 +1,9 @@
 package Models;
 
 import java.util.*;
+
+import Utils.Command;
+
 import java.io.*;
 
 
@@ -66,10 +69,10 @@ public class Player {
         String l_enteredCommand=sc.nextLine();
         Command l_command=new Command(l_enteredCommand);
         
-        if(l_command.getRootCommand().toLowerCase().equals("deploy") && l_enteredCommand.split(" ").length==3){
-            PlayerService l_playerService=new PlayerService();
-            l_playerService.processDeployOrder(l_enteredCommand,this);
-        }
+        // if(l_command.getRootCommand().toLowerCase().equals("deploy") && l_enteredCommand.split(" ").length==3){
+        //     PlayerService l_playerService=new PlayerService();
+        //     l_playerService.processDeployOrder(l_enteredCommand,this);
+        // }
     }
 
     public Order next_order(){
