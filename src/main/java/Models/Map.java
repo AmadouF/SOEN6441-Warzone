@@ -37,6 +37,7 @@ public class Map {
     HashMap<Country, Boolean> d_countryNeighbours = new HashMap<Country, Boolean>();
     private List<Continent> d_continentsList;
     private List<Country> d_countriesList;
+  
     private String d_mapFile;
     //    private String d_mapName;
     
