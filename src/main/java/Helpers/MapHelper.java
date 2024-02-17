@@ -3,9 +3,12 @@ package Helpers;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import Constants.ApplicationConstants;
 import Exceptions.InvalidMap;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import Models.Continent;
 import Models.Country;
@@ -50,6 +53,7 @@ public class MapHelper {
             l_countriesObj=setConnectivity(l_countriesObj,l_borders);
 
             l_map.setCountries(l_countriesObj);
+            l_map.setMapFile(p_mapFileName);
             p_gameState.setMap(l_map);
 
         }
@@ -111,6 +115,8 @@ public class MapHelper {
         // }
         return l_objectList;
     }
+
+    
 
     public List<Country> setConnectivity(List<Country> p_countries,List<String> p_borders){
         LinkedHashMap<Integer, List<Integer>> l_countryNeighbors = new LinkedHashMap<Integer, List<Integer>>();
@@ -263,5 +269,87 @@ public class MapHelper {
 		return p_continents;
 	}
 
+
+    public boolean saveMap(GameState p_gameState, String p_fileName) throws InvalidMap {
+ 		try {
+ 			System.out.println(p_gameState.getMap().getMapFile());
+ 			
+ 			if (!p_fileName.equalsIgnoreCase(p_gameState.getMap().getMapFile())) {
+ 				p_gameState.setError("Kindly provide same file name to save which you have given for edit");
+ 				return false;
+ 			} else {
+ 				if (p_gameState.getMap()!=null) {
+ 					Map l_currentMap = p_gameState.getMap();
+
+ 					
+ 					System.out.println("Validating Map......");
+ 					boolean l_mapValidationStatus = l_currentMap.isValidMap();
+ 					if (l_mapValidationStatus) {
+ 						Files.deleteIfExists(Paths.get(CommonUtil.getMapFilePath(p_fileName)));
+ 						FileWriter l_writer = new FileWriter(CommonUtil.getMapFilePath(p_fileName));
+
+ 						if (null != p_gameState.getMap().getContinentsList()
+ 								&& !p_gameState.getMap().getContinentsList().isEmpty()) {
+ 							writeContinentMetadata(p_gameState, l_writer);
+ 						}
+ 						if (null != p_gameState.getMap().getCountriesList()
+ 								&& !p_gameState.getMap().getCountriesList().isEmpty()) {
+ 							writeCountryAndBoarderMetaData(p_gameState, l_writer);
+ 						}
+ 						l_writer.close();
+ 					}
+ 				} else {
+ 					p_gameState.setError("Validation Failed");
+ 					return false;
+ 				}
+ 			}
+ 			return true;
+ 		} catch (IOException l_e) {
+ 			l_e.printStackTrace();
+ 			p_gameState.setError("Error in saving map file");
+ 			return false;
+ 		}
+ 	}
+     
+     private void writeContinentMetadata(GameState p_gameState, FileWriter p_writer) throws IOException {
+ 		p_writer.write(System.lineSeparator() + ApplicationConstants.CONTINENTS + System.lineSeparator());
+ 		for (Continent l_continent : p_gameState.getMap().getContinentsList()) {
+ 			p_writer.write(
+ 					l_continent.getContinentName().concat(" ").concat(l_continent.getContinentValue().toString())
+ 							+ System.lineSeparator());
+ 		}
+ 	}
+     
+     private void writeCountryAndBoarderMetaData(GameState p_gameState, FileWriter p_writer) throws IOException {
+ 		String l_countryMetaData = new String();
+ 		String l_bordersMetaData = new String();
+ 		List<String> l_bordersList = new ArrayList<>();
+
+ 		
+ 		p_writer.write(System.lineSeparator() + ApplicationConstants.COUNTRIES + System.lineSeparator());
+ 		for (Country l_country : p_gameState.getMap().getCountriesList()) {
+ 			l_countryMetaData = new String();
+ 			l_countryMetaData = l_country.getD_id().toString().concat(" ").concat(l_country.getD_name())
+ 					.concat(" ").concat(l_country.getD_continentId().toString());
+ 			p_writer.write(l_countryMetaData + System.lineSeparator());
+
+ 			if (null != l_country.getD_adjacentCountryIds() && !l_country.getD_adjacentCountryIds().isEmpty()) {
+ 				l_bordersMetaData = new String();
+ 				l_bordersMetaData = l_country.getD_id().toString();
+ 				for (Integer l_adjCountry : l_country.getD_adjacentCountryIds()) {
+ 					l_bordersMetaData = l_bordersMetaData.concat(" ").concat(l_adjCountry.toString());
+ 				}
+ 				l_bordersList.add(l_bordersMetaData);
+ 			}
+ 		}
+
+ 		
+ 		if (null != l_bordersList && !l_bordersList.isEmpty()) {
+ 			p_writer.write(System.lineSeparator() + ApplicationConstants.BORDERS + System.lineSeparator());
+ 			for (String l_borderStr : l_bordersList) {
+ 				p_writer.write(l_borderStr + System.lineSeparator());
+ 			}
+ 		}
+ 	}
 
 }

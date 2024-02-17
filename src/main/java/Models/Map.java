@@ -34,10 +34,12 @@ import java.io.*;
  *      getContinentID(), 
  */
 public class Map {
+    HashMap<Country, Boolean> d_countryNeighbours = new HashMap<Country, Boolean>();
     private List<Continent> d_continentsList;
     private List<Country> d_countriesList;
     private String d_mapFile;
-    HashMap<Country, Boolean> d_countryNeighbours = new HashMap<Country, Boolean>();
+    //    private String d_mapName;
+    
     public void setContinents(List<Continent> p_continentsList){
         this.d_continentsList=p_continentsList;
     }
