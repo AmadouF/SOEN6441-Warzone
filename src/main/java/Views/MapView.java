@@ -1,8 +1,12 @@
 package Views;
 
 import java.util.*;
+
+import Models.Continent;
 import Models.Country;
+import Models.GameState;
 import Models.Player;
+import Models.Map;
 import org.davidmoten.text.utils.WordWrap;
 
 public class MapView {
@@ -19,8 +23,8 @@ public class MapView {
     public MapView(GameState p_gameState) {
         this.d_gameState = p_gameState;
         this.d_map = p_gameState.getD_map();
-        this.d_countries = d_map.getD_countries;
-        this.d_continents = d_map.getD_continents;
+        this.d_countries = d_map.getCountriesList();
+        this.d_continents = d_map.getContinentsList();
     }
 
     // Expects GameState Controller and related methods.
@@ -28,8 +32,8 @@ public class MapView {
         this.d_gameState = p_gameState;
         this.d_map = p_gameState.getD_map();
         this.d_players = p_players;
-        this.d_countries = d_map.getD_countries;
-        this.d_continents = d_map.getD_continents;
+        this.d_countries = d_map.getCountriesList();
+        this.d_continents = d_map.getContinentsList();
     }
 
     private void printSeparator() {
@@ -113,7 +117,7 @@ public class MapView {
 
         if(!CommonUtil.isNull(d_continents)) {
             d_continents.forEach(l_continent -> {
-                printContinentName(l_continent.getD_continentName());
+                printContinentName(l_continent.getD_name());
 
                 List<Country> l_continentCountries = l_continent.getD_countries();
                 final int[] l_countryIndex = { 1 };
