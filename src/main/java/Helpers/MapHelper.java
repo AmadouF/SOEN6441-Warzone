@@ -2,6 +2,9 @@ package Helpers;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import Exceptions.InvalidMap;
+
 import java.io.*;
 
 import Models.Continent;
@@ -32,7 +35,8 @@ public class MapHelper {
             int l_continentsDataStart=l_fileData.indexOf("[continents]")+1;
             int l_continentsDataEnd=l_fileData.indexOf("[countries]")-1;
             List<String> l_continents=l_fileData.subList(l_continentsDataStart, l_continentsDataEnd);
-            l_map.setContinents(createContinentObjects(l_continents));
+            List<Continent> l_continentsObj=createContinentObjects(l_continents);
+            l_map.setContinents(l_continentsObj);
 
             int l_countriesDataStart=l_fileData.indexOf("[countries]")+1;
             int l_countriesDataEnd=l_fileData.indexOf("[borders]")-1;
@@ -81,6 +85,7 @@ public class MapHelper {
         List<Country> l_objectList=new ArrayList<Country>();
         // if(objectType.equals("continents")){
             // List<Continent> l_continents=new ArrayList<Continent>();
+            // LinkedHashMap<Integer, List<Integer>> l_countryNeighbors = new LinkedHashMap<Integer, List<Integer>>();
             for (String country : p_list) {
                 String[] l_metaDataCountries = country.split(" ");
                 l_objectList.add(new Country(Integer.parseInt(l_metaDataCountries[0]), Integer.parseInt(l_metaDataCountries[2]), l_metaDataCountries[1]));
@@ -151,7 +156,7 @@ public class MapHelper {
     }
 
 
-    public void editContinent(GameState p_state, String p_argument, String p_operation) {
+    public void editContinent(GameState p_state, String p_argument, String p_operation) throws IOException, InvalidMap {
 		String l_mapFileName = p_state.getMap().getMapFile();
 		
 
@@ -180,7 +185,7 @@ public class MapHelper {
 		}
 	}
 
-    public void editCountry(GameState p_state, String p_operation, String p_argument){
+    public void editCountry(GameState p_state, String p_operation, String p_argument) throws InvalidMap{
 		String l_mapFileName= p_state.getMap().getMapFile();
 
 
@@ -209,42 +214,54 @@ public class MapHelper {
 		}
 	}
 
-    // public void editNeighbour(GameState p_state, String p_operation, String p_argument){
-	// 	String l_mapFileName= p_state.getMap().getMapFile();
+    public void editNeighbour(GameState p_state, String p_operation, String p_argument) throws InvalidMap{
+		String l_mapFileName= p_state.getMap().getMapFile();
 		
-    //     Map l_currentMap=null;
-    //     if(p_state.getMap().getContinentsList()==null && p_state.getMap().getCountriesList()==null){
-    //         l_currentMap=this.load(p_state,l_mapFileName);
-    //     }else{
-    //         l_currentMap=p_state.getMap();
-    //     }
+        Map l_currentMap=null;
+        if(p_state.getMap().getContinentsList()==null && p_state.getMap().getCountriesList()==null){
+            l_currentMap=this.load(p_state,l_mapFileName);
+        }else{
+            l_currentMap=p_state.getMap();
+        }
 
 
-	// 	if(!CommonUtil.isNull(l_currentMap)) {
+		if(!CommonUtil.isNull(l_currentMap)) {
 			
             
-    //         if(p_operation.equalsIgnoreCase("add") && p_argument.split(" ").length==2){
-    //             String l_country=p_argument.split(" ")[0];
+            if(p_operation.equalsIgnoreCase("add") && p_argument.split(" ").length==2){
+                String l_country=p_argument.split(" ")[0];
                 
-    //             String l_neighbour=p_argument.trim().split(" ")[1];
+                String l_neighbour=p_argument.trim().split(" ")[1];
                 
-    //             l_currentMap.addNeighbour(l_country, l_neighbour);
-    //         }
+                l_currentMap.addNeighbour(l_country, l_neighbour);
+            }
 			
-    //         if(p_operation.equalsIgnoreCase("remove") && p_argument.split(" ").length==1){
-    //             String l_country=p_argument.split(" ")[0];
+            if(p_operation.equalsIgnoreCase("remove") && p_argument.split(" ").length==1){
+                String l_country=p_argument.split(" ")[0];
                 
-    //             String l_neighbour=p_argument.trim().split(" ")[1];
+                String l_neighbour=p_argument.trim().split(" ")[1];
                 
-    //             l_currentMap.removeNeighbour(l_country, l_neighbour);
-    //         }
+                l_currentMap.removeNeighbour(l_country, l_neighbour);
+            }
 
-	// 		p_state.setMap(l_currentMap);
-	// 		p_state.getMap().setMapFile(l_mapFileName);
+			p_state.setMap(l_currentMap);
+			p_state.getMap().setMapFile(l_mapFileName);
             
             
-	// 	}
-	// }
+		}
+	}
+
+
+    public List<Continent> linkCountryContinents(List<Country> p_countries, List<Continent> p_continents) {
+		for (Country c : p_countries) {
+			for (Continent cont : p_continents) {
+				if (cont.getD_continentID().equals(c.getD_continentId())) {
+					cont.addCountry(c);
+				}
+			}
+		}
+		return p_continents;
+	}
 
 
 }
