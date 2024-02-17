@@ -32,16 +32,16 @@ import java.io.*;
 public class Map {
     private List<Continent> d_continentsList;
     private List<Country> d_countriesList;
-    public setContinents(List<Continent> p_continentsList){
+    public void setContinents(List<Continent> p_continentsList){
         this.d_continentsList=p_continentsList;
     }
-    public List<String> getContinentsList(){
+    public List<Continent> getContinentsList(){
         return this.d_continentsList;
     }
-    public setCountries(List<Country> p_countriesList){
+    public void setCountries(List<Country> p_countriesList){
         this.d_countriesList=p_countriesList;
     }
-    public List<String> getCountriesList(){
+    public List<Country> getCountriesList(){
         return this.d_countriesList;
     }
     
