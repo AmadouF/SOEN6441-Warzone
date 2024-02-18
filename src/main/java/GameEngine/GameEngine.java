@@ -6,6 +6,8 @@ import Exceptions.InvalidMap;
 import Helpers.MapHelper;
 import Helpers.PlayerHelper;
 import Models.GameState;
+import Models.Order;
+import Models.Player;
 import Utils.Command;
 import Views.MapView;
 import org.apache.commons.collections4.CollectionUtils;
@@ -114,6 +116,10 @@ public class GameEngine {
 
             case "loadmap":
                 loadMap(l_playerCommand);
+                break;
+
+            case "assigncountries":
+                assignCountries(l_playerCommand);
                 break;
             default:
                 throw new InvalidMap(" !!!  Base command Invalid  !!!");
@@ -231,7 +237,7 @@ public class GameEngine {
                     l_mapView.showMap();
                 }
             } else {
-                throw new InvalidCommand("No arguments are allowed for : " + baseCommand);
+                throw new InvalidCommand("Invalid Command. No arguments are allowed for : " + baseCommand);
             }
     }
 
@@ -240,5 +246,53 @@ public class GameEngine {
             throw new InvalidCommand("Cannot execute this command, Map is required to be loaded first");
         }
     }
+
+    public void assignCountries(Command p_command) throws InvalidCommand, IOException {
+        checkIfMapIsLoaded();
+        List<Map<String, String>> l_listOfOperationsAndArguments = p_command.getListOfOperationsAndArguments();
+        if (CollectionUtils.isEmpty(l_listOfOperationsAndArguments)) {
+            d_playerHelper.assignCountries(d_gameState);
+            startGameLoop();
+        } else {
+            throw new InvalidCommand("Invalid command. No arguments expected for command 'assigncountries'");
+        }
+    }
+
+    private void startGameLoop() throws IOException {
+        System.out.println("\n\n ------------ Game Starting Now -------------- \n");
+        for (int l_i=1; CollectionUtils.isNotEmpty(d_gameState.getD_players()) && d_gameState.getD_players().size()>1 ; l_i++) {
+            System.out.println("\n\n ------------ Round " + l_i + " -------------- \n");
+
+            // Assigning army personal to each player
+            d_playerHelper.assignArmies(d_gameState);
+
+            // Issuing order for players
+            while (d_playerHelper.unassignedArmiesExists(d_gameState.getD_players())) {
+                for (Player l_player : d_gameState.getD_players()) {
+                    if (l_player.getReinforcements() != null && l_player.getReinforcements() != 0)
+                        l_player.issue_order();
+                }
+            }
+
+            // Executing orders
+            while (d_playerHelper.unexecutedOrdersExists(d_gameState.getD_players())) {
+                for (Player l_player : d_gameState.getD_players()) {
+                    Order l_order = l_player.next_order();
+                    if (l_order != null)
+                        l_order.execute(d_gameState, l_player);
+                }
+            }
+            MapView l_view = new MapView(d_gameState, d_gameState.getD_players());
+            l_view.showMap();
+
+            System.out.println("Press 'y' to continue for next turn or else press 'n' to exit");
+            BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            String l_continue = l_bufferedReader.readLine();
+            if (l_continue.equalsIgnoreCase("n")){
+                break;
+            }
+        }
+    }
+
 
 }
