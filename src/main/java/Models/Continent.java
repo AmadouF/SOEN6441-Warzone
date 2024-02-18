@@ -2,6 +2,8 @@ package Models;
 import java.util.ArrayList;
 import java.util.List;
 
+import Utils.CommonUtil;
+
 /**
  * Model class for Continent to store all its information and operations related to continent
  */
@@ -146,5 +148,17 @@ public class Continent {
             d_countries.remove(p_country);
         }
     }
+
+	public void removeCountryNeighboursFromAll(Integer p_countryId){
+		if (null!=d_countries && !d_countries.isEmpty()) {
+			for (Country c: d_countries){
+				if (!CommonUtil.isNull(c.getD_adjacentCountryIds())) {
+					if (c.getD_adjacentCountryIds().contains(p_countryId)){
+						c.removeAdjacentCountry(p_countryId);
+					}
+				}
+			}
+		}
+	}
 
 }
