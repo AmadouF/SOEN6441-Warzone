@@ -14,7 +14,6 @@ import Models.Continent;
 import Models.Country;
 import Models.GameState;
 import Models.Map;
-import Models.Player;
 import Utils.CommonUtil;
 
 
@@ -54,7 +53,7 @@ public class MapHelper {
 
             l_map.setCountries(l_countriesObj);
             l_map.setMapFile(p_mapFileName);
-            p_gameState.setMap(l_map);
+            p_gameState.setD_map(l_map);
 
         }
         
@@ -150,28 +149,28 @@ public class MapHelper {
 			System.out.println("File has been created.");
 			Map l_map = new Map();
 			l_map.setMapFile(p_filePath);
-			p_state.setMap(l_map);
+			p_state.setD_map(l_map);
 		} else {
 			System.out.println("File already exists.");
 			this.load(p_state, p_filePath);
-			if (null == p_state.getMap()) {
-				p_state.setMap(new Map());
+			if (null == p_state.getD_map()) {
+				p_state.setD_map(new Map());
 			}
-			p_state.getMap().setMapFile(p_filePath);
+			p_state.getD_map().setMapFile(p_filePath);
 		}
     }
 
 
     public void editContinent(GameState p_state, String p_argument, String p_operation) throws IOException, InvalidMap {
-		String l_mapFileName = p_state.getMap().getMapFile();
+		String l_mapFileName = p_state.getD_map().getMapFile();
 		
 
 
         Map l_currentMap=null;
-        if(p_state.getMap().getContinentsList()==null && p_state.getMap().getCountriesList()==null){
+        if(p_state.getD_map().getContinentsList()==null && p_state.getD_map().getCountriesList()==null){
             l_currentMap=this.load(p_state,l_mapFileName);
         }else{
-            l_currentMap=p_state.getMap();
+            l_currentMap=p_state.getD_map();
         }
                 
 		if(!CommonUtil.isNull(l_currentMap)) {
@@ -182,24 +181,26 @@ public class MapHelper {
                 l_currentMap.addContinent(l_newContinent, l_continentBonus);
             }
 			
-            if(p_operation.equalsIgnoreCase("remove") && p_argument.split(" ").length==1){
+            else if(p_operation.equalsIgnoreCase("remove") && p_argument.split(" ").length==1){
                 l_currentMap.removeContinent(p_argument.split(" ")[0]);
+            }else{
+                System.out.println("Continent couldn't be added/removed. Changes are not made");
             }
 
-			p_state.setMap(l_currentMap);
-			p_state.getMap().setMapFile(l_mapFileName);
+			p_state.setD_map(l_currentMap);
+			p_state.getD_map().setMapFile(l_mapFileName);
 		}
 	}
 
     public void editCountry(GameState p_state, String p_operation, String p_argument) throws InvalidMap{
-		String l_mapFileName= p_state.getMap().getMapFile();
+		String l_mapFileName= p_state.getD_map().getMapFile();
 
 
 		Map l_currentMap=null;
-        if(p_state.getMap().getContinentsList()==null && p_state.getMap().getCountriesList()==null){
+        if(p_state.getD_map().getContinentsList()==null && p_state.getD_map().getCountriesList()==null){
             l_currentMap=this.load(p_state,l_mapFileName);
         }else{
-            l_currentMap=p_state.getMap();
+            l_currentMap=p_state.getD_map();
         }
 
 		if(!CommonUtil.isNull(l_currentMap)) {
@@ -211,23 +212,25 @@ public class MapHelper {
                 l_currentMap.addCountry(l_newCountry, l_continentName);
             }
 			
-            if(p_operation.equalsIgnoreCase("remove") && p_argument.split(" ").length==1){
+            else if(p_operation.equalsIgnoreCase("remove") && p_argument.split(" ").length==1){
                 l_currentMap.removeCountry(p_argument.split(" ")[0]);
             }
-
-			p_state.setMap(l_currentMap);
-			p_state.getMap().setMapFile(l_mapFileName);
+            else{
+                System.out.println("Couldn't Save your changes");
+            }
+			p_state.setD_map(l_currentMap);
+			p_state.getD_map().setMapFile(l_mapFileName);
 		}
 	}
 
     public void editNeighbour(GameState p_state, String p_operation, String p_argument) throws InvalidMap{
-		String l_mapFileName= p_state.getMap().getMapFile();
+		String l_mapFileName= p_state.getD_map().getMapFile();
 		
         Map l_currentMap=null;
-        if(p_state.getMap().getContinentsList()==null && p_state.getMap().getCountriesList()==null){
+        if(p_state.getD_map().getContinentsList()==null && p_state.getD_map().getCountriesList()==null){
             l_currentMap=this.load(p_state,l_mapFileName);
         }else{
-            l_currentMap=p_state.getMap();
+            l_currentMap=p_state.getD_map();
         }
 
 
@@ -250,8 +253,8 @@ public class MapHelper {
                 l_currentMap.removeNeighbour(l_country, l_neighbour);
             }
 
-			p_state.setMap(l_currentMap);
-			p_state.getMap().setMapFile(l_mapFileName);
+			p_state.setD_map(l_currentMap);
+			p_state.getD_map().setMapFile(l_mapFileName);
             
             
 		}
@@ -261,7 +264,7 @@ public class MapHelper {
     public List<Continent> linkCountryContinents(List<Country> p_countries, List<Continent> p_continents) {
 		for (Country c : p_countries) {
 			for (Continent cont : p_continents) {
-				if (cont.getD_continentID().equals(c.getD_continentId())) {
+				if (cont.getD_id().equals(c.getD_continentId())) {
 					cont.addCountry(c);
 				}
 			}
@@ -272,14 +275,14 @@ public class MapHelper {
 
     public boolean saveMap(GameState p_gameState, String p_fileName) throws InvalidMap {
  		try {
- 			System.out.println(p_gameState.getMap().getMapFile());
+ 			System.out.println(p_gameState.getD_map().getMapFile());
  			
- 			if (!p_fileName.equalsIgnoreCase(p_gameState.getMap().getMapFile())) {
+ 			if (!p_fileName.equalsIgnoreCase(p_gameState.getD_map().getMapFile())) {
  				p_gameState.setError("Kindly provide same file name to save which you have given for edit");
  				return false;
  			} else {
- 				if (p_gameState.getMap()!=null) {
- 					Map l_currentMap = p_gameState.getMap();
+ 				if (p_gameState.getD_map()!=null) {
+ 					Map l_currentMap = p_gameState.getD_map();
 
  					
  					System.out.println("Validating Map......");
@@ -288,12 +291,12 @@ public class MapHelper {
  						Files.deleteIfExists(Paths.get(CommonUtil.getMapFilePath(p_fileName)));
  						FileWriter l_writer = new FileWriter(CommonUtil.getMapFilePath(p_fileName));
 
- 						if (null != p_gameState.getMap().getContinentsList()
- 								&& !p_gameState.getMap().getContinentsList().isEmpty()) {
+ 						if (null != p_gameState.getD_map().getContinentsList()
+ 								&& !p_gameState.getD_map().getContinentsList().isEmpty()) {
  							writeContinentMetadata(p_gameState, l_writer);
  						}
- 						if (null != p_gameState.getMap().getCountriesList()
- 								&& !p_gameState.getMap().getCountriesList().isEmpty()) {
+ 						if (null != p_gameState.getD_map().getCountriesList()
+ 								&& !p_gameState.getD_map().getCountriesList().isEmpty()) {
  							writeCountryAndBoarderMetaData(p_gameState, l_writer);
  						}
  						l_writer.close();
@@ -313,9 +316,9 @@ public class MapHelper {
      
      private void writeContinentMetadata(GameState p_gameState, FileWriter p_writer) throws IOException {
  		p_writer.write(System.lineSeparator() + ApplicationConstants.CONTINENTS + System.lineSeparator());
- 		for (Continent l_continent : p_gameState.getMap().getContinentsList()) {
+ 		for (Continent l_continent : p_gameState.getD_map().getContinentsList()) {
  			p_writer.write(
- 					l_continent.getContinentName().concat(" ").concat(l_continent.getContinentValue().toString())
+ 					l_continent.getD_name().concat(" ").concat(l_continent.getD_value().toString())
  							+ System.lineSeparator());
  		}
  	}
@@ -327,7 +330,7 @@ public class MapHelper {
 
  		
  		p_writer.write(System.lineSeparator() + ApplicationConstants.COUNTRIES + System.lineSeparator());
- 		for (Country l_country : p_gameState.getMap().getCountriesList()) {
+ 		for (Country l_country : p_gameState.getD_map().getCountriesList()) {
  			l_countryMetaData = new String();
  			l_countryMetaData = l_country.getD_id().toString().concat(" ").concat(l_country.getD_name())
  					.concat(" ").concat(l_country.getD_continentId().toString());
