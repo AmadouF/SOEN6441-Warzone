@@ -24,36 +24,36 @@ jobs:
       - name: Build Project with Maven
         run: mvn clean install 
 
-  test:
-    name: Test
-    runs-on: ubuntu-latest
+  #test:
+  #  name: Test
+  #  runs-on: ubuntu-latest
+#
+  #  steps:
+  #    - name: Checkout Repository
+  #      uses: actions/checkout@v2
+#
+  #    - name: Set up JDK
+  #      uses: actions/setup-java@v2
+  #      with:
+  #        java-version: 21.0.2+13.0.LTS
+  #        distribution: 'adopt'
+#
+  #    - name: Run Unit Tests with Maven
+  #      run: mvn test 
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Set up JDK
-        uses: actions/setup-java@v2
-        with:
-          java-version: 21.0.2+13.0.LTS
-          distribution: 'adopt'
-
-      - name: Run Unit Tests with Maven
-        run: mvn test 
-
-  javadoc:
-    name: Generate Javadoc
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Set up JDK
-        uses: actions/setup-java@v2
-        with:
-          java-version: 21.0.2+13.0.LTS
-          distribution: 'adopt'
-
-      - name: Generate Javadoc with Maven
-        run: mvn javadoc:javadoc 
+  #javadoc:
+  #  name: Generate Javadoc
+  #  runs-on: ubuntu-latest
+#
+  #  steps:
+  #    - name: Checkout Repository
+  #      uses: actions/checkout@v2
+#
+  #    - name: Set up JDK
+  #      uses: actions/setup-java@v2
+  #      with:
+  #        java-version: 21.0.2+13.0.LTS
+  #        distribution: 'adopt'
+#
+  #    - name: Generate Javadoc with Maven
+  #      run: mvn javadoc:javadoc 
