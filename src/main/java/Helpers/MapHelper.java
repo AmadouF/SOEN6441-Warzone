@@ -141,7 +141,7 @@ public class MapHelper {
         return p_countries;
     }
 
-    public void edit(GameState p_state, String p_filePath) throws IOException{
+    public void editMap(GameState p_state, String p_filePath) throws IOException{
         String l_mapFilePath = CommonUtil.getMapFilePath(p_filePath);
         File l_fileToBeEdited = new File(l_mapFilePath);
 

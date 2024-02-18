@@ -86,7 +86,7 @@ public class GameEngine {
 
         switch(l_firstCommand){
             case "editmap":
-                processEditMapCommand(l_playerCommand);
+                editCommand(l_playerCommand, "editmap");
                 break;
 
             case "editcontinent":
@@ -107,16 +107,8 @@ public class GameEngine {
         }
     }
 
-    private void processEditMapCommand(Command p_playerCommand){
-
-    }
-
     /**
-     * Basic validation of <strong>editcontinent</strong> command for checking
-     * required arguments and redirecting control to model for actual processing.
      *
-     * @param p_command command entered by the user on CLI
-     * @throws IOException indicates failure in I/O operation
      */
     private void editCommand(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
         checkIfMapIsLoaded();
@@ -128,7 +120,9 @@ public class GameEngine {
 
         for (Map<String, String> l_map : l_listOfOperations) {
             if (p_command.validateArgumentAndOperation(l_map)) {
-                if("editcontinent".equals(baseCommand)) {
+                if("editmap".equals(baseCommand)) {
+                    d_mapHelper.editMap(d_gameState, l_map.get(Constants.ARGUMENT));
+                } else if("editcontinent".equals(baseCommand)) {
                     d_mapHelper.editContinent(d_gameState, l_map.get(Constants.ARGUMENT), l_map.get(Constants.OPERATION));
                 } else if("editcountry".equals(baseCommand)){
                     d_mapHelper.editContinent(d_gameState, l_map.get(Constants.ARGUMENT), l_map.get(Constants.OPERATION));
