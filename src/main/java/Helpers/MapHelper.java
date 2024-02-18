@@ -2,21 +2,27 @@ package Helpers;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
-
-import Exceptions.InvalidMap;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import Exceptions.InvalidMap;
 
 import Models.Continent;
 import Models.Country;
 import Models.GameState;
 import Models.Map;
 
-
+/**
+ * This class processes the map functions like loading, reading, editing and saving the map.
+ */
 public class MapHelper {
+    /**
+     * This method loads and parses the map file data
+     * @param p_gameState current game state
+     * @param p_mapFileName map file name
+     * @return Map object created after loading the map
+     */
     public Map load(GameState p_gameState,String p_mapFileName){
         Map l_map=new Map();
         String l_mapFilePath = getMapFilePath(p_mapFileName);
@@ -31,7 +37,7 @@ public class MapHelper {
 			System.out.println("File not Found!");
 		}
 		
-
+        // parses the continents , countries and borders on the basis of the labels mentioned in the file.
         if(l_fileData!=null && !l_fileData.isEmpty()){
             int l_continentsDataStart=l_fileData.indexOf("[continents]")+1;
             int l_continentsDataEnd=l_fileData.indexOf("[countries]")-1;
@@ -59,66 +65,50 @@ public class MapHelper {
         return l_map;
     }
 
-    // public List<Object> convertStringToObjects(List<String> p_list,String objectType){
-    //     List<Object> l_objectList=new ArrayList<Object>();
-    //     if(objectType.equals("continents")){
-    //         // List<Continent> l_continents=new ArrayList<Continent>();
-    //         int l_continentId = 1;
-    //         for (String cont : p_list) {
-    //             String[] l_metaData = cont.split(" ");
-    //             l_objectList.add(new Continent(l_continentId, l_metaData[0], Integer.parseInt(l_metaData[1])));
-    //             l_continentId++;
-    //         }
-            
-    //     }
-    //     if(objectType.equals("countries")){
-            
-    //         for (String country : p_list) {
-    //             String[] l_metaDataCountries = country.split(" ");
-    //             l_objectList.add(new Country(Integer.parseInt(l_metaDataCountries[0]), Integer.parseInt(l_metaDataCountries[2]), l_metaDataCountries[1]));
-    //         }
-
-            
-    //     }
-    //     return l_objectList;
-    // }
-
+    
+    /**
+     * Creates the Country objects for each country data mentioned in the map file.
+     * @param p_list List of information of the country
+     * @return List of the Country objects on the map file
+     */
     public List<Country> createCountryObjects(List<String> p_list){
         List<Country> l_objectList=new ArrayList<Country>();
-        // if(objectType.equals("continents")){
-            // List<Continent> l_continents=new ArrayList<Continent>();
-            // LinkedHashMap<Integer, List<Integer>> l_countryNeighbors = new LinkedHashMap<Integer, List<Integer>>();
-            for (String country : p_list) {
-                String[] l_metaDataCountries = country.split(" ");
-                l_objectList.add(new Country(Integer.parseInt(l_metaDataCountries[0]), Integer.parseInt(l_metaDataCountries[2]), l_metaDataCountries[1]));
-            }
+        
+        for (String country : p_list) {
+            String[] l_metaDataCountries = country.split(" ");
+            l_objectList.add(new Country(Integer.parseInt(l_metaDataCountries[0]), Integer.parseInt(l_metaDataCountries[2]), l_metaDataCountries[1]));
+        }
             
-        // }
         return l_objectList;
     }
-
+    /**
+     * Creates the Continent objects for each continent data mentioned in the map file.
+     * @param p_list List of information of the continent
+     * @return List of the Continent objects on the map file
+     */
     public List<Continent> createContinentObjects(List<String> p_list){
         List<Continent> l_objectList=new ArrayList<Continent>();
-        // if(objectType.equals("countries")){
-            
-            
-            int l_continentId = 1;
-            for (String cont : p_list) {
-                String[] l_metaData = cont.split(" ");
-                l_objectList.add(new Continent(l_continentId, l_metaData[0], Integer.parseInt(l_metaData[1])));
-                l_continentId++;
-            }
 
-            
-        // }
+        int l_continentId = 1;
+        for (String cont : p_list) {
+            String[] l_metaData = cont.split(" ");
+            l_objectList.add(new Continent(l_continentId, l_metaData[0], Integer.parseInt(l_metaData[1])));
+            l_continentId++;
+        }
+
         return l_objectList;
     }
 
     
-
+    /**
+     * This parses the borders data and sets the connectivity between the countries
+     * @param p_countries List of countries
+     * @param p_borders List of information of the borders
+     * @return List of countries after setting up the connectivity
+     */
     public List<Country> setConnectivity(List<Country> p_countries,List<String> p_borders){
         LinkedHashMap<Integer, List<Integer>> l_countryNeighbors = new LinkedHashMap<Integer, List<Integer>>();
-
+        // parses the border data and sets the neighbors
 		for (String l_border : p_borders) {
 			if (l_border!=null && !l_border.isEmpty()) {
 				ArrayList<Integer> l_neighbours = new ArrayList<Integer>();
@@ -130,6 +120,7 @@ public class MapHelper {
 				l_countryNeighbors.put(Integer.parseInt(l_splitString[0]), l_neighbours);
 			}
 		}
+        //assigns the neighboring countries list for the appropriate country object
 		for (Country c : p_countries) {
 			List<Integer> l_adjacentCountries = l_countryNeighbors.get(c.getD_id());
 			c.setD_adjacentCountryIds(l_adjacentCountries);
@@ -139,9 +130,13 @@ public class MapHelper {
 
         return p_countries;
     }
-
-
-    public void edit(GameState p_state, String p_filePath) throws IOException{
+    /**
+     * This method handles the editmap operation on the map.
+     * @param p_state Current state of the map
+     * @param p_filePath Path of the map file.
+     * @throws IOException exception
+     */
+    public void editMap(GameState p_state, String p_filePath) throws IOException{
         String l_mapFilePath = getMapFilePath(p_filePath);
         File l_fileToBeEdited = new File(l_mapFilePath);
 
@@ -160,7 +155,14 @@ public class MapHelper {
         }
     }
 
-
+    /**
+     * This method handles the edit continent operation on the map.
+     * @param p_state Current state of the game.
+     * @param p_argument Arguments that are passed in the command
+     * @param p_operation Specifies the add or remove operation that has to be done
+     * @throws IOException Input Output exception
+     * @throws InvalidMap invalid map exception
+     */
     public void editContinent(GameState p_state, String p_argument, String p_operation) throws IOException, InvalidMap {
 		String l_mapFileName = p_state.getD_map().getMapFile();
 		
@@ -172,7 +174,7 @@ public class MapHelper {
         }else{
             l_currentMap=p_state.getD_map();
         }
-                
+        // Segregates the add and remove operation
 		if(l_currentMap!=null) {
 
             if(p_operation.equalsIgnoreCase("add") && p_argument.split(" ").length==2){
@@ -191,7 +193,13 @@ public class MapHelper {
 			p_state.getD_map().setMapFile(l_mapFileName);
 		}
 	}
-
+    /**
+     * This method handles the edit country operation on the map.
+     * @param p_state Current state of the game.
+     * @param p_operation Specifies the add or remove operation that has to be done
+     * @param p_argument Arguments that are passed in the command
+     * @throws InvalidMap invalid map exception
+     */
     public void editCountry(GameState p_state, String p_operation, String p_argument) throws InvalidMap{
 		String l_mapFileName= p_state.getD_map().getMapFile();
 
@@ -202,7 +210,7 @@ public class MapHelper {
         }else{
             l_currentMap=p_state.getD_map();
         }
-
+        // Segregates the add and remove operation
 		if(l_currentMap!=null) {
 
             if(p_operation.equalsIgnoreCase("add") && p_argument.split(" ").length==2){
@@ -222,7 +230,13 @@ public class MapHelper {
 			p_state.getD_map().setMapFile(l_mapFileName);
 		}
 	}
-
+    /**
+     * This method handles the edit neighbour operation on the map.
+     * @param p_state Current state of the game.
+     * @param p_operation Specifies the add or remove operation that has to be done
+     * @param p_argument Arguments that are passed in the command
+     * @throws InvalidMap invalid map exception
+     */
     public void editNeighbour(GameState p_state, String p_operation, String p_argument) throws InvalidMap{
 		String l_mapFileName= p_state.getD_map().getMapFile();
 		
@@ -233,7 +247,7 @@ public class MapHelper {
             l_currentMap=p_state.getD_map();
         }
 
-
+        // Segregates the add and remove operation
 		if(l_currentMap!=null) {
 			
             
@@ -260,7 +274,12 @@ public class MapHelper {
 		}
 	}
 
-
+    /**
+     * This method links the countries and the continents
+     * @param p_countries List of countries
+     * @param p_continents List of continents
+     * @return List of Continents after connecting the countries
+     */
     public List<Continent> linkCountryContinents(List<Country> p_countries, List<Continent> p_continents) {
 		for (Country c : p_countries) {
 			for (Continent cont : p_continents) {
@@ -272,7 +291,13 @@ public class MapHelper {
 		return p_continents;
 	}
 
-
+    /**
+     * This method handles the save map operation on the current loaded map
+     * @param p_gameState current state of the map
+     * @param p_fileName Map file name
+     * @return True or False. Whether the map is saved or not.
+     * @throws InvalidMap invalid map exception
+     */
     public boolean saveMap(GameState p_gameState, String p_fileName) throws InvalidMap {
  		try {
  			System.out.println(p_gameState.getD_map().getMapFile());
@@ -313,8 +338,13 @@ public class MapHelper {
  			return false;
  		}
  	}
-     
-     private void writeContinentMetadata(GameState p_gameState, FileWriter p_writer) throws IOException {
+    /**
+     * This method writes the continent data in the map file.
+     * @param p_gameState current state of the game.
+     * @param p_writer File writer
+     * @throws IOException Exception
+    */
+    private void writeContinentMetadata(GameState p_gameState, FileWriter p_writer) throws IOException {
  		p_writer.write(System.lineSeparator() + "[continents]" + System.lineSeparator());
  		for (Continent l_continent : p_gameState.getD_map().getContinentsList()) {
  			p_writer.write(
@@ -322,13 +352,18 @@ public class MapHelper {
  							+ System.lineSeparator());
  		}
  	}
-     
-     private void writeCountryAndBoarderMetaData(GameState p_gameState, FileWriter p_writer) throws IOException {
+    /**
+     * This method writes the country and border data in the map file.
+     * @param p_gameState current state of the map.
+     * @param p_writer File Writer
+     * @throws IOException Exception
+     */ 
+    private void writeCountryAndBoarderMetaData(GameState p_gameState, FileWriter p_writer) throws IOException {
  		String l_countryMetaData = new String();
  		String l_bordersMetaData = new String();
  		List<String> l_bordersList = new ArrayList<>();
 
- 		
+ 		//Writes the countries data and creates the adjacent countries list/ borders list
  		p_writer.write(System.lineSeparator() + "[countries]" + System.lineSeparator());
  		for (Country l_country : p_gameState.getD_map().getCountriesList()) {
  			l_countryMetaData = new String();
@@ -346,7 +381,7 @@ public class MapHelper {
  			}
  		}
 
- 		
+        //Writes the borders data
  		if (null != l_bordersList && !l_bordersList.isEmpty()) {
  			p_writer.write(System.lineSeparator() + "[borders]" + System.lineSeparator());
  			for (String l_borderStr : l_bordersList) {
@@ -354,6 +389,11 @@ public class MapHelper {
  			}
  		}
  	}
+    /**
+     * This method gives the absolute file path 
+     * @param p_fileName Name of the file
+     * @return Absolute file path
+     */
     public String getMapFilePath(String p_fileName) {
 		String l_absolutePath = new File("").getAbsolutePath();
 		return l_absolutePath + File.separator + "src/main/resources" + File.separator + p_fileName;
