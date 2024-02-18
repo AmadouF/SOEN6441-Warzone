@@ -1,4 +1,6 @@
 package Models;
+import org.apache.commons.collections4.CollectionUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -144,6 +146,23 @@ public class Continent {
             System.out.println("No such Country Exists " + p_country);
         }else {
             d_countries.remove(p_country);
+        }
+    }
+
+    /**
+     * Removes particular country from the adjacent list of all countries in continent.
+     *
+     * @param p_countryId ID of country to be removed
+     */
+    public void removeCountryNeighboursFromAll(Integer p_countryId){
+        if (CollectionUtils.isNotEmpty(d_countries)) {
+            for (Country l_country: d_countries){
+                //for every country in the continent, remove the provided country,
+                //  if adjacent list is not empty and contains the provided country
+                if (CollectionUtils.isNotEmpty(l_country.getD_adjacentCountryIds()) && l_country.getD_adjacentCountryIds().contains(p_countryId)){
+                        l_country.removeAdjacentCountry(p_countryId);
+                }
+            }
         }
     }
 

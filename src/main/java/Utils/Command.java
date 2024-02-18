@@ -1,5 +1,9 @@
 package Utils;
 
+import Constants.Constants;
+import org.apache.commons.lang3.StringUtils;
+
+import java.lang.constant.Constable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -41,8 +45,6 @@ public class Command {
     public List<Map<String, String>> getListOfOperationsAndArguments(){
         List<Map<String , String>> l_listOfOperations  = new ArrayList<Map<String,String>>();
         String l_operationsStr = d_playerCommand.replace(d_rootCommand, "").trim();
-        String OPERATION = "operation";
-        String ARGUMENTS = "arguments";
         if (l_operationsStr.isEmpty()){
             return l_listOfOperations;
         }
@@ -57,13 +59,13 @@ public class Command {
                 Map<String, String> l_operationAndArgumentMap = new HashMap<String, String>();
                 String[] l_splitOperations = l_operations.split(" ");
                 String l_argugmentsString = "";
-                l_operationAndArgumentMap.put(OPERATION, l_splitOperations[0]);
+                l_operationAndArgumentMap.put(Constants.OPERATION, l_splitOperations[0]);
                 
                 String[] l_argumentsList = Arrays.copyOfRange(l_splitOperations, 1, l_splitOperations.length);
                 if (l_argumentsList.length >= 1){
                     l_argugmentsString = String.join(" ",l_argumentsList);
                 }
-                l_operationAndArgumentMap.put(ARGUMENTS, l_argugmentsString);
+                l_operationAndArgumentMap.put( Constants.ARGUMENT, l_argugmentsString);
                 l_listOfOperations.add(l_operationAndArgumentMap);
 
             }
@@ -73,4 +75,8 @@ public class Command {
 
 
 }
+
+    public boolean validateArgumentAndOperation(Map<String, String> p_Map) {
+        return StringUtils.isNotBlank(p_Map.get(Constants.ARGUMENT)) && StringUtils.isNotBlank(p_Map.get(Constants.OPERATION));
+    }
 }
