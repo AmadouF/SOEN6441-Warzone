@@ -1,6 +1,7 @@
 package GameEngine;
 
 import Constants.Constants;
+import Exceptions.InvalidCommand;
 import Exceptions.InvalidMap;
 import Helpers.MapHelper;
 import Helpers.PlayerHelper;
@@ -72,13 +73,13 @@ public class GameEngine {
                 if ("exit".equalsIgnoreCase(l_command.trim())){
                     System.out.println("---------------- Thanks for Playing ----------------");
                 }
-            } catch (IOException | InvalidMap l_exception) {
+            } catch (IOException | InvalidMap | InvalidCommand l_exception) {
                 l_exception.printStackTrace();
             }
         }
     }
 
-    public void processCommand(String p_commandInput) throws InvalidMap, IOException {
+    public void processCommand(String p_commandInput) throws InvalidMap, IOException, InvalidCommand {
         Command l_playerCommand = new Command(p_commandInput);
         String l_firstCommand = l_playerCommand.getFirstCommand();
         // TODO check if game is loaded
@@ -89,7 +90,15 @@ public class GameEngine {
                 break;
 
             case "editcontinent":
-                editContinent(l_playerCommand);
+                editCommand(l_playerCommand, "editcontinent");
+                break;
+
+            case "editcountry":
+                editCommand(l_playerCommand, "editcountry");
+                break;
+
+            case "editneighbor":
+                editCommand(l_playerCommand, "editneighbor");
                 break;
 
             default:
@@ -98,7 +107,7 @@ public class GameEngine {
         }
     }
 
-    public void processEditMapCommand(Command p_playerCommand){
+    private void processEditMapCommand(Command p_playerCommand){
 
     }
 
@@ -109,21 +118,33 @@ public class GameEngine {
      * @param p_command command entered by the user on CLI
      * @throws IOException indicates failure in I/O operation
      */
-    public void editContinent(Command p_command) throws IOException, InvalidMap {
+    private void editCommand(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
+        checkIfMapIsLoaded();
         List<Map<String, String>> l_listOfOperations = p_command.getListOfOperationsAndArguments();
 
         if (CollectionUtils.isEmpty(l_listOfOperations)) {
-            // Todo: throw invalid command error
-            throw new RuntimeException("No Commands provided for Edit Continent");
+            throw new InvalidCommand("No arguments and operations are provided for " + baseCommand);
         }
 
         for (Map<String, String> l_map : l_listOfOperations) {
             if (p_command.validateArgumentAndOperation(l_map)) {
-                d_mapHelper.editContinent(d_gameState, l_map.get(Constants.ARGUMENT), l_map.get(Constants.OPERATION));
+                if("editcontinent".equals(baseCommand)) {
+                    d_mapHelper.editContinent(d_gameState, l_map.get(Constants.ARGUMENT), l_map.get(Constants.OPERATION));
+                } else if("editcountry".equals(baseCommand)){
+                    d_mapHelper.editContinent(d_gameState, l_map.get(Constants.ARGUMENT), l_map.get(Constants.OPERATION));
+                } else if("editneighbor".equals(baseCommand)){
+                    d_mapHelper.editNeighbour(d_gameState, l_map.get(Constants.ARGUMENT), l_map.get(Constants.OPERATION));
+                }
             } else {
-                // Todo: throw invalid command error
-                throw new RuntimeException("Wrong Command provided for Edit Continent : ");
+                throw new InvalidCommand("Invalid arguments provided for " + baseCommand);
             }
         }
     }
+
+    private void checkIfMapIsLoaded() throws InvalidCommand {
+        if (d_gameState.getD_map() == null) {
+            throw new InvalidCommand("Cannot execute this command, Map is required to be loaded first");
+        }
+    }
+
 }
