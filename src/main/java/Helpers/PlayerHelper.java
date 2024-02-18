@@ -40,7 +40,7 @@ public class PlayerHelper {
      * @param p_argument name of player to add or remove.
      * @return return updated list of player.
      */
-    private List<Player> addOrRemovePlayers(List<Player> p_existingPlayers, String p_operation, String p_argument) {
+    public List<Player> addOrRemovePlayers(List<Player> p_existingPlayers, String p_operation, String p_argument) {
         List<Player> l_updatedPlayers = new ArrayList<>();
 
         if(CollectionUtils.isNotEmpty(p_existingPlayers))
@@ -108,7 +108,7 @@ public class PlayerHelper {
      * @param p_gameState current game state with map and player information
      * @return boolean players exists or not
      */
-    public boolean checkPlayersAvailability(GameState p_gameState) {
+    public boolean arePlayersAvailabe(GameState p_gameState) {
         if (p_gameState.getD_players() == null || p_gameState.getD_players().isEmpty()) {
             System.out.println("There are no players!! Please add them.");
             return false;
@@ -123,16 +123,17 @@ public class PlayerHelper {
      * @param p_gameState current game state with map and player information
      */
     public void assignCountries(GameState p_gameState) {
-        if (!checkPlayersAvailability(p_gameState))
+        if (!arePlayersAvailabe(p_gameState))
             return;
 
         List<Country> l_countries = p_gameState.getD_map().getCountriesList();
-        int l_countriesPerPlayer = Math.floorDiv(l_countries.size(), p_gameState.getD_players().size());
 
+        int l_countriesPerPlayer = (int) Math.floor((double) l_countries.size() / p_gameState.getD_players().size());
         this.assignRandomCountries(l_countriesPerPlayer, l_countries, p_gameState.getD_players());
+
         this.assignContinents(p_gameState.getD_players(), p_gameState.getD_map().getContinentsList());
 
-        System.out.println("Countries have been assigned to Players.");
+        System.out.println("Assigned countries successfully!!");
 
     }
 
@@ -145,18 +146,19 @@ public class PlayerHelper {
      */
     private void assignRandomCountries(int p_countriesPerPlayer, List<Country> p_countries,
                                                 List<Player> p_players) {
-        List<Country> l_unassignedCountries = new ArrayList<>(p_countries);
+        List<Country> l_remainingCountries = new ArrayList<>(p_countries);
 
         for (Player l_pl : p_players) {
-            if (l_unassignedCountries.isEmpty())
+            if (l_remainingCountries.isEmpty())
                 break;
 
-            // Based on number of countries to be assigned to player, it picks random
-            // country and assigns to the player
+            // Picking random country and assigning to the players
             for (int i = 0; i < p_countriesPerPlayer; i++) {
                 Random l_random = new Random();
-                int l_randomIndex = l_random.nextInt(l_unassignedCountries.size());
-                Country l_randomCountry = l_unassignedCountries.get(l_randomIndex);
+
+                // Choosing random countries
+                int l_randomIndex = l_random.nextInt(l_remainingCountries.size());
+                Country l_randomCountry = l_remainingCountries.get(l_randomIndex);
 
                 if (l_pl.getOwnedCountries() == null)
                     l_pl.setOwnedCountries(new ArrayList<>());
@@ -166,13 +168,13 @@ public class PlayerHelper {
                 System.out.println("Player : " + l_pl.getPlayerName() + " is assigned with country : "
                         + l_randomCountry.getD_name());
 
-                l_unassignedCountries.remove(l_randomCountry);
+                l_remainingCountries.remove(l_randomCountry);
             }
         }
-        // If any countries are still left for assignment, it will again assign those
-        // among players one by one
-        if (!l_unassignedCountries.isEmpty()) {
-            assignRandomCountries(1, l_unassignedCountries, p_players);
+
+        // If countries are still remaining assign it one by one to players
+        if (!l_remainingCountries.isEmpty()) {
+            assignRandomCountries(1, l_remainingCountries, p_players);
         }
     }
 
@@ -185,16 +187,19 @@ public class PlayerHelper {
      */
     private void assignContinents(List<Player> p_players, List<Continent> p_continents) {
         for (Player l_pl : p_players) {
-            List<String> l_countriesOwned = new ArrayList<>();
+            List<String> l_countriesOwned = new ArrayList<String>();
 
             if (CollectionUtils.isNotEmpty(l_pl.getOwnedCountries())) {
+                // Getting all countries names
                 l_pl.getOwnedCountries().forEach(l_country -> l_countriesOwned.add(l_country.getD_name()));
 
                 for (Continent l_cont : p_continents) {
                     List<String> l_countriesOfContinent = new ArrayList<>();
 
+                    // Getting all countries of the continent
                     l_cont.getD_countries().forEach(l_count -> l_countriesOfContinent.add(l_count.getD_name()));
 
+                    // If player owns all the countries of the continent, assign continent
                     if (l_countriesOwned.containsAll(l_countriesOfContinent)) {
                         if (l_pl.getOwnedContinents() == null)
                             l_pl.setOwnedContinents(new ArrayList<>());
@@ -227,9 +232,11 @@ public class PlayerHelper {
         } else {
             Order l_order = new Order(p_commandEntered.split(" ")[0], l_countryName,
                     Integer.parseInt(l_noOfArmies));
+
             l_orders.add(l_order);
             p_player.setIssuedOrders(l_orders);
 
+            // Updating reinforcements of the player
             int l_reinforcements = p_player.getReinforcements() - Integer.parseInt(l_noOfArmies);
             p_player.setReinforcement(l_reinforcements);
 
@@ -264,13 +271,13 @@ public class PlayerHelper {
             l_armies = Math.max(3, Math.round(p_player.getOwnedCountries().size()) / 3);
         }
         if (CollectionUtils.isNotEmpty(p_player.getOwnedContinents())) {
-            int l_continentCtrlValue = 0;
+            int l_totalContinentBonus = 0;
 
             for (Continent l_continent : p_player.getOwnedContinents()) {
-                l_continentCtrlValue += l_continent.getD_value();
+                l_totalContinentBonus += l_continent.getD_value();
             }
 
-            l_armies = l_armies + l_continentCtrlValue;
+            l_armies = l_armies + l_totalContinentBonus;
         }
         return l_armies;
     }

@@ -1,30 +1,36 @@
 
-{
-java:S2293u"YReplace the type specification in this constructor call with the diamond operator ("<>").(’¯’øÿÿÿÿ8‹ÇÜ¾Û1
-r	java:S117'"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øÎõ¬ÿÿÿÿÿ8ÇÜ¾Û1
-r	java:S117'"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øÎõ¬ÿÿÿÿÿ8ÇÜ¾Û1
-m	java:S1173"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œ—ÚÓ8‘ÇÜ¾Û1
-m	java:S1173"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œ—ÚÓ8’ÇÜ¾Û1
-m	java:S1173"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œ—ÚÓ8“ÇÜ¾Û1
-l	java:S117X"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(É¡ó8”ÇÜ¾Û1
-r	java:S117j"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó…¶›ÿÿÿÿÿ8•ÇÜ¾Û1
-n	java:S117€"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üù‡”8—ÇÜ¾Û1
-n	java:S117‰"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Œ²ë—8˜ÇÜ¾Û1
-s	java:S117’"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ãâ„‡ûÿÿÿÿ8šÇÜ¾Û1
+v
+java:S2293!"YReplace the type specification in this constructor call with the diamond operator ("<>").(‹òê¥8¤·ìÛ1
+u
+java:S2293w"YReplace the type specification in this constructor call with the diamond operator ("<>").(ûùíJ8¥·ìÛ1
+r	java:S117)"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øÎõ¬ÿÿÿÿÿ8ÇÜ¾Û1
+r	java:S117)"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øÎõ¬ÿÿÿÿÿ8ÇÜ¾Û1
+m	java:S1175"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œ—ÚÓ8‘ÇÜ¾Û1
+m	java:S1175"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œ—ÚÓ8’ÇÜ¾Û1
+m	java:S1175"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œ—ÚÓ8“ÇÜ¾Û1
+l	java:S117Z"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(É¡ó8”ÇÜ¾Û1
+r	java:S117l"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó…¶›ÿÿÿÿÿ8•ÇÜ¾Û1
+n	java:S117‚"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÂüÁ¿8©·ìÛ1
+n	java:S117‹"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Œ²ë—8˜ÇÜ¾Û1
+s	java:S117”"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ãâ„‡ûÿÿÿÿ8šÇÜ¾Û1
 {	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ùæñÃûÿÿÿÿ8ÇÜ¾Û1
-j	java:S116"ORename this field "d_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(à›ìt8¯ÇÜ¾Û1
-t	java:S116"XRename this field "d_continentId" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÏûÑ8¯ÇÜ¾Û1
-m	java:S116"QRename this field "d_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ôÿ”Ö8¯ÇÜ¾Û1
-r	java:S116"QRename this field "d_army" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İÆÍÿÿÿÿÿ8¯ÇÜ¾Û1
-€	java:S116"_Rename this field "d_adjacentCountryIds" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œ¶«Îøÿÿÿÿ8¯ÇÜ¾Û1
->
-java:S1116"Remove this empty statement.(œ¶«Îøÿÿÿÿ8³ÇÜ¾Û1
-j	java:S100="NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿äà¡8´ÇÜ¾Û1
-j	java:S100F"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ğ‹µë8µÇÜ¾Û1
-o	java:S100O"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(êßŞœúÿÿÿÿ8µÇÜ¾Û1
-i	java:S100X"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(É¡ó8µÇÜ¾Û1
-j	java:S100a"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(° “’8¶ÇÜ¾Û1
-o	java:S100j"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó…¶›ÿÿÿÿÿ8¶ÇÜ¾Û1
-j	java:S100s"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Úï8¶ÇÜ¾Û1
-k	java:S100€"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üù‡”8·ÇÜ¾Û1
-M	java:S106–"+Replace this use of System.out by a logger.(º²Ÿšûÿÿÿÿ8ºÇÜ¾Û1
+j	java:S116"ORename this field "d_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(à›ìt8¯ÇÜ¾Û1
+t	java:S116"XRename this field "d_continentId" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÏûÑ8¯ÇÜ¾Û1
+m	java:S116"QRename this field "d_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ôÿ”Ö8¯ÇÜ¾Û1
+r	java:S116"QRename this field "d_army" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İÆÍÿÿÿÿÿ8¯ÇÜ¾Û1
+{	java:S116!"_Rename this field "d_adjacentCountryIds" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹òê¥8œ‘·ìÛ1
+9
+java:S1116!"Remove this empty statement.(‹òê¥8Ë‘·ìÛ1
+j	java:S100?"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿äà¡8´ÇÜ¾Û1
+j	java:S100H"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ğ‹µë8µÇÜ¾Û1
+o	java:S100Q"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(êßŞœúÿÿÿÿ8µÇÜ¾Û1
+i	java:S100Z"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(É¡ó8µÇÜ¾Û1
+j	java:S100c"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(° “’8¶ÇÜ¾Û1
+o	java:S100l"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó…¶›ÿÿÿÿÿ8¶ÇÜ¾Û1
+i	java:S100u"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(íî8ü‘·ìÛ1
+k	java:S100‚"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÂüÁ¿8ƒ’·ìÛ1
+M	java:S106˜"+Replace this use of System.out by a logger.(º²Ÿšûÿÿÿÿ8ºÇÜ¾Û1
+J
+java:S1128".Remove this unused import 'java.util.HashSet'.(Ê‚êX8˜’·ìÛ1
+L
+java:S1128"*Remove this unused import 'java.util.Set'.(ö²„¤şÿÿÿÿ8™’·ìÛ1
