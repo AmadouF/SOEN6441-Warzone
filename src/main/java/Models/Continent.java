@@ -1,8 +1,8 @@
 package Models;
+import org.apache.commons.collections4.CollectionUtils;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import Utils.CommonUtil;
 
 /**
  * Model class for Continent to store all its information and operations related to continent
@@ -149,16 +149,21 @@ public class Continent {
         }
     }
 
-	public void removeCountryNeighboursFromAll(Integer p_countryId){
-		if (null!=d_countries && !d_countries.isEmpty()) {
-			for (Country c: d_countries){
-				if (!CommonUtil.isNull(c.getD_adjacentCountryIds())) {
-					if (c.getD_adjacentCountryIds().contains(p_countryId)){
-						c.removeAdjacentCountry(p_countryId);
-					}
-				}
-			}
-		}
-	}
+    /**
+     * Removes particular country from the adjacent list of all countries in continent.
+     *
+     * @param p_countryId ID of country to be removed
+     */
+    public void removeCountryNeighboursFromAll(Integer p_countryId){
+        if (CollectionUtils.isNotEmpty(d_countries)) {
+            for (Country l_country: d_countries){
+                //for every country in the continent, remove the provided country,
+                //  if adjacent list is not empty and contains the provided country
+                if (CollectionUtils.isNotEmpty(l_country.getD_adjacentCountryIds()) && l_country.getD_adjacentCountryIds().contains(p_countryId)){
+                        l_country.removeAdjacentCountry(p_countryId);
+                }
+            }
+        }
+    }
 
 }
