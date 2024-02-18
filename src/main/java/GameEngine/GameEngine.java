@@ -72,11 +72,13 @@ public class GameEngine {
                 System.out.println("-------- Enter Command to be executed [enter 'exit' to quit] --------");
                 String l_command = l_bufferedReader.readLine();
 
-                processCommand(l_command);
+                //checking for exit command
                 if ("exit".equalsIgnoreCase(l_command.trim())) {
                     System.out.println("---------------- Thanks for Playing ----------------");
                     System.exit(0);
                 }
+
+                processCommand(l_command);
             } catch (IOException | InvalidMap | InvalidCommand l_exception) {
                 l_exception.printStackTrace();
             }
