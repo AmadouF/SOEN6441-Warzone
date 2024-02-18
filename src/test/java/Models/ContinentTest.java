@@ -1,5 +1,6 @@
 package Models;
 
+import Exceptions.InvalidMap;
 import org.junit.*;
 
 import java.util.ArrayList;
@@ -62,4 +63,19 @@ public class ContinentTest {
         Assert.assertArrayEquals("Expected and actual list of countries in continent are not equal. Actual = " + l_actualCountries + " Expected = " + l_expectedCountries, l_expectedCountries.toArray(), l_actualCountries.toArray());
 
     }
+
+    @Test(expected = InvalidMap.class)
+    public void testContinentSubgraphConnectedFailure() throws InvalidMap{
+        Map l_map =  new Map();
+        l_map.addContinent("America", 2);
+        l_map.addCountry("Canada", "America");
+        l_map.addCountry("USA", "America");
+        l_map.addCountry("Mexico", "America");
+        l_map.addCountry("Brazil", "America");
+        l_map.addNeighbour("America", "Canada");
+        l_map.addNeighbour("Brazil", "Mexico");
+
+        l_map.isContinentConnected(l_map.getContinent("America"));
+    }
+
 }
