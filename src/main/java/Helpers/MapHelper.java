@@ -165,8 +165,6 @@ public class MapHelper {
      */
     public void editContinent(GameState p_state, String p_argument, String p_operation) throws IOException, InvalidMap {
 		String l_mapFileName = p_state.getD_map().getMapFile();
-		
-
 
         Map l_currentMap=null;
         if(p_state.getD_map().getContinentsList()==null && p_state.getD_map().getCountriesList()==null){
@@ -192,6 +190,8 @@ public class MapHelper {
 			p_state.setD_map(l_currentMap);
 			p_state.getD_map().setMapFile(l_mapFileName);
 		}
+
+        System.out.println("Current List of Continents : " + Arrays.toString(p_state.getD_map().getContinentsList().stream().map(Continent::getD_name).toArray()));
 	}
     /**
      * This method handles the edit country operation on the map.
