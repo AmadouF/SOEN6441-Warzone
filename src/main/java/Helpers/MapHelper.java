@@ -49,7 +49,7 @@ public class MapHelper {
             int l_countriesDataEnd=l_fileData.indexOf("[borders]")-1;
             List<String> l_countries=l_fileData.subList(l_countriesDataStart, l_countriesDataEnd);
             List<Country> l_countriesObj=createCountryObjects(l_countries);
-            
+            l_continentsObj = linkCountryContinents(l_countriesObj, l_continentsObj);
 
             int l_bordersDataStart=l_fileData.indexOf("[borders]")+1;
             int l_bordersDataEnd=l_fileData.size();
