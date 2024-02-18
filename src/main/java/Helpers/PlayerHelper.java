@@ -72,7 +72,7 @@ public class PlayerHelper {
      */
     private void addPlayer(List<Player> p_existingPlayers, String p_enteredName, boolean p_playerNameExists) {
         if(p_playerNameExists) {
-            System.out.print("Player with name : " + p_enteredName + " already Exists. Aborted.");
+            System.out.println("Player with name : " + p_enteredName + " already Exists. Aborted.");
         } else {
             Player l_newPlayer = new Player(p_enteredName);
             p_existingPlayers.add(l_newPlayer);
@@ -98,7 +98,7 @@ public class PlayerHelper {
                 }
             }
         } else {
-            System.out.print("Player with name : " + p_enteredPlayerName + " does not Exist. Aborted.");
+            System.out.println("Player with name : " + p_enteredPlayerName + " does not Exist. Aborted.");
         }
     }
 
