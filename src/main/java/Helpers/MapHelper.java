@@ -49,7 +49,7 @@ public class MapHelper {
             int l_countriesDataEnd=l_fileData.indexOf("[borders]")-1;
             List<String> l_countries=l_fileData.subList(l_countriesDataStart, l_countriesDataEnd);
             List<Country> l_countriesObj=createCountryObjects(l_countries);
-            
+            l_continentsObj = linkCountryContinents(l_countriesObj, l_continentsObj);
 
             int l_bordersDataStart=l_fileData.indexOf("[borders]")+1;
             int l_bordersDataEnd=l_fileData.size();
@@ -165,8 +165,6 @@ public class MapHelper {
      */
     public void editContinent(GameState p_state, String p_argument, String p_operation) throws IOException, InvalidMap {
 		String l_mapFileName = p_state.getD_map().getMapFile();
-		
-
 
         Map l_currentMap=null;
         if(p_state.getD_map().getContinentsList()==null && p_state.getD_map().getCountriesList()==null){
@@ -192,6 +190,8 @@ public class MapHelper {
 			p_state.setD_map(l_currentMap);
 			p_state.getD_map().setMapFile(l_mapFileName);
 		}
+
+        System.out.println("Current List of Continents : " + Arrays.toString(p_state.getD_map().getContinentsList().stream().map(Continent::getD_name).toArray()));
 	}
     /**
      * This method handles the edit country operation on the map.

@@ -212,8 +212,7 @@ public class GameEngine {
                 if("editmap".equals(baseCommand)) {
                     d_mapHelper.editMap(d_gameState, l_map.get(Constants.ARGUMENT));
                 } else if("savemap".equals(baseCommand)) {
-                    boolean l_saveMapStatus = d_mapHelper.saveMap(d_gameState, l_map.get(Constants.ARGUMENT));
-                    if (l_saveMapStatus) {
+                    if (d_mapHelper.saveMap(d_gameState, l_map.get(Constants.ARGUMENT))) {
                         System.out.println("savemap has successfully updated the map in file");
                     }
                     else {

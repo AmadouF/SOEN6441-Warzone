@@ -13,7 +13,7 @@ public class Map {
     /**
      * Hash map to track the neighbouring countries from a particular country.
      */
-    HashMap<Country, Boolean> d_countryNeighbours = new HashMap<Country, Boolean>();
+    HashMap<Country, Boolean> d_countryNeighbours;
     /**
      * List to store the continents of the map.
      */
@@ -26,7 +26,14 @@ public class Map {
      * Stores the map file name.
      */
     private String d_mapFile;
-    
+
+    public Map() {
+        this.d_countryNeighbours = new HashMap<Country, Boolean>();
+        this.d_continentsList = new ArrayList<Continent>();
+        this.d_countriesList = new ArrayList<Country>();
+        this.d_mapFile = null;
+    }
+
     /**
      * setter method to set the continents list of map.
      * @param p_continentsList list of continents
@@ -118,7 +125,7 @@ public class Map {
      * @return Country object 
      */
     public Country getCountryByName(String p_countryName){
-        return d_countriesList.stream().filter(l_country -> l_country.getD_name().equals(p_countryName)).findFirst().orElse(null);
+        return d_countriesList==null? null : d_countriesList.stream().filter(l_country -> l_country.getD_name().equals(p_countryName)).findFirst().orElse(null);
     }
     /**
      * This method handles the remove country operation on the map.
@@ -244,14 +251,14 @@ public class Map {
      * @throws InvalidMap exception
      */
     public boolean isValidMap() throws InvalidMap {
-        //checks for the null continents and countries list.
-        if(d_continentsList==null || d_continentsList.isEmpty()){
-            
-            throw new InvalidMap("Map must possess atleast one continent!");
-            
+        //checks if atleast 1 continent exists
+        if(CollectionUtils.isEmpty(d_continentsList)){
+            throw new InvalidMap(" !!!  Map must have minimum one continent !!!");
         }
-        if(d_countriesList==null || d_countriesList.isEmpty()){
-            throw new InvalidMap("Continents must contain the countries");
+
+        //check if atleast 1 country exists
+        if(CollectionUtils.isEmpty(d_countriesList)){
+            throw new InvalidMap(" !!!  Map must have minimum one country !!!");
         }
         //checks whether the country has neighbors or not.
         for(Country c: d_countriesList){
