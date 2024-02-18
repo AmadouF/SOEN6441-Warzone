@@ -7,6 +7,7 @@ import Helpers.MapHelper;
 import Helpers.PlayerHelper;
 import Models.GameState;
 import Utils.Command;
+import Views.MapView;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.io.BufferedReader;
@@ -23,11 +24,11 @@ public class GameEngine {
     /**
      * Stores the information about current Game State
      */
-    GameState d_gameState;
+    private GameState d_gameState;
 
-    MapHelper d_mapHelper;
+   private  MapHelper d_mapHelper;
 
-    PlayerHelper d_playerHelper;
+    private PlayerHelper d_playerHelper;
 
     /**
      * Constructor for GameEngine
@@ -85,19 +86,25 @@ public class GameEngine {
 
         switch (l_firstCommand) {
             case "editmap":
-                editCommand(l_playerCommand, l_firstCommand);
+                commonCommandExecutorWithArgumentsOnly(l_playerCommand, l_firstCommand);
                 break;
 
-            case "editcontinent":
-                editCommand(l_playerCommand, l_firstCommand);
+            case "savemap":
+                checkIfMapIsLoaded();
+                commonCommandExecutorWithArgumentsOnly(l_playerCommand, l_firstCommand);
                 break;
 
-            case "editcountry":
-                editCommand(l_playerCommand, l_firstCommand);
+            case "validatemap":
+                checkIfMapIsLoaded();
+                commonCommandExecutorWithNoArguments(l_playerCommand, l_firstCommand);
                 break;
 
-            case "editneighbor":
-                editCommand(l_playerCommand, l_firstCommand);
+            case "showmap":
+                commonCommandExecutorWithNoArguments(l_playerCommand, l_firstCommand);
+                break;
+
+            case "editcontinent", "editneighbor", "editcountry":
+                commonCommandExecutorWithArgumentsAndOperations(l_playerCommand, l_firstCommand);
                 break;
 
             case "gameplayer":
@@ -160,7 +167,7 @@ public class GameEngine {
     /**
      *
      */
-    private void editCommand(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
+    private void commonCommandExecutorWithArgumentsAndOperations(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
         checkIfMapIsLoaded();
         List < Map < String, String >> l_listOfOperations = p_command.getListOfOperationsAndArguments();
 
@@ -170,9 +177,7 @@ public class GameEngine {
 
         for (Map < String, String > l_map: l_listOfOperations) {
             if (p_command.validateArgumentAndOperation(l_map)) {
-                if ("editmap".equals(baseCommand)) {
-                    d_mapHelper.editMap(d_gameState, l_map.get(Constants.ARGUMENT));
-                } else if ("editcontinent".equals(baseCommand)) {
+                if("editcontinent".equals(baseCommand)) {
                     d_mapHelper.editContinent(d_gameState, l_map.get(Constants.ARGUMENT), l_map.get(Constants.OPERATION));
                 } else if ("editcountry".equals(baseCommand)) {
                     d_mapHelper.editContinent(d_gameState, l_map.get(Constants.ARGUMENT), l_map.get(Constants.OPERATION));
@@ -183,6 +188,51 @@ public class GameEngine {
                 throw new InvalidCommand("Invalid arguments provided for " + baseCommand);
             }
         }
+    }
+
+    private void commonCommandExecutorWithArgumentsOnly(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
+
+        List<Map<String, String>> l_listOfOperationsAndArguments = p_command.getListOfOperationsAndArguments();
+
+        if (CollectionUtils.isEmpty(l_listOfOperationsAndArguments)) {
+            throw new InvalidCommand("No arguments and operations are provided for " + baseCommand);
+        }
+
+        for (Map<String, String> l_map : l_listOfOperationsAndArguments) {
+            if (p_command.validateArgumentsOnly(l_map)) {
+                if("editmap".equals(baseCommand)) {
+                    d_mapHelper.editMap(d_gameState, l_map.get(Constants.ARGUMENT));
+                } else if("savemap".equals(baseCommand)) {
+                    boolean l_saveMapStatus = d_mapHelper.saveMap(d_gameState, l_map.get(Constants.ARGUMENT));
+                    if (l_saveMapStatus) {
+                        System.out.println("savemap has successfully updated the map in file");
+                    }
+                    else {
+                        System.out.println(d_gameState.getError());
+                    }
+                }
+            } else {
+                throw new InvalidCommand("Invalid arguments provided for " + baseCommand);
+            }
+        }
+    }
+
+    private void commonCommandExecutorWithNoArguments(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
+        if (CollectionUtils.isEmpty(p_command.getListOfOperationsAndArguments())) {
+                if("validatemap".equals(baseCommand)) {
+                    Models.Map l_currentMap = d_gameState.getD_map();
+                    if (l_currentMap.isValidMap()) {
+                        System.out.println("!!!!! Map Validation Successful !!!!!");
+                    } else {
+                        System.out.println("!!!!! Map Validation Failed !!!!!");
+                    }
+                } else if("showmap".equals(baseCommand)) {
+                    MapView l_mapView = new MapView(d_gameState);
+                    l_mapView.showMap();
+                }
+            } else {
+                throw new InvalidCommand("No arguments are allowed for : " + baseCommand);
+            }
     }
 
     private void checkIfMapIsLoaded() throws InvalidCommand {
