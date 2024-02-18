@@ -33,7 +33,7 @@ public class GameEngine {
      * Constructor for GameEngine
      * This initiates a new blank GameState
      */
-    public GameEngine(){
+    public GameEngine() {
         d_gameState = new GameState();
         d_mapHelper = new MapHelper();
         d_playerHelper = new PlayerHelper();
@@ -64,13 +64,13 @@ public class GameEngine {
     private void startGame() {
 
         BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        while(true) {
+        while (true) {
             try {
                 System.out.println("-------- Enter Command to be executed [enter 'exit' to quit] --------");
                 String l_command = l_bufferedReader.readLine();
 
                 processCommand(l_command);
-                if ("exit".equalsIgnoreCase(l_command.trim())){
+                if ("exit".equalsIgnoreCase(l_command.trim())) {
                     System.out.println("---------------- Thanks for Playing ----------------");
                 }
             } catch (IOException | InvalidMap | InvalidCommand l_exception) {
@@ -82,23 +82,35 @@ public class GameEngine {
     public void processCommand(String p_commandInput) throws InvalidMap, IOException, InvalidCommand {
         Command l_playerCommand = new Command(p_commandInput);
         String l_firstCommand = l_playerCommand.getFirstCommand();
-        // TODO check if game is loaded
+        boolean l_isCurrenMapLoaded = d_gameState.getD_map() != null;
 
-        switch(l_firstCommand){
+        switch (l_firstCommand) {
             case "editmap":
                 editCommand(l_playerCommand, "editmap");
                 break;
 
             case "editcontinent":
-                editCommand(l_playerCommand, "editcontinent");
+                if (l_isCurrenMapLoaded) {
+                    editCommand(l_playerCommand, "editcontinent");
+                } else {
+                    System.out.print("Please edit the map before editing the continent");
+                }
                 break;
 
             case "editcountry":
-                editCommand(l_playerCommand, "editcountry");
+                if (l_isCurrenMapLoaded) {
+                    editCommand(l_playerCommand, "editcountry");
+                } else {
+                    System.out.print("Please edit the map before editing the country");
+                }
                 break;
 
             case "editneighbor":
-                editCommand(l_playerCommand, "editneighbor");
+                if (l_isCurrenMapLoaded) {
+                    editCommand(l_playerCommand, "editneighbor");
+                } else {
+                    System.out.print("Please edit the map before editing the neighbors");
+                }
                 break;
 
             default:
@@ -112,21 +124,21 @@ public class GameEngine {
      */
     private void editCommand(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
         checkIfMapIsLoaded();
-        List<Map<String, String>> l_listOfOperations = p_command.getListOfOperationsAndArguments();
+        List < Map < String, String >> l_listOfOperations = p_command.getListOfOperationsAndArguments();
 
         if (CollectionUtils.isEmpty(l_listOfOperations)) {
             throw new InvalidCommand("No arguments and operations are provided for " + baseCommand);
         }
 
-        for (Map<String, String> l_map : l_listOfOperations) {
+        for (Map < String, String > l_map: l_listOfOperations) {
             if (p_command.validateArgumentAndOperation(l_map)) {
-                if("editmap".equals(baseCommand)) {
+                if ("editmap".equals(baseCommand)) {
                     d_mapHelper.editMap(d_gameState, l_map.get(Constants.ARGUMENT));
-                } else if("editcontinent".equals(baseCommand)) {
+                } else if ("editcontinent".equals(baseCommand)) {
                     d_mapHelper.editContinent(d_gameState, l_map.get(Constants.ARGUMENT), l_map.get(Constants.OPERATION));
-                } else if("editcountry".equals(baseCommand)){
+                } else if ("editcountry".equals(baseCommand)) {
                     d_mapHelper.editContinent(d_gameState, l_map.get(Constants.ARGUMENT), l_map.get(Constants.OPERATION));
-                } else if("editneighbor".equals(baseCommand)){
+                } else if ("editneighbor".equals(baseCommand)) {
                     d_mapHelper.editNeighbour(d_gameState, l_map.get(Constants.ARGUMENT), l_map.get(Constants.OPERATION));
                 }
             } else {
