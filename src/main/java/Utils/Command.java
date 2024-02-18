@@ -79,4 +79,8 @@ public class Command {
     public boolean validateArgumentAndOperation(Map<String, String> p_Map) {
         return StringUtils.isNotBlank(p_Map.get(Constants.ARGUMENT)) && StringUtils.isNotBlank(p_Map.get(Constants.OPERATION));
     }
+
+    public boolean validateArgumentsOnly(Map<String, String> p_Map) {
+        return StringUtils.isNotBlank(p_Map.get(Constants.ARGUMENT));
+    }
 }
