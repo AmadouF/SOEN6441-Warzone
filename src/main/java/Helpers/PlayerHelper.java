@@ -1,7 +1,7 @@
 package Helpers;
 
 import Models.*;
-import Utils.CommonUtil;
+import org.apache.commons.collections4.CollectionUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -20,7 +20,7 @@ public class PlayerHelper {
     public boolean isPlayerNameUnique(List<Player> p_existingPlayers, String p_playerName) {
         boolean l_isUnique = true;
 
-        if (!CommonUtil.isCollectionEmpty(p_existingPlayers)) {
+        if (CollectionUtils.isNotEmpty(p_existingPlayers)) {
             for (Player l_player: p_existingPlayers) {
                 if (l_player.getPlayerName().equalsIgnoreCase(p_playerName)) {
                     l_isUnique = false;
@@ -43,7 +43,7 @@ public class PlayerHelper {
     private List<Player> addOrRemovePlayers(List<Player> p_existingPlayers, String p_operation, String p_argument) {
         List<Player> l_updatedPlayers = new ArrayList<>();
 
-        if(!CommonUtil.isCollectionEmpty(p_existingPlayers))
+        if(CollectionUtils.isNotEmpty(p_existingPlayers))
             l_updatedPlayers.addAll(p_existingPlayers);
 
         String l_enteredPlayerName = p_argument.split(" ")[0];
@@ -187,7 +187,7 @@ public class PlayerHelper {
         for (Player l_pl : p_players) {
             List<String> l_countriesOwned = new ArrayList<>();
 
-            if (!CommonUtil.isCollectionEmpty(l_pl.getOwnedCountries())) {
+            if (CollectionUtils.isNotEmpty(l_pl.getOwnedCountries())) {
                 l_pl.getOwnedCountries().forEach(l_country -> l_countriesOwned.add(l_country.getD_name()));
 
                 for (Continent l_cont : p_continents) {
@@ -215,7 +215,7 @@ public class PlayerHelper {
      * @param p_player player to create deploy order
      */
     public void createDeployOrder(String p_commandEntered, Player p_player) {
-        List<Order> l_orders = CommonUtil.isCollectionEmpty(p_player.getIssuedOrders()) ? new ArrayList<>()
+        List<Order> l_orders = CollectionUtils.isEmpty(p_player.getIssuedOrders()) ? new ArrayList<>()
                 : p_player.getIssuedOrders();
 
         String l_countryName = p_commandEntered.split(" ")[1];
@@ -260,10 +260,10 @@ public class PlayerHelper {
     public int calculateArmiesForPlayer(Player p_player) {
         int l_armies = 0;
 
-        if (!CommonUtil.isCollectionEmpty(p_player.getOwnedCountries())) {
+        if (CollectionUtils.isNotEmpty(p_player.getOwnedCountries())) {
             l_armies = Math.max(3, Math.round(p_player.getOwnedCountries().size()) / 3);
         }
-        if (!CommonUtil.isCollectionEmpty(p_player.getOwnedContinents())) {
+        if (CollectionUtils.isNotEmpty(p_player.getOwnedContinents())) {
             int l_continentCtrlValue = 0;
 
             for (Continent l_continent : p_player.getOwnedContinents()) {
@@ -340,7 +340,7 @@ public class PlayerHelper {
 
         List<Player> l_updatedPlayers = this.addOrRemovePlayers(p_gameState.getD_players(), p_operation, p_argument);
 
-        if (!CommonUtil.isNull(l_updatedPlayers)) {
+        if (CollectionUtils.isNotEmpty(l_updatedPlayers)) {
             p_gameState.setD_players(l_updatedPlayers);
         }
     }
@@ -353,6 +353,6 @@ public class PlayerHelper {
      * @return boolean map is loaded or not
      */
     public boolean isMapLoaded(GameState p_gameState) {
-        return CommonUtil.isNull(p_gameState.getD_map()) ? false : true;
+        return p_gameState.getD_map() != null;
     }
 }
