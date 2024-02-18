@@ -1,5 +1,9 @@
 package GameEngine;
 
+import Constants.Constants;
+import Exceptions.InvalidMap;
+import Helpers.MapHelper;
+import Helpers.PlayerHelper;
 import Models.GameState;
 import Utils.Command;
 import org.apache.commons.collections4.CollectionUtils;
@@ -20,12 +24,18 @@ public class GameEngine {
      */
     GameState d_gameState;
 
+    MapHelper d_mapHelper;
+
+    PlayerHelper d_playerHelper;
+
     /**
      * Constructor for GameEngine
      * This initiates a new blank GameState
      */
     public GameEngine(){
         d_gameState = new GameState();
+        d_mapHelper = new MapHelper();
+        d_playerHelper = new PlayerHelper();
     }
 
     /**
@@ -81,5 +91,28 @@ public class GameEngine {
 
     }
 
+    /**
+     * Basic validation of <strong>editcontinent</strong> command for checking
+     * required arguments and redirecting control to model for actual processing.
+     *
+     * @param p_command command entered by the user on CLI
+     * @throws IOException indicates failure in I/O operation
+     */
+    public void editContinent(Command p_command) throws IOException, InvalidMap {
+        List<Map<String, String>> l_listOfOperations = p_command.getListOfOperationsAndArguments();
 
+        if (CollectionUtils.isEmpty(l_listOfOperations)) {
+            // Todo: throw invalid command error
+            throw new RuntimeException("No Commands provided for Edit Continent");
+        }
+
+        for (Map<String, String> l_map : l_listOfOperations) {
+            if (p_command.validateArgumentAndOperation(l_map)) {
+                d_mapHelper.editContinent(d_gameState, l_map.get(Constants.ARGUMENT), l_map.get(Constants.OPERATION));
+            } else {
+                // Todo: throw invalid command error
+                throw new RuntimeException("Wrong Command provided for Edit Continent : ");
+            }
+        }
+    }
 }
