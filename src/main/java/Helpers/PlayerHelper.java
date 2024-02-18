@@ -1,12 +1,22 @@
 package Helpers;
 
 import Models.*;
-
+import Utils.CommonUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * This service class handles the players.
+ */
 public class PlayerHelper {
+    /**
+     * Checks if player name exists in given existing player list.
+     *
+     * @param p_existingPlayers existing players list present in game
+     * @param p_playerName player name which needs to be looked upon
+     * @return boolean true if player name is unique, false if it's not
+     */
     public boolean isPlayerNameUnique(List<Player> p_existingPlayers, String p_playerName) {
         boolean l_isUnique = true;
 
@@ -22,6 +32,14 @@ public class PlayerHelper {
         return l_isUnique;
     }
 
+    /**
+     * This method is used to add and remove players.
+     *
+     * @param p_existingPlayers current player list.
+     * @param p_operation operation to add or remove player.
+     * @param p_argument name of player to add or remove.
+     * @return return updated list of player.
+     */
     private List<Player> addOrRemovePlayers(List<Player> p_existingPlayers, String p_operation, String p_argument) {
         List<Player> l_updatedPlayers = new ArrayList<>();
 
@@ -36,7 +54,7 @@ public class PlayerHelper {
                 addPlayer(l_updatedPlayers, l_enteredPlayerName, l_playerNameAlreadyExists);
                 break;
             case "remove":
-                removePlayer(p_existingPlayers, l_updatedPlayers, l_enteredPlayerName, );
+                removePlayer(p_existingPlayers, l_updatedPlayers, l_enteredPlayerName, l_playerNameAlreadyExists);
                 break;
             default:
                 System.out.println("Invalid Operation on Players");
@@ -45,6 +63,13 @@ public class PlayerHelper {
         return l_updatedPlayers;
     }
 
+    /**
+     * Adds player to Game if it's not there already.
+     *
+     * @param p_existingPlayers updated player list with newly added player
+     * @param p_enteredName new player name to be added
+     * @param p_playerNameExists true if player to be added already exists
+     */
     private void addPlayer(List<Player> p_existingPlayers, String p_enteredName, boolean p_playerNameExists) {
         if(p_playerNameExists) {
             System.out.print("Player with name : " + p_enteredName + " already Exists. Aborted.");
@@ -55,6 +80,14 @@ public class PlayerHelper {
         }
     }
 
+    /**
+     * Remove player from the game if it exists.
+     *
+     * @param p_existingPlayers Existing player list present in game
+     * @param p_updatedPlayers Updated player list with removal to be done
+     * @param p_enteredPlayerName Player name which is to be removed
+     * @param p_playerNameAlreadyExist true if player already exists
+     */
     private void removePlayer(List<Player> p_existingPlayers, List<Player> p_updatedPlayers,
                                   String p_enteredPlayerName, boolean p_playerNameAlreadyExist) {
         if (p_playerNameAlreadyExist) {
@@ -69,6 +102,12 @@ public class PlayerHelper {
         }
     }
 
+    /**
+     * Check whether players are loaded or not.
+     *
+     * @param p_gameState current game state with map and player information
+     * @return boolean players exists or not
+     */
     public boolean checkPlayersAvailability(GameState p_gameState) {
         if (p_gameState.getD_players() == null || p_gameState.getD_players().isEmpty()) {
             System.out.println("There are no players!! Please add them.");
@@ -78,6 +117,11 @@ public class PlayerHelper {
         return true;
     }
 
+    /**
+     * This method is used to assign countries randomly among players.
+     *
+     * @param p_gameState current game state with map and player information
+     */
     public void assignCountries(GameState p_gameState) {
         if (!checkPlayersAvailability(p_gameState))
             return;
@@ -92,6 +136,13 @@ public class PlayerHelper {
 
     }
 
+    /**
+     * Performs random country assignment to all players.
+     *
+     * @param p_countriesPerPlayer countries which are to be assigned to each player
+     * @param p_countries list of all countries present in map
+     * @param p_players list of all available players
+     */
     private void assignRandomCountries(int p_countriesPerPlayer, List<Country> p_countries,
                                                 List<Player> p_players) {
         List<Country> l_unassignedCountries = new ArrayList<>(p_countries);
@@ -125,6 +176,13 @@ public class PlayerHelper {
         }
     }
 
+    /**
+     * Checks if player is having any continent as a result of random country
+     * assignment.
+     *
+     * @param p_players list of all available players
+     * @param p_continents list of all available continents
+     */
     private void assignContinents(List<Player> p_players, List<Continent> p_continents) {
         for (Player l_pl : p_players) {
             List<String> l_countriesOwned = new ArrayList<>();
@@ -150,6 +208,12 @@ public class PlayerHelper {
         }
     }
 
+    /**
+     * creates the deploy order on the commands entered by the player.
+     *
+     * @param p_commandEntered command entered by the user
+     * @param p_player player to create deploy order
+     */
     public void createDeployOrder(String p_commandEntered, Player p_player) {
         List<Order> l_orders = CommonUtil.isCollectionEmpty(p_player.getIssuedOrders()) ? new ArrayList<>()
                 : p_player.getIssuedOrders();
@@ -173,15 +237,31 @@ public class PlayerHelper {
         }
     }
 
+    /**
+     * Used to test number of armies entered in deploy command to check that player
+     * cannot deploy more armies than they have.
+     *
+     * @param p_player player to create deploy order
+     * @param p_noOfArmies number of armies to deploy
+     *
+     * @return boolean to validate armies to deploy
+     */
     public boolean isValidArmies(Player p_player, String p_noOfArmies) {
-        return p_player.getReinforcements() > Integer.parseInt(p_noOfArmies);
+        return p_player.getReinforcements() >= Integer.parseInt(p_noOfArmies);
     }
 
+    /**
+     * Calculates armies of player based on countries and continents owned.
+     *
+     * @param p_player player for which armies have to be calculated
+     *
+     * @return Integer armies to be assigned to player
+     */
     public int calculateArmiesForPlayer(Player p_player) {
         int l_armies = 0;
 
         if (!CommonUtil.isCollectionEmpty(p_player.getOwnedCountries())) {
-            l_armies = Math.max(3, Math.round(p_player.getOwnedCountries().size()) / 3));
+            l_armies = Math.max(3, Math.round(p_player.getOwnedCountries().size()) / 3);
         }
         if (!CommonUtil.isCollectionEmpty(p_player.getOwnedContinents())) {
             int l_continentCtrlValue = 0;
@@ -195,6 +275,11 @@ public class PlayerHelper {
         return l_armies;
     }
 
+    /**
+     * Assigns armies to each player of the game.
+     *
+     * @param p_gameState current game state with map and player information
+     */
     public void assignArmies(GameState p_gameState) {
         for (Player l_pl : p_gameState.getD_players()) {
             int l_armies = this.calculateArmiesForPlayer(l_pl);
@@ -204,6 +289,14 @@ public class PlayerHelper {
         }
     }
 
+    /**
+     * Check if unexecuted orders exists in the game.
+     *
+     * @param p_playersList players involved in game
+     *
+     * @return boolean true if unexecuted orders exists with any of the players or
+     *         else false
+     */
     public boolean unexecutedOrdersExists(List<Player> p_playersList) {
         int l_totalUnexecutedOrders = 0;
 
@@ -214,6 +307,14 @@ public class PlayerHelper {
         return l_totalUnexecutedOrders != 0;
     }
 
+    /**
+     * Check if any of the players have unassigned armies.
+     *
+     * @param p_playersList players involved in game
+     *
+     * @return boolean true if unassigned armies exists with any of the players or
+     *         else false
+     */
     public boolean unassignedArmiesExists(List<Player> p_playersList) {
         int l_unassignedArmies = 0;
 
@@ -224,6 +325,13 @@ public class PlayerHelper {
         return l_unassignedArmies != 0;
     }
 
+    /**
+     * This method is called by controller to add players, update gameState.
+     *
+     * @param p_gameState update game state with players information.
+     * @param p_operation operation to add or remove player.
+     * @param p_argument name of player to add or remove.
+     */
     public void updatePlayers(GameState p_gameState, String p_operation, String p_argument) {
         if (!isMapLoaded(p_gameState)) {
             System.out.println("Map not loaded!! Please load the map to add player: " + p_argument);
@@ -237,6 +345,13 @@ public class PlayerHelper {
         }
     }
 
+    /**
+     * Check whether map is loaded or not.
+     *
+     * @param p_gameState current game state with map and player information
+     *
+     * @return boolean map is loaded or not
+     */
     public boolean isMapLoaded(GameState p_gameState) {
         return CommonUtil.isNull(p_gameState.getD_map()) ? false : true;
     }

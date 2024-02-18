@@ -16,3 +16,7 @@ X
 (src/main/java/Helpers/PlayerService.java,f\6\f6a0cb433a479daa59cfb2aa588bb7155cefc473
 W
 'src/main/java/Helpers/PlayerHelper.java,8\3\837842ba5c1c89438ae1a6b47aad7a0a12d6d723
+P
+ src/main/java/Views/MapView.java,5\8\5899535378f94c7b6243678026f855fd17804779
+Y
+)src/main/java/Controllers/GameEngine.java,e\8\e8d4c97590e00ad3ab8772d1a2b6b7a162953d48

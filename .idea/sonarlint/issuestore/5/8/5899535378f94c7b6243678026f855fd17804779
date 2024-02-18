@@ -1,62 +1,62 @@
 
 L
-java:S3740"/Provide the parametrized type for this generic.(ŠúŸ8ºÏÕ¾Û1
-m	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™îÆÒ8»ÏÕ¾Û1
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹Î“úÿÿÿÿ8»ÏÕ¾Û1
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹Î“úÿÿÿÿ8»ÏÕ¾Û1
-r	java:S117+"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ïäßèıÿÿÿÿ8»ÏÕ¾Û1
-r	java:S117+"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ïäßèıÿÿÿÿ8»ÏÕ¾Û1
-r	java:S117,"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äéñçşÿÿÿÿ8¼ÏÕ¾Û1
-m	java:S1171"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”ı·Œ8¼ÏÕ¾Û1
-m	java:S1172"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Á ©·8¼ÏÕ¾Û1
-r	java:S1179"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥çÔ²ÿÿÿÿÿ8¼ÏÕ¾Û1
-r	java:S1179"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥çÔ²ÿÿÿÿÿ8¼ÏÕ¾Û1
-m	java:S117:"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Û–ã8¼ÏÕ¾Û1
-m	java:S117="QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(²¤©ı8¼ÏÕ¾Û1
-r	java:S117D"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ı“àåûÿÿÿÿ8¼ÏÕ¾Û1
-m	java:S117E"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äø€8¼ÏÕ¾Û1
-r	java:S117L"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯‰—§ùÿÿÿÿ8¼ÏÕ¾Û1
-m	java:S117Q"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŒÑ·²8¼ÏÕ¾Û1
-m	java:S117Q"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŒÑ·²8¼ÏÕ¾Û1
-m	java:S117R"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§¬°ª8¼ÏÕ¾Û1
-r	java:S117W"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£¦Üêıÿÿÿÿ8¼ÏÕ¾Û1
-m	java:S117d"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Äö¯û8¼ÏÕ¾Û1
-m	java:S117e"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó¶æé8¼ÏÕ¾Û1
-r	java:S117w"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ–œ¨ıÿÿÿÿ8¼ÏÕ¾Û1
-r	java:S117z"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–ª ‰øÿÿÿÿ8¼ÏÕ¾Û1
-r	java:S117{"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(òŒë˜úÿÿÿÿ8¼ÏÕ¾Û1
-m	java:S117~"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í€á8¼ÏÕ¾Û1
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢Ïíˆşÿÿÿÿ8¼ÏÕ¾Û1
-s	java:S117ƒ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í¥×†ùÿÿÿÿ8¼ÏÕ¾Û1
-n	java:S117†"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ÿ¿¬ü8¼ÏÕ¾Û1
+java:S3740"/Provide the parametrized type for this generic.(ŠúŸ8ºÏÕ¾Û1
+m	java:S1179"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™îÆÒ8»ÏÕ¾Û1
+r	java:S117F"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹Î“úÿÿÿÿ8»ÏÕ¾Û1
+r	java:S117F"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹Î“úÿÿÿÿ8»ÏÕ¾Û1
+r	java:S117["QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ïäßèıÿÿÿÿ8»ÏÕ¾Û1
+r	java:S117["QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ïäßèıÿÿÿÿ8»ÏÕ¾Û1
+r	java:S117\"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äéñçşÿÿÿÿ8¼ÏÕ¾Û1
+m	java:S117f"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”ı·Œ8¼ÏÕ¾Û1
+m	java:S117g"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÈÒŞ½8¼ÏÕ¾Û1
+r	java:S117v"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥çÔ²ÿÿÿÿÿ8¼ÏÕ¾Û1
+r	java:S117v"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥çÔ²ÿÿÿÿÿ8¼ÏÕ¾Û1
+m	java:S117w"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Û–ã8¼ÏÕ¾Û1
+m	java:S117z"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(²¤©ı8¼ÏÕ¾Û1
+s	java:S117†"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ı“àåûÿÿÿÿ8¼ÏÕ¾Û1
+n	java:S117‡"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äø€8¼ÏÕ¾Û1
+s	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯‰—§ùÿÿÿÿ8¼ÏÕ¾Û1
+n	java:S117™"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŒÑ·²8¼ÏÕ¾Û1
+n	java:S117™"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŒÑ·²8¼ÏÕ¾Û1
+n	java:S117š"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§¬°ª8¼ÏÕ¾Û1
+s	java:S117¢"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£¦Üêıÿÿÿÿ8¼ÏÕ¾Û1
+n	java:S117µ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Äö¯û8¼ÏÕ¾Û1
+n	java:S117¶"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’è²ï8¼ÏÕ¾Û1
+s	java:S117É"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ–œ¨ıÿÿÿÿ8¼ÏÕ¾Û1
+s	java:S117Ì"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–ª ‰øÿÿÿÿ8¼ÏÕ¾Û1
+s	java:S117Í"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(òŒë˜úÿÿÿÿ8¼ÏÕ¾Û1
+n	java:S117Ğ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í€á8¼ÏÕ¾Û1
+s	java:S117Ñ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢Ïíˆşÿÿÿÿ8¼ÏÕ¾Û1
+s	java:S117Õ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í¥×†ùÿÿÿÿ8¼ÏÕ¾Û1
+n	java:S117Ø"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ÿ¿¬ü8¼ÏÕ¾Û1
 {	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(²êî’üÿÿÿÿ8¾ÏÕ¾Û1
-o	java:S116"TRename this field "d_players" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…ÚÙy8ÈÏÕ¾Û1
-r	java:S116"VRename this field "d_gameState" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õ¨¾Î8ÈÏÕ¾Û1
-l	java:S116"PRename this field "d_map" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŠúŸ8ÉÏÕ¾Û1
-w	java:S116"VRename this field "d_countries" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ùŠ¶şÿÿÿÿÿ8ÉÏÕ¾Û1
-x	java:S116"WRename this field "d_continents" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õş°¿øÿÿÿÿ8ÉÏÕ¾Û1
-t	java:S116"XRename this field "CONSOLE_WIDTH" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³À½¤8ÉÏÕ¾Û1
-y	java:S116"XRename this field "CONTROL_VALUE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³ãÆøÿÿÿÿ8ÉÏÕ¾Û1
+o	java:S116"TRename this field "d_players" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…ÚÙy8ÈÏÕ¾Û1
+r	java:S116"VRename this field "d_gameState" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õ¨¾Î8ÈÏÕ¾Û1
+l	java:S116"PRename this field "d_map" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŠúŸ8ÉÏÕ¾Û1
+w	java:S116#"VRename this field "d_countries" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ùŠ¶şÿÿÿÿÿ8ÉÏÕ¾Û1
+x	java:S116("WRename this field "d_continents" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õş°¿øÿÿÿÿ8ÉÏÕ¾Û1
+t	java:S116-"XRename this field "CONSOLE_WIDTH" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³À½¤8ÉÏÕ¾Û1
+y	java:S1162"XRename this field "CONTROL_VALUE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³ãÆøÿÿÿÿ8ÉÏÕ¾Û1
 >
-java:S1170"!Make this final field static too.(³À½¤8ÉÏÕ¾Û1
+java:S1170-"!Make this final field static too.(³À½¤8ÉÏÕ¾Û1
 C
-java:S1170"!Make this final field static too.(³ãÆøÿÿÿÿ8ÉÏÕ¾Û1
-L	java:S106("+Replace this use of System.out by a logger.(©Ôì§úÿÿÿÿ8ÑÏÕ¾Û1
+java:S11702"!Make this final field static too.(³ãÆøÿÿÿÿ8ÉÏÕ¾Û1
+L	java:S106R"+Replace this use of System.out by a logger.(©Ôì§úÿÿÿÿ8ÑÏÕ¾Û1
 c
-java:S3457,"AFormat specifiers should be used instead of string concatenation.(äéñçşÿÿÿÿ8ÒÏÕ¾Û1
+java:S3457\"AFormat specifiers should be used instead of string concatenation.(äéñçşÿÿÿÿ8ÒÏÕ¾Û1
 c
-java:S3457,"AFormat specifiers should be used instead of string concatenation.(äéñçşÿÿÿÿ8ÒÏÕ¾Û1
+java:S3457\"AFormat specifiers should be used instead of string concatenation.(äéñçşÿÿÿÿ8ÒÏÕ¾Û1
 ]
-java:S3457."AFormat specifiers should be used instead of string concatenation.(–ª¹68ÒÏÕ¾Û1
-F	java:S106."+Replace this use of System.out by a logger.(–ª¹68ÒÏÕ¾Û1
-G	java:S106M"+Replace this use of System.out by a logger.(¡§£ú8×ÏÕ¾Û1
-L	java:S106N"+Replace this use of System.out by a logger.(ªÓ¼áşÿÿÿÿ8ÙÏÕ¾Û1
-G	java:S106S"+Replace this use of System.out by a logger.(Û¼æì8ÙÏÕ¾Û1
-T
-java:S1611~"7Remove the parentheses around the "l_country" parameter(Í€á8ÜÏÕ¾Û1
-G	java:S106€"+Replace this use of System.out by a logger.(¼­8İÏÕ¾Û1
-M	java:S106‡"+Replace this use of System.out by a logger.(§¼Ô¨ûÿÿÿÿ8İÏÕ¾Û1
-H	java:S106‹"+Replace this use of System.out by a logger.(À‚·È8İÏÕ¾Û1
-H	java:S106"+Replace this use of System.out by a logger.(×Ú¤ë8İÏÕ¾Û1
+java:S3457^"AFormat specifiers should be used instead of string concatenation.(–ª¹68ÒÏÕ¾Û1
+F	java:S106^"+Replace this use of System.out by a logger.(–ª¹68ÒÏÕ¾Û1
+H	java:S106"+Replace this use of System.out by a logger.(¡§£ú8×ÏÕ¾Û1
+M	java:S106"+Replace this use of System.out by a logger.(ªÓ¼áşÿÿÿÿ8ÙÏÕ¾Û1
+H	java:S106›"+Replace this use of System.out by a logger.(Û¼æì8ÙÏÕ¾Û1
+U
+java:S1611Ğ"7Remove the parentheses around the "l_country" parameter(Í€á8ÜÏÕ¾Û1
+G	java:S106Ò"+Replace this use of System.out by a logger.(¼­8İÏÕ¾Û1
+M	java:S106Ù"+Replace this use of System.out by a logger.(§¼Ô¨ûÿÿÿÿ8İÏÕ¾Û1
+H	java:S106İ"+Replace this use of System.out by a logger.(À‚·È8İÏÕ¾Û1
+H	java:S106á"+Replace this use of System.out by a logger.(×Ú¤ë8İÏÕ¾Û1
 Q
-java:S1068"/Remove this unused "d_countries" private field.(ùŠ¶şÿÿÿÿÿ8ŞÏÕ¾Û1
+java:S1068#"/Remove this unused "d_countries" private field.(ùŠ¶şÿÿÿÿÿ8ŞÏÕ¾Û1
