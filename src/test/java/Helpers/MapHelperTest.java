@@ -59,7 +59,7 @@ public class MapHelperTest {
 		Map l_newMap = new Map();
 		l_newMap.setContinents(l_continents);
 		d_GameState.setD_map(l_newMap);
-		d_MapHelper.editContinent(d_GameState, "Remove", "Asia");
+		d_MapHelper.editContinent(d_GameState, "Asia", "remove");
 
 		assertEquals(d_GameState.getD_map().getContinentsList().size(), 1);
 		assertEquals(d_GameState.getD_map().getContinentsList().get(0).getD_name(), "Europe");
@@ -75,7 +75,7 @@ public class MapHelperTest {
         Map l_newMap=new Map();
         d_GameState.setD_map(l_newMap);
         
-		d_MapHelper.editCountry(d_GameState, "add", "Europe Asia");
+		d_MapHelper.editCountry(d_GameState, "Europe Asia", "add");
 
 		assertEquals(d_GameState.getD_map().getCountryByName("Europe").getD_name(), "Europe");
     }
@@ -89,8 +89,8 @@ public class MapHelperTest {
         Map l_newMap=new Map();
         d_GameState.setD_map(l_newMap);
         
-		d_MapHelper.editCountry(d_GameState, "add", "Europe Asia");
-		d_MapHelper.editCountry(d_GameState, "remove", "America");
+		d_MapHelper.editCountry(d_GameState, "Europe Asia", "add");
+		d_MapHelper.editCountry(d_GameState, "America", "remove");
     }
     /**
      * This method tests the add neighbor operation
@@ -102,9 +102,9 @@ public class MapHelperTest {
         Map l_newMap=new Map();
         d_GameState.setD_map(l_newMap);
 		d_MapHelper.editContinent(d_GameState, "Asia 5", "add");
-		d_MapHelper.editCountry(d_GameState, "add", "India Asia");
-		d_MapHelper.editCountry(d_GameState, "add", "China Asia");
-		d_MapHelper.editNeighbour(d_GameState, "add", "India China");
+		d_MapHelper.editCountry(d_GameState, "India Asia", "add");
+		d_MapHelper.editCountry(d_GameState, "China Asia", "add");
+		d_MapHelper.editNeighbour(d_GameState, "India China", "add");
 
 		assertEquals(d_GameState.getD_map().getCountryByName("India").getD_adjacentCountryIds().get(0), 
                     d_GameState.getD_map().getCountryByName("China").getD_id());
@@ -119,10 +119,10 @@ public class MapHelperTest {
         Map l_newMap=new Map();
         d_GameState.setD_map(l_newMap);
 		d_MapHelper.editContinent(d_GameState, "Asia 5", "add");
-		d_MapHelper.editCountry(d_GameState, "add", "India Asia");
-		d_MapHelper.editCountry(d_GameState, "add", "China Asia");
-		d_MapHelper.editNeighbour(d_GameState, "add", "India China");
-        d_MapHelper.editNeighbour(d_GameState, "remove", "China India");
+		d_MapHelper.editCountry(d_GameState, "India Asia", "add");
+		d_MapHelper.editCountry(d_GameState, "China Asia", "add");
+		d_MapHelper.editNeighbour(d_GameState, "India China", "add");
+        d_MapHelper.editNeighbour(d_GameState, "China India", "remove");
     }
     
 }

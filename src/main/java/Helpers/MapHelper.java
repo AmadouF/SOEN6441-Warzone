@@ -200,7 +200,7 @@ public class MapHelper {
      * @param p_argument Arguments that are passed in the command
      * @throws InvalidMap invalid map exception
      */
-    public void editCountry(GameState p_state, String p_operation, String p_argument) throws InvalidMap{
+    public void editCountry(GameState p_state, String p_argument,String p_operation) throws InvalidMap{
 		String l_mapFileName= p_state.getD_map().getMapFile();
 
 
@@ -237,7 +237,7 @@ public class MapHelper {
      * @param p_argument Arguments that are passed in the command
      * @throws InvalidMap invalid map exception
      */
-    public void editNeighbour(GameState p_state, String p_operation, String p_argument) throws InvalidMap{
+    public void editNeighbour(GameState p_state, String p_argument, String p_operation) throws InvalidMap{
 		String l_mapFileName= p_state.getD_map().getMapFile();
 		
         Map l_currentMap=null;
