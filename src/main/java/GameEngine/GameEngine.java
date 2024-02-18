@@ -79,7 +79,7 @@ public class GameEngine {
                 }
 
                 processCommand(l_command);
-            } catch (IOException | InvalidMap | InvalidCommand l_exception) {
+            } catch (Exception l_exception) {
                 l_exception.printStackTrace();
             }
         }
@@ -189,7 +189,7 @@ public class GameEngine {
                 if("editcontinent".equals(baseCommand)) {
                     d_mapHelper.editContinent(d_gameState, l_map.get(Constants.ARGUMENT), l_map.get(Constants.OPERATION));
                 } else if ("editcountry".equals(baseCommand)) {
-                    d_mapHelper.editContinent(d_gameState, l_map.get(Constants.ARGUMENT), l_map.get(Constants.OPERATION));
+                    d_mapHelper.editCountry(d_gameState, l_map.get(Constants.ARGUMENT), l_map.get(Constants.OPERATION));
                 } else if ("editneighbor".equals(baseCommand)) {
                     d_mapHelper.editNeighbour(d_gameState, l_map.get(Constants.ARGUMENT), l_map.get(Constants.OPERATION));
                 }
