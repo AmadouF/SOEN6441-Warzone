@@ -82,35 +82,22 @@ public class GameEngine {
     public void processCommand(String p_commandInput) throws InvalidMap, IOException, InvalidCommand {
         Command l_playerCommand = new Command(p_commandInput);
         String l_firstCommand = l_playerCommand.getFirstCommand();
-        boolean l_isCurrenMapLoaded = d_gameState.getD_map() != null;
 
-        switch (l_firstCommand) {
+        switch(l_firstCommand){
             case "editmap":
-                editCommand(l_playerCommand, l_firstCommand);
+                editCommand(l_playerCommand, "editmap");
                 break;
 
             case "editcontinent":
-                if (l_isCurrenMapLoaded) {
-                    editCommand(l_playerCommand, l_firstCommand);
-                } else {
-                    System.out.print("Please edit the map before editing the continent");
-                }
+                editCommand(l_playerCommand, "editcontinent");
                 break;
 
             case "editcountry":
-                if (l_isCurrenMapLoaded) {
-                    editCommand(l_playerCommand, l_firstCommand);
-                } else {
-                    System.out.print("Please edit the map before editing the country");
-                }
+                editCommand(l_playerCommand, "editcountry");
                 break;
 
             case "editneighbor":
-                if (l_isCurrenMapLoaded) {
-                    editCommand(l_playerCommand, l_firstCommand);
-                } else {
-                    System.out.print("Please edit the map before editing the neighbors");
-                }
+                editCommand(l_playerCommand, "editneighbor");
                 break;
 
             case "gameplayer":
