@@ -83,38 +83,71 @@ public class GameEngine {
         Command l_playerCommand = new Command(p_commandInput);
         String l_firstCommand = l_playerCommand.getFirstCommand();
 
-        switch(l_firstCommand){
+        switch (l_firstCommand) {
             case "editmap":
-                editCommand(l_playerCommand, "editmap");
+                editCommand(l_playerCommand, l_firstCommand);
                 break;
 
             case "editcontinent":
-                editCommand(l_playerCommand, "editcontinent");
+                editCommand(l_playerCommand, l_firstCommand);
                 break;
 
             case "editcountry":
-                editCommand(l_playerCommand, "editcountry");
+                editCommand(l_playerCommand, l_firstCommand);
                 break;
 
             case "editneighbor":
-                editCommand(l_playerCommand, "editneighbor");
+                editCommand(l_playerCommand, l_firstCommand);
                 break;
 
             case "gameplayer":
                 checkIfMapIsLoaded();
                 gamePlayer(l_playerCommand, l_firstCommand);
+                break;
+
+            case "loadmap":
+                loadMap(l_playerCommand);
+                break;
             default:
                 throw new InvalidMap(" !!!  Base command Invalid  !!!");
 
         }
     }
 
+    public void loadMap(Command p_command) throws InvalidCommand {
+        List < Map < String, String >> l_listOfOperations = p_command.getListOfOperationsAndArguments();
+        if (CollectionUtils.isEmpty(l_listOfOperations)) {
+            throw new InvalidCommand("No arguments and operations are provided for the laodmap");
+        }
+        for (Map < String, String > l_map: l_listOfOperations) {
+            if (p_command.validateArgumentAndOperation(l_map)) {
+                Models.Map l_inputMap = d_mapHelper.load(d_gameState,
+                    l_map.get(Constants.ARGUMENT));
+                try {
+                    if (!l_inputMap.isValidMap()) {
+                        // Clear the map in case of an unsuccessful load
+                        d_gameState.setD_map(new Models.Map());
+                    } else {
+                        System.out.println("The maps has been loaded");
+                    }
+                } catch (InvalidMap l_invalidMapException) {
+                    d_gameState.setD_map(new Models.Map());
+                }
+            } else {
+                throw new InvalidCommand("The command for loadmap is invalid");
+            }
+
+        }
+
+    }
+
+
     public void gamePlayer(Command p_command, String baseCommand) throws InvalidCommand {
         List < Map < String, String >> l_listOfOperations = p_command.getListOfOperationsAndArguments();
         if (CollectionUtils.isEmpty(l_listOfOperations)) {
             throw new InvalidCommand("No arguments and operations are provided for " + baseCommand);
         }
-        for (Map < String, String > l_map: l_listOfOperations) {
+        for (java.util.Map < String, String > l_map: l_listOfOperations) {
             if (p_command.validateArgumentAndOperation(l_map)) {
                 d_playerHelper.updatePlayers(d_gameState, l_map.get(Constants.OPERATION), l_map.get(Constants.ARGUMENT));
             } else {
@@ -129,13 +162,13 @@ public class GameEngine {
      */
     private void editCommand(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
         checkIfMapIsLoaded();
-        List < Map < String, String >> l_listOfOperations = p_command.getListOfOperationsAndArguments();
+        List < java.util.Map < String, String >> l_listOfOperations = p_command.getListOfOperationsAndArguments();
 
         if (CollectionUtils.isEmpty(l_listOfOperations)) {
             throw new InvalidCommand("No arguments and operations are provided for " + baseCommand);
         }
 
-        for (Map < String, String > l_map: l_listOfOperations) {
+        for (java.util.Map < String, String > l_map: l_listOfOperations) {
             if (p_command.validateArgumentAndOperation(l_map)) {
                 if ("editmap".equals(baseCommand)) {
                     d_mapHelper.editMap(d_gameState, l_map.get(Constants.ARGUMENT));
