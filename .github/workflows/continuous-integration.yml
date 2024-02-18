@@ -1,0 +1,60 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+
+name: Java CI with Maven
+
+on: push
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '21'
+
+      - name: Build Project
+        run: mvn clean install
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '21'
+
+      - name: Run Unit Tests
+        run: mvn test
+
+  javadoc:
+    name: Generate Javadoc
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '21'
+
+      - name: Generate Javadoc
+        run: mvn javadoc:javadoc
