@@ -25,7 +25,9 @@ public class Player {
     /**
      * Number of reinforcement armies of the player
      */
-    private Integer d_reinforcement;
+
+    private int d_reinforcement;
+
     /**
      * List of orders issued by the player
      */
@@ -98,11 +100,18 @@ public class Player {
         return this.d_issuedOrders;
     }
 
-    public void setReinforcement(Integer p_reinforcement){
+    /**
+     * Setter method to set the reinforcement armies
+     * @param p_reinforcement Number of reinforcement armies
+     */
+    public void setReinforcement(int p_reinforcement){
         this.d_reinforcement=p_reinforcement;
     }
-
-    public Integer getReinforcements(){
+    /**
+     * Getter method to get the reinforcement armies
+     * @return Number of reinforcement armies
+     */
+    public int getReinforcements(){
         return this.d_reinforcement;
     }
     /**
