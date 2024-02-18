@@ -25,7 +25,7 @@ public class Player {
     /**
      * Number of reinforcement armies of the player
      */
-    private int d_reinforcement;
+    private Integer d_reinforcement;
     /**
      * List of orders issued by the player
      */
@@ -97,18 +97,12 @@ public class Player {
     public List<Order> getIssuedOrders(){
         return this.d_issuedOrders;
     }
-    /**
-     * Setter method to set the reinforcement armies
-     * @param p_reinforcement Number of reinforcement armies
-     */
-    public void setReinforcement(int p_reinforcement){
+
+    public void setReinforcement(Integer p_reinforcement){
         this.d_reinforcement=p_reinforcement;
     }
-    /**
-     * Getter method to get the reinforcement armies
-     * @return Number of reinforcement armies
-     */
-    public int getReinforcements(){
+
+    public Integer getReinforcements(){
         return this.d_reinforcement;
     }
     /**
@@ -122,7 +116,7 @@ public class Player {
 		System.out.println("\nEnter command to deploy reinforcement armies on the map for player : " + this.getPlayerName());
         String l_enteredCommand=sc.nextLine();
         Command l_command=new Command(l_enteredCommand);
-        
+
         if (l_command.getFirstCommand().equalsIgnoreCase("deploy") && l_enteredCommand.split(" ").length == 3) {
         	l_playerHelper.createDeployOrder(l_enteredCommand, this);
 		} else {
