@@ -245,10 +245,13 @@ public class Map {
      */
     public boolean isValidMap() throws InvalidMap {
         //checks for the null continents and countries list.
-        if(d_continentsList==null || d_continentsList.isEmpty() || d_countriesList==null || d_countriesList.isEmpty()){
+        if(d_continentsList==null || d_continentsList.isEmpty()){
             
             throw new InvalidMap("Map must possess atleast one continent!");
             
+        }
+        if(d_countriesList==null || d_countriesList.isEmpty()){
+            throw new InvalidMap("Continents must contain the countries");
         }
         //checks whether the country has neighbors or not.
         for(Country c: d_countriesList){
