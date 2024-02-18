@@ -32,3 +32,5 @@ W
 +src/test/java/Helpers/PlayerHelperTest.java,0\4\04a1cf99aeb23ea2802c5a4cfbfcd924083797dd
 T
 $src/test/java/Views/MapViewTest.java,c\6\c6e5be14ee125b3c17fdf3d90994226c3db60c08
+T
+$src/main/java/Helpers/MapHelper.java,1\e\1eaf1d1f3e2c5d8ddd13c3089a46c5f0f056817d

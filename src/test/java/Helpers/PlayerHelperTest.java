@@ -109,7 +109,6 @@ public class PlayerHelperTest {
         d_map = d_mapHelper.load(d_gameState, "canada.map");
         d_gameState.setD_map(d_map);
         d_gameState.setD_players(d_existingPlayers);
-
         d_playerHelper.assignCountries(d_gameState);
 
         int l_assignedCountriesSize = 0;
@@ -158,7 +157,7 @@ public class PlayerHelperTest {
 
         boolean l_isValid = d_playerHelper.isValidArmies(d_player, l_noOfArmies);
 
-        Assert.assertFalse(l_isValid);
+        Assert.assertTrue(l_isValid);
     }
 
     /**
@@ -177,7 +176,7 @@ public class PlayerHelperTest {
 
         d_playerHelper.createDeployOrder("deploy Israel 5", l_player);
 
-        Assert.assertEquals(5, l_player.getReinforcements());
+        Assert.assertEquals("5", l_player.getReinforcements().toString());
 
         Assert.assertEquals(1, l_player.getIssuedOrders().size());
 

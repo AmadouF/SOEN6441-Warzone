@@ -72,7 +72,7 @@ public class PlayerHelper {
      */
     private void addPlayer(List<Player> p_existingPlayers, String p_enteredName, boolean p_playerNameExists) {
         if(p_playerNameExists) {
-            System.out.println("Player with name : " + p_enteredName + " already Exists. Aborted.");
+            System.out.print("Player with name : " + p_enteredName + " already Exists. Aborted.");
         } else {
             Player l_newPlayer = new Player(p_enteredName);
             p_existingPlayers.add(l_newPlayer);
@@ -94,11 +94,11 @@ public class PlayerHelper {
             for (Player l_player : p_existingPlayers) {
                 if (l_player.getPlayerName().equalsIgnoreCase(p_enteredPlayerName)) {
                     p_updatedPlayers.remove(l_player);
-                    System.out.println("Player with name : " + p_enteredPlayerName + " has been removed successfully.");
+                    System.out.print("Player with name : " + p_enteredPlayerName + " has been removed successfully.");
                 }
             }
         } else {
-            System.out.println("Player with name : " + p_enteredPlayerName + " does not Exist. Aborted.");
+            System.out.print("Player with name : " + p_enteredPlayerName + " does not Exist. Aborted.");
         }
     }
 
@@ -131,6 +131,7 @@ public class PlayerHelper {
         int l_countriesPerPlayer = (int) Math.floor((double) l_countries.size() / p_gameState.getD_players().size());
         this.assignRandomCountries(l_countriesPerPlayer, l_countries, p_gameState.getD_players());
 
+//        System.out.println("__" + p_gameState.getD_map().getContinentsList());
         this.assignContinents(p_gameState.getD_players(), p_gameState.getD_map().getContinentsList());
 
         System.out.println("Assigned countries successfully!!");

@@ -112,7 +112,7 @@ public class Continent {
      * @return list of countries
      */
     public List<Country> getD_countries() {
-        return d_countries;
+        return this.d_countries;
     }
 
     /**

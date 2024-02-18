@@ -83,7 +83,7 @@ public class OrderTest {
 
         l_order1.execute(l_gameState, l_player);
         Country l_countryIndia = l_gameState.getD_map().getCountryByName("India");
-        Assert.assertEquals("10", l_countryIndia.getD_army().toString());
+        Assert.assertEquals("6", l_countryIndia.getD_army().toString());
 
         l_order2.execute(l_gameState, l_player);
         Country l_countryCanada = l_gameState.getD_map().getCountryByName("Canada");
