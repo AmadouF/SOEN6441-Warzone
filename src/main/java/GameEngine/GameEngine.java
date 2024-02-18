@@ -82,41 +82,46 @@ public class GameEngine {
     public void processCommand(String p_commandInput) throws InvalidMap, IOException, InvalidCommand {
         Command l_playerCommand = new Command(p_commandInput);
         String l_firstCommand = l_playerCommand.getFirstCommand();
-        boolean l_isCurrenMapLoaded = d_gameState.getD_map() != null;
 
-        switch (l_firstCommand) {
+        switch(l_firstCommand){
             case "editmap":
                 editCommand(l_playerCommand, "editmap");
                 break;
 
             case "editcontinent":
-                if (l_isCurrenMapLoaded) {
-                    editCommand(l_playerCommand, "editcontinent");
-                } else {
-                    System.out.print("Please edit the map before editing the continent");
-                }
+                editCommand(l_playerCommand, "editcontinent");
                 break;
 
             case "editcountry":
-                if (l_isCurrenMapLoaded) {
-                    editCommand(l_playerCommand, "editcountry");
-                } else {
-                    System.out.print("Please edit the map before editing the country");
-                }
+                editCommand(l_playerCommand, "editcountry");
                 break;
 
             case "editneighbor":
-                if (l_isCurrenMapLoaded) {
-                    editCommand(l_playerCommand, "editneighbor");
-                } else {
-                    System.out.print("Please edit the map before editing the neighbors");
-                }
+                editCommand(l_playerCommand, "editneighbor");
                 break;
 
+            case "gameplayer":
+                checkIfMapIsLoaded();
+                gamePlayer(l_playerCommand, l_firstCommand);
             default:
                 throw new InvalidMap(" !!!  Base command Invalid  !!!");
 
         }
+    }
+
+    public void gamePlayer(Command p_command, String baseCommand) throws InvalidCommand {
+        List < Map < String, String >> l_listOfOperations = p_command.getListOfOperationsAndArguments();
+        if (CollectionUtils.isEmpty(l_listOfOperations)) {
+            throw new InvalidCommand("No arguments and operations are provided for " + baseCommand);
+        }
+        for (Map < String, String > l_map: l_listOfOperations) {
+            if (p_command.validateArgumentAndOperation(l_map)) {
+                d_playerHelper.updatePlayers(d_gameState, l_map.get(Constants.OPERATION), l_map.get(Constants.ARGUMENT));
+            } else {
+                throw new InvalidCommand("No arguments or operations are provided for " + baseCommand);
+            }
+        }
+
     }
 
     /**
