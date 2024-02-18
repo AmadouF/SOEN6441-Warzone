@@ -8,6 +8,7 @@ import Models.Country;
 import Models.GameState;
 import Models.Player;
 import Models.Map;
+import org.apache.commons.collections4.CollectionUtils;
 import org.davidmoten.text.utils.WordWrap;
 
 /**
@@ -197,14 +198,14 @@ public class MapView {
             printPlayers();
         }
 
-        if(!CommonUtil.isNull(d_continents)) {
+        if(CollectionUtils.isNotEmpty(d_continents)) {
             d_continents.forEach(l_continent -> {
                 printContinentName(l_continent.getD_name());
 
                 List<Country> l_continentCountries = l_continent.getD_countries();
                 final int[] l_countryIndex = { 1 };
 
-                if(!CommonUtil.isCollectionEmpty(l_continentCountries)) {
+                if(CollectionUtils.isNotEmpty(l_continentCountries)) {
                     l_continentCountries.forEach((l_country) -> {
                         String l_formattedCountryName = getFormattedCountryName(l_countryIndex[0]++, l_country.getD_name());
                         System.out.println(l_formattedCountryName);
