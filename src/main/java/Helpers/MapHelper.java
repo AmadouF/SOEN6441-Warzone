@@ -3,7 +3,7 @@ package Helpers;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import Constants.ApplicationConstants;
+
 import Exceptions.InvalidMap;
 
 import java.io.*;
@@ -14,13 +14,12 @@ import Models.Continent;
 import Models.Country;
 import Models.GameState;
 import Models.Map;
-import Utils.CommonUtil;
 
 
 public class MapHelper {
     public Map load(GameState p_gameState,String p_mapFileName){
         Map l_map=new Map();
-        String l_mapFilePath = CommonUtil.getMapFilePath(p_mapFileName);
+        String l_mapFilePath = getMapFilePath(p_mapFileName);
 		List<String> l_fileData = new ArrayList<>();
         
 		BufferedReader l_reader;
@@ -142,7 +141,7 @@ public class MapHelper {
     }
 
     public void edit(GameState p_state, String p_filePath) throws IOException{
-        String l_mapFilePath = CommonUtil.getMapFilePath(p_filePath);
+        String l_mapFilePath = getMapFilePath(p_filePath);
         File l_fileToBeEdited = new File(l_mapFilePath);
 
 		if (l_fileToBeEdited.createNewFile()) {
@@ -173,7 +172,7 @@ public class MapHelper {
             l_currentMap=p_state.getD_map();
         }
                 
-		if(!CommonUtil.isNull(l_currentMap)) {
+		if(l_currentMap!=null) {
 
             if(p_operation.equalsIgnoreCase("add") && p_argument.split(" ").length==2){
                 String l_newContinent=p_argument.split(" ")[0];
@@ -203,7 +202,7 @@ public class MapHelper {
             l_currentMap=p_state.getD_map();
         }
 
-		if(!CommonUtil.isNull(l_currentMap)) {
+		if(l_currentMap!=null) {
 
             if(p_operation.equalsIgnoreCase("add") && p_argument.split(" ").length==2){
                 String l_newCountry=p_argument.split(" ")[0];
@@ -234,7 +233,7 @@ public class MapHelper {
         }
 
 
-		if(!CommonUtil.isNull(l_currentMap)) {
+		if(l_currentMap!=null) {
 			
             
             if(p_operation.equalsIgnoreCase("add") && p_argument.split(" ").length==2){
@@ -288,8 +287,8 @@ public class MapHelper {
  					System.out.println("Validating Map......");
  					boolean l_mapValidationStatus = l_currentMap.isValidMap();
  					if (l_mapValidationStatus) {
- 						Files.deleteIfExists(Paths.get(CommonUtil.getMapFilePath(p_fileName)));
- 						FileWriter l_writer = new FileWriter(CommonUtil.getMapFilePath(p_fileName));
+ 						Files.deleteIfExists(Paths.get(getMapFilePath(p_fileName)));
+ 						FileWriter l_writer = new FileWriter(getMapFilePath(p_fileName));
 
  						if (null != p_gameState.getD_map().getContinentsList()
  								&& !p_gameState.getD_map().getContinentsList().isEmpty()) {
@@ -315,7 +314,7 @@ public class MapHelper {
  	}
      
      private void writeContinentMetadata(GameState p_gameState, FileWriter p_writer) throws IOException {
- 		p_writer.write(System.lineSeparator() + ApplicationConstants.CONTINENTS + System.lineSeparator());
+ 		p_writer.write(System.lineSeparator() + "[continents]" + System.lineSeparator());
  		for (Continent l_continent : p_gameState.getD_map().getContinentsList()) {
  			p_writer.write(
  					l_continent.getD_name().concat(" ").concat(l_continent.getD_value().toString())
@@ -329,7 +328,7 @@ public class MapHelper {
  		List<String> l_bordersList = new ArrayList<>();
 
  		
- 		p_writer.write(System.lineSeparator() + ApplicationConstants.COUNTRIES + System.lineSeparator());
+ 		p_writer.write(System.lineSeparator() + "[countries]" + System.lineSeparator());
  		for (Country l_country : p_gameState.getD_map().getCountriesList()) {
  			l_countryMetaData = new String();
  			l_countryMetaData = l_country.getD_id().toString().concat(" ").concat(l_country.getD_name())
@@ -348,11 +347,15 @@ public class MapHelper {
 
  		
  		if (null != l_bordersList && !l_bordersList.isEmpty()) {
- 			p_writer.write(System.lineSeparator() + ApplicationConstants.BORDERS + System.lineSeparator());
+ 			p_writer.write(System.lineSeparator() + "[borders]" + System.lineSeparator());
  			for (String l_borderStr : l_bordersList) {
  				p_writer.write(l_borderStr + System.lineSeparator());
  			}
  		}
  	}
+    public String getMapFilePath(String p_fileName) {
+		String l_absolutePath = new File("").getAbsolutePath();
+		return l_absolutePath + File.separator + "src/main/resources" + File.separator + p_fileName;
+	}
 
 }

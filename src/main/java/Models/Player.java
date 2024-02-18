@@ -2,10 +2,10 @@ package Models;
 
 import java.util.*;
 
-import Constants.ApplicationConstants;
+
 import Helpers.PlayerHelper;
 import Utils.Command;
-import Utils.CommonUtil;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.io.*;
 
@@ -82,14 +82,16 @@ public class Player {
         if (l_command.getFirstCommand().equalsIgnoreCase("deploy") && l_enteredCommand.split(" ").length == 3) {
         	l_playerHelper.createDeployOrder(l_enteredCommand, this);
 		} else {
-			System.out.println(ApplicationConstants.INVALID_COMMAND_ERROR_DEPLOY_ORDER);;
+			System.out.println("Invalid command. Kindly provide command in Format of : deploy countryID <CountryName> <num> (until all reinforcements have been placed)");;
 		}
+        sc.close();
     }
 
     public Order next_order(){
-        if (CommonUtil.isCollectionEmpty(this.d_issuedOrders)) {
-			return null;
-		}
+        
+        if(CollectionUtils.isEmpty(this.d_issuedOrders)){
+            return null;
+        }
         Order l_order = this.d_issuedOrders.get(0);
 		this.d_issuedOrders.remove(l_order);
 		return l_order;
