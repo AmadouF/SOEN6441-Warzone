@@ -147,7 +147,7 @@ public class GameEngine {
         if (CollectionUtils.isEmpty(l_listOfOperations)) {
             throw new InvalidCommand("No arguments and operations are provided for " + baseCommand);
         }
-        for (java.util.Map < String, String > l_map: l_listOfOperations) {
+        for (Map < String, String > l_map: l_listOfOperations) {
             if (p_command.validateArgumentAndOperation(l_map)) {
                 d_playerHelper.updatePlayers(d_gameState, l_map.get(Constants.OPERATION), l_map.get(Constants.ARGUMENT));
             } else {
@@ -162,13 +162,13 @@ public class GameEngine {
      */
     private void editCommand(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
         checkIfMapIsLoaded();
-        List < java.util.Map < String, String >> l_listOfOperations = p_command.getListOfOperationsAndArguments();
+        List < Map < String, String >> l_listOfOperations = p_command.getListOfOperationsAndArguments();
 
         if (CollectionUtils.isEmpty(l_listOfOperations)) {
             throw new InvalidCommand("No arguments and operations are provided for " + baseCommand);
         }
 
-        for (java.util.Map < String, String > l_map: l_listOfOperations) {
+        for (Map < String, String > l_map: l_listOfOperations) {
             if (p_command.validateArgumentAndOperation(l_map)) {
                 if ("editmap".equals(baseCommand)) {
                     d_mapHelper.editMap(d_gameState, l_map.get(Constants.ARGUMENT));
