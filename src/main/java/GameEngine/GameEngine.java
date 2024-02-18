@@ -72,18 +72,29 @@ public class GameEngine {
                 if ("exit".equalsIgnoreCase(l_command.trim())){
                     System.out.println("---------------- Thanks for Playing ----------------");
                 }
-            } catch (IOException l_exception) {
+            } catch (IOException | InvalidMap l_exception) {
                 l_exception.printStackTrace();
             }
         }
     }
 
-    public void processCommand(String p_commandInput){
+    public void processCommand(String p_commandInput) throws InvalidMap, IOException {
         Command l_playerCommand = new Command(p_commandInput);
         String l_firstCommand = l_playerCommand.getFirstCommand();
         // TODO check if game is loaded
-        if (l_firstCommand == "editmap"){
-            processEditMapCommand(l_playerCommand);
+
+        switch(l_firstCommand){
+            case "editmap":
+                processEditMapCommand(l_playerCommand);
+                break;
+
+            case "editcontinent":
+                editContinent(l_playerCommand);
+                break;
+
+            default:
+                throw new InvalidMap(" !!!  Base command Invalid  !!!");
+
         }
     }
 
