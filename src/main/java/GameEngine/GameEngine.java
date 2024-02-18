@@ -75,6 +75,7 @@ public class GameEngine {
                 processCommand(l_command);
                 if ("exit".equalsIgnoreCase(l_command.trim())) {
                     System.out.println("---------------- Thanks for Playing ----------------");
+                    System.exit(0);
                 }
             } catch (IOException | InvalidMap | InvalidCommand l_exception) {
                 l_exception.printStackTrace();
