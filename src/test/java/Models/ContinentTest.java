@@ -67,15 +67,34 @@ public class ContinentTest {
     @Test(expected = InvalidMap.class)
     public void testContinentSubgraphConnectedFailure() throws InvalidMap{
         Map l_map =  new Map();
-        l_map.addContinent("America", 2);
+        l_map.addContinent("America", 1);
+
         l_map.addCountry("Canada", "America");
         l_map.addCountry("USA", "America");
         l_map.addCountry("Mexico", "America");
         l_map.addCountry("Brazil", "America");
+
         l_map.addNeighbour("America", "Canada");
         l_map.addNeighbour("Brazil", "Mexico");
 
         l_map.isContinentConnected(l_map.getContinent("America"));
+    }
+
+    @Test
+    public void testContinentSubgraphConnectedSuccess() throws InvalidMap{
+        Map l_map =  new Map();
+        l_map.addContinent("America", 1);
+
+        l_map.addCountry("Canada", "America");
+        l_map.addCountry("USA", "America");
+        l_map.addCountry("Mexico", "America");
+        l_map.addCountry("Brazil", "America");
+
+        l_map.addNeighbour("America", "Canada");
+        l_map.addNeighbour("Brazil", "Mexico");
+        l_map.addNeighbour("Mexico", "America");
+
+        Assert.assertTrue(l_map.isContinentConnected(l_map.getContinent("America")));
     }
 
 }
