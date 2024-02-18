@@ -144,19 +144,19 @@ public class MapHelper {
         String l_mapFilePath = getMapFilePath(p_filePath);
         File l_fileToBeEdited = new File(l_mapFilePath);
 
-		if (l_fileToBeEdited.createNewFile()) {
-			System.out.println("File has been created.");
-			Map l_map = new Map();
-			l_map.setMapFile(p_filePath);
-			p_state.setD_map(l_map);
-		} else {
-			System.out.println("File already exists.");
-			this.load(p_state, p_filePath);
-			if (null == p_state.getD_map()) {
-				p_state.setD_map(new Map());
-			}
-			p_state.getD_map().setMapFile(p_filePath);
-		}
+        if (l_fileToBeEdited.createNewFile()) {
+          System.out.println("File has been created.");
+          Map l_map = new Map();
+          l_map.setMapFile(p_filePath);
+          p_state.setD_map(l_map);
+        } else {
+          System.out.println("File already exists.");
+          this.load(p_state, p_filePath);
+          if (null == p_state.getD_map()) {
+            p_state.setD_map(new Map());
+          }
+          p_state.getD_map().setMapFile(p_filePath);
+        }
     }
 
 
