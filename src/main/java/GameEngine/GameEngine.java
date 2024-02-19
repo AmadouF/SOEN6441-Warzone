@@ -183,7 +183,12 @@ public class GameEngine {
 
     }
 
-
+    /**
+     * This method is used to add game player to the current game
+     * @param p_command command object storing input command data
+     * @param baseCommand base command of the gameplayer command input string
+     * @throws InvalidCommand
+     */
     public void gamePlayer(Command p_command, String baseCommand) throws InvalidCommand {
         List < Map < String, String >> l_listOfOperations = p_command.getListOfOperationsAndArguments();
         if (CollectionUtils.isEmpty(l_listOfOperations)) {
@@ -200,7 +205,12 @@ public class GameEngine {
     }
 
     /**
-     *
+     * This method is used to execute command which have both arguments and operations
+     * @param p_command command object storing argument and operations
+     * @param baseCommand base command of the current command input string
+     * @throws IOException
+     * @throws InvalidMap
+     * @throws InvalidCommand
      */
     private void commonCommandExecutorWithArgumentsAndOperations(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
         checkIfMapIsLoaded();
@@ -225,6 +235,14 @@ public class GameEngine {
         }
     }
 
+    /**
+     * This method is used to execute command which have arguments only and no operations
+     * @param p_command command object storing arguments
+     * @param baseCommand base command of the current command input string
+     * @throws IOException
+     * @throws InvalidMap
+     * @throws InvalidCommand
+     */
     private void commonCommandExecutorWithArgumentsOnly(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
 
         List<Map<String, String>> l_listOfOperationsAndArguments = p_command.getListOfOperationsAndArguments();
@@ -251,6 +269,14 @@ public class GameEngine {
         }
     }
 
+    /**
+     * This method is used to execute command which have no arguments
+     * @param p_command command object with no arguments
+     * @param baseCommand base command of the current command input string
+     * @throws IOException
+     * @throws InvalidMap
+     * @throws InvalidCommand
+     */
     private void commonCommandExecutorWithNoArguments(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
         if (CollectionUtils.isEmpty(p_command.getListOfOperationsAndArguments())) {
                 if("validatemap".equals(baseCommand)) {
