@@ -217,7 +217,8 @@ public class Map {
                         for(Continent c: d_continentsList){
                             c.removeCountryNeighboursFromAll(i.getD_id());
                         }
-                        removeCountry(i.getD_name());
+                        
+                        d_countriesList.remove(i);
                         
                     }
                 }
