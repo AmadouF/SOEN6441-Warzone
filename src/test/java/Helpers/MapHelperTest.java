@@ -74,10 +74,10 @@ public class MapHelperTest {
     public void testAddCountry() throws IOException, InvalidMap{
         Map l_newMap=new Map();
         d_GameState.setD_map(l_newMap);
-        
-		d_MapHelper.editCountry(d_GameState, "Europe Asia", "add");
+        d_MapHelper.editContinent(d_GameState, "Asia 5", "add");
+		d_MapHelper.editCountry(d_GameState, "India Asia", "add");
 
-		assertEquals(d_GameState.getD_map().getCountryByName("Europe").getD_name(), "Europe");
+		assertEquals(d_GameState.getD_map().getCountryByName("India").getD_name(), "India");
     }
     /**
      * This method tests the remove country operation
@@ -88,9 +88,9 @@ public class MapHelperTest {
     public void testRemoveCountry() throws IOException, InvalidMap{
         Map l_newMap=new Map();
         d_GameState.setD_map(l_newMap);
-        
-		d_MapHelper.editCountry(d_GameState, "Europe Asia", "add");
-		d_MapHelper.editCountry(d_GameState, "America", "remove");
+        d_MapHelper.editContinent(d_GameState, "Asia 5", "add");
+		d_MapHelper.editCountry(d_GameState, "India Asia", "add");
+		d_MapHelper.editCountry(d_GameState, "China", "remove");
     }
     /**
      * This method tests the add neighbor operation
