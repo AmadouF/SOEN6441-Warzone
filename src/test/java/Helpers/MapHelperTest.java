@@ -24,7 +24,7 @@ public class MapHelperTest {
         d_Map=new Map();
         d_GameState=new GameState();
         d_MapHelper=new MapHelper();
-        d_MapHelper.load(d_GameState, "canada.map");
+        d_MapHelper.load(d_GameState, "sampleMap.txt");
     }
     /**
      * This method tests the add continent operation
