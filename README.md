@@ -3,7 +3,7 @@
 **WarZone Project of Winter 2024**
 
 # Instructor
-Joey Paquet
+Dr. Joey Paquet
 
 # Contributor
 * Avi Lad - 40291763 (avilad1010@gmail.com)
