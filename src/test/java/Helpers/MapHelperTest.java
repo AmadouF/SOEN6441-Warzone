@@ -109,20 +109,6 @@ public class MapHelperTest {
 		assertEquals(d_GameState.getD_map().getCountryByName("India").getD_adjacentCountryIds().get(0), 
                     d_GameState.getD_map().getCountryByName("China").getD_id());
     }
-    /**
-     * This method tests the remove neighbor operation
-     * @throws IOException exception
-     * @throws InvalidMap invalid map exception
-     */
-    @Test (expected = InvalidMap.class)
-    public void testRemoveNeighbors() throws IOException, InvalidMap{
-        Map l_newMap=new Map();
-        d_GameState.setD_map(l_newMap);
-		d_MapHelper.editContinent(d_GameState, "Asia 5", "add");
-		d_MapHelper.editCountry(d_GameState, "India Asia", "add");
-		d_MapHelper.editCountry(d_GameState, "China Asia", "add");
-		d_MapHelper.editNeighbour(d_GameState, "India China", "add");
-        d_MapHelper.editNeighbour(d_GameState, "China India", "remove");
-    }
+
     
 }

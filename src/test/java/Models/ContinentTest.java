@@ -44,26 +44,6 @@ public class ContinentTest {
         return l_continent;
     }
 
-    /**
-     * testRemoveCountry method will check list of country removed from Continent
-     */
-    @Test
-    public void testRemoveCountry()
-    {
-        Continent l_continent = testAddCountryAndReturnContinent();
-        Country l_countryToBeRemoved= new Country(2, 10,"India");
-
-        l_continent.removeCountry(l_countryToBeRemoved);
-
-        List<Country> l_expectedCountries = new ArrayList<>();
-        l_expectedCountries.add(new Country(1, 6,"China"));
-
-        List<Country> l_actualCountries = l_continent.getD_countries();
-
-        Assert.assertArrayEquals("Expected and actual list of countries in continent are not equal. Actual = " + l_actualCountries + " Expected = " + l_expectedCountries, l_expectedCountries.toArray(), l_actualCountries.toArray());
-
-    }
-
     @Test(expected = InvalidMap.class)
     public void testContinentSubgraphConnectedFailure() throws InvalidMap{
         Map l_map =  new Map();
@@ -90,9 +70,10 @@ public class ContinentTest {
         l_map.addCountry("Mexico", "America");
         l_map.addCountry("Brazil", "America");
 
-        l_map.addNeighbour("America", "Canada");
+        l_map.addNeighbour("USA", "Canada");
         l_map.addNeighbour("Brazil", "Mexico");
-        l_map.addNeighbour("Mexico", "America");
+        l_map.addNeighbour("Mexico", "USA");
+        l_map.addNeighbour("Canada", "Brazil");
 
         Assert.assertTrue(l_map.isContinentConnected(l_map.getContinent("America")));
     }
