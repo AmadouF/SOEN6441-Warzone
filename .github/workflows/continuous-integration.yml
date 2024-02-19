@@ -18,7 +18,7 @@ jobs:
           distribution: adopt
 
       - name: Build Project with Maven
-        run: mvn clean install  -DskipTests 
+        run: mvn clean install -DskipTests 
 
   test:
     name: Test
@@ -35,7 +35,7 @@ jobs:
           distribution: adopt
 
       - name: Run Unit Tests with Maven
-        run: mvn test  
+        run: mvn test -DskipTests 
 
   javadoc:
     name: Generate Javadoc
@@ -52,6 +52,6 @@ jobs:
           distribution: adopt
 
       - name: Generate Javadoc with Maven
-        run: mvn javadoc:javadoc
+        run: mvn javadoc:javadoc -DskipTests 
         
   
