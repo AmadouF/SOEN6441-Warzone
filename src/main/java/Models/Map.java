@@ -80,7 +80,7 @@ public class Map {
         List<Integer> l_countryIDs = new ArrayList<Integer>();
         if(!d_countriesList.isEmpty()){
             for(Country c: d_countriesList){
-                l_countryIDs.add(c.getD_continentId());
+                l_countryIDs.add(c.getD_id());
             }
         }
         return l_countryIDs;
