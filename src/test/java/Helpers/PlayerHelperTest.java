@@ -151,13 +151,13 @@ public class PlayerHelperTest {
      * Used to check that player cannot deploy more armies than they have
      */
     @Test
-    public void testIsValidArmies() {
-        d_player.setReinforcement(10);
-        String l_noOfArmies = "4";
+    public void testInvalidArmies() {
+        d_player.setReinforcement(5);
+        String l_noOfArmies = "10";
 
         boolean l_isValid = d_playerHelper.isValidArmies(d_player, l_noOfArmies);
 
-        Assert.assertTrue(l_isValid);
+        Assert.assertFalse(l_isValid);
     }
 
     /**
