@@ -35,7 +35,7 @@ jobs:
           distribution: adopt
 
       - name: Run Unit Tests with Maven
-        run: mvn test -DskipTests 
+        run: mvn test
 
   javadoc:
     name: Generate Javadoc
