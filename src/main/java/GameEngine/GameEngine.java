@@ -28,8 +28,14 @@ public class GameEngine {
      */
     private GameState d_gameState;
 
+    /**
+     * Helper to change the state of a map object
+     */
    private  MapHelper d_mapHelper;
 
+    /**
+     * Helper to change the state of a player object
+     */
     private PlayerHelper d_playerHelper;
 
     /**
@@ -62,7 +68,7 @@ public class GameEngine {
     }
 
     /**
-     *
+     * This method starts an infinite loop which processes the input commands from the players
      */
     private void startGame() {
 

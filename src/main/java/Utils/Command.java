@@ -41,6 +41,11 @@ public class Command {
         return this.d_rootCommand;
     }
 
+    /**
+     * Go over the list of operations and split them between operations and arguments
+     * 
+     * @return a list of hashmap of arguments and operations
+     */
     public List<Map<String, String>> getListOfOperationsAndArguments(){
         List<Map<String , String>> l_listOfOperations  = new ArrayList<Map<String,String>>();
         String l_operationsStr = d_playerCommand.replace(d_rootCommand, "").trim();
@@ -75,10 +80,21 @@ public class Command {
 
 }
 
+    /**
+     * Check the list of arguments and operations are not empty
+     * 
+     * @return a boolean stating if the list of operations and arguments is empty
+     */
     public boolean validateArgumentAndOperation(Map<String, String> p_Map) {
         return StringUtils.isNotBlank(p_Map.get(Constants.ARGUMENT)) && StringUtils.isNotBlank(p_Map.get(Constants.OPERATION));
     }
 
+
+    /**
+     * Check the list of arguments is not empty
+     * 
+     * @return a boolean stating if the list of arguments is empty
+     */
     public boolean validateArgumentsOnly(Map<String, String> p_Map) {
         return StringUtils.isNotBlank(p_Map.get(Constants.ARGUMENT));
     }
