@@ -295,12 +295,22 @@ public class GameEngine {
             }
     }
 
+    /**
+     * This is method is check if map file is loading
+     * @throws InvalidCommand
+     */
     private void checkIfMapIsLoaded() throws InvalidCommand {
         if (d_gameState.getD_map() == null) {
             throw new InvalidCommand("Cannot execute this command, Map is required to be loaded first");
         }
     }
 
+    /**
+     * This method is used to start the game loop with already loaded map file
+     * @param p_command command object with assign country argument
+     * @throws InvalidCommand
+     * @throws IOException
+     */
     public void assignCountries(Command p_command) throws InvalidCommand, IOException {
         checkIfMapIsLoaded();
         List<Map<String, String>> l_listOfOperationsAndArguments = p_command.getListOfOperationsAndArguments();
@@ -312,6 +322,10 @@ public class GameEngine {
         }
     }
 
+    /**
+     * This method is used to start the game and assign armies to the players, take order from the player
+     * @throws IOException
+     */
     private void startGameLoop() throws IOException {
         System.out.println("\n\n ------------ Game Starting Now -------------- \n");
         for (int l_i=1; CollectionUtils.isNotEmpty(d_gameState.getD_players()) && d_gameState.getD_players().size()>1 ; l_i++) {
