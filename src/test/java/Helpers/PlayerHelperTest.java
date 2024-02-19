@@ -180,8 +180,8 @@ public class PlayerHelperTest {
 
         Assert.assertEquals(1, l_player.getIssuedOrders().size());
 
-        Assert.assertEquals("Israel", l_player.getIssuedOrders().getFirst().getD_targetCountryName());
+        Assert.assertEquals("Israel", l_player.getIssuedOrders().get(0).getD_targetCountryName());
 
-        Assert.assertEquals("5", l_player.getIssuedOrders().getFirst().getD_numberOfArmiesToDeploy().toString());
+        Assert.assertEquals("5", l_player.getIssuedOrders().get(0).getD_numberOfArmiesToDeploy().toString());
     }
 }

@@ -26,7 +26,9 @@ public class Map {
      * Stores the map file name.
      */
     private String d_mapFile;
-
+    /**
+     * Constructor to set the data members
+     */
     public Map() {
         this.d_countryNeighbours = new HashMap<Country, Boolean>();
         this.d_continentsList = new ArrayList<Continent>();
@@ -69,6 +71,10 @@ public class Map {
     public void setMapFile(String p_mapFile){
         this.d_mapFile=p_mapFile;
     }
+    /**
+     * getter method to get the name of the map file.
+     * @return map file name
+     */
     public String getMapFile(){
         return this.d_mapFile;
     }
@@ -166,7 +172,10 @@ public class Map {
         return d_continentsList.stream().filter(l_continent -> l_continent.getD_name().equals(p_continentName)).findFirst().orElse(null);
      }
 
-
+     /**
+     * method to get list of Continent IDs.
+     * @return List of continent IDs
+     */
      public List<Integer> getContinentIDs(){
         List<Integer> l_continentIDs = new ArrayList<Integer>();
         if (!d_continentsList.isEmpty()) {
