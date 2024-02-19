@@ -1,0 +1,18 @@
+
+[continents]
+Asia 4
+America 4
+
+[countries]
+1 India 1
+2 Pak 1
+2 Japan 1
+2 Canada 2
+3 USA 2
+
+[borders]
+1 2
+2 3
+2 3
+2 3
+3 2
