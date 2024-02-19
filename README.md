@@ -1,6 +1,6 @@
 # SOEN-6441 Advanced Programming Practices
 # **SOEN6441-WarZone Team7**
-**WarZone Project of Winter 2024**
+**WarZone Project of Term Winter 2024**
 
 # Instructor
 Dr. Joey Paquet
