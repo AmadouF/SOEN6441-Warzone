@@ -34,3 +34,7 @@ T
 $src/test/java/Views/MapViewTest.java,c\6\c6e5be14ee125b3c17fdf3d90994226c3db60c08
 T
 $src/main/java/Helpers/MapHelper.java,1\e\1eaf1d1f3e2c5d8ddd13c3089a46c5f0f056817d
+P
+ src/main/java/Utils/Command.java,d\b\dbccd58a201307c8da2b54d962ac0bd1cc532e71
+7
+pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
