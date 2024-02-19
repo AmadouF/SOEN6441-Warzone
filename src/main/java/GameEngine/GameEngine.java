@@ -154,12 +154,12 @@ public class GameEngine {
                         System.out.println("The maps has been loaded");
                     }
                 } catch (InvalidMap l_invalidMapException) {
+                    System.out.println(l_invalidMapException.getMessage());
                     d_gameState.setD_map(new Models.Map());
                 }
             } else {
                 throw new InvalidCommand("The command for loadmap is invalid");
             }
-
         }
 
     }

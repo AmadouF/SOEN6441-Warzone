@@ -2,6 +2,7 @@ package Views;
 
 import java.util.*;
 
+import Constants.Constants;
 import Exceptions.InvalidMap;
 import Models.Continent;
 import Models.Country;
@@ -41,16 +42,6 @@ public class MapView {
     private List<Continent> d_continents;
 
     /**
-     * constant value to determine width of the console
-     */
-    public final int CONSOLE_WIDTH = 80;
-
-    /**
-     * constant value for printing continent value
-     */
-    public final String CONTROL_VALUE = "Control Value";
-
-    /**
      * Constructor to initialise MapView.
      *
      * @param p_gameState Current GameState.
@@ -80,7 +71,7 @@ public class MapView {
      * Prints separators for heading
      */
     private void printSeparator() {
-        System.out.format("+%s+%n", "-".repeat(CONSOLE_WIDTH - 2));
+        System.out.format("+%s+%n", "-".repeat(Constants.CONSOLE_WIDTH - 2));
     }
 
     /**
@@ -101,10 +92,10 @@ public class MapView {
      * @param p_continentName Continent Name to be rendered.
      */
     private void printContinentName(String p_continentName) {
-        String l_continentName = p_continentName + " ( " + CONTROL_VALUE + " : " + d_gameState.getD_map().getContinent(p_continentName).getD_value() + " )";
+        String l_continentName = p_continentName + " ( Bonus : " + d_gameState.getD_map().getContinent(p_continentName).getD_value() + " )";
 
         printSeparator();
-        printCenteredString(CONSOLE_WIDTH, l_continentName);
+        printCenteredString(Constants.CONSOLE_WIDTH, l_continentName);
         printSeparator();
     }
 
@@ -117,6 +108,7 @@ public class MapView {
      * @return Returns the Formatted String
      */
     private String getFormattedCountryName(int p_index, String p_countryName) {
+        // Prefixing one digit number with 0 to get double digits
         String l_indexedString = String.format("%02d. %s", p_index, p_countryName);
 
         if(d_players != null) {
@@ -135,12 +127,14 @@ public class MapView {
     private void printFormattedAdjacentCountryName(List<Country> p_adjCountries){
         StringBuilder l_commaSeparatedCountries = new StringBuilder();
 
+        // Creating comma separated countries
         for(int i = 0; i < p_adjCountries.size(); i++) {
             l_commaSeparatedCountries.append(p_adjCountries.get(i).getD_name());
+
             if(i < p_adjCountries.size() - 1)
                 l_commaSeparatedCountries.append(", ");
         }
-        String l_adjacentCountry = "Connections : "+ WordWrap.from(l_commaSeparatedCountries.toString()).maxWidth(CONSOLE_WIDTH).wrap();
+        String l_adjacentCountry = "Connections : " + WordWrap.from(l_commaSeparatedCountries.toString()).maxWidth(Constants.CONSOLE_WIDTH).wrap();
         System.out.println(l_adjacentCountry);
         System.out.println();
     }
@@ -163,7 +157,7 @@ public class MapView {
         int l_count = 0;
 
         printSeparator();
-        printCenteredString(CONSOLE_WIDTH, "Players in the Game");
+        printCenteredString(Constants.CONSOLE_WIDTH, "Players in the Game");
         printSeparator();
 
         for (Player player: d_players) {

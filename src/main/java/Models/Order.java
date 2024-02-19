@@ -130,10 +130,12 @@ public class Order {
     public void execute(GameState p_gameState, Player p_player) {
         switch (this.d_orderAction) {
             case "deploy":
+                // Checking whether player can deploy or not
                 if(this.validateOrderCountry(p_player, this)) {
-                    this.executeDeploy(this, p_gameState, p_player);
-                    System.out.println("\nOrder has been executed successfully. " + this.getD_numberOfArmiesToDeploy()
-                        + " number of armies has been deployed to country : "
+                    this.executeDeploy(this, p_gameState);
+
+                    System.out.println("\nOrder executed successfully. " + this.getD_numberOfArmiesToDeploy()
+                        + " armies has been deployed to country : "
                         + this.getD_targetCountryName());
                 } else {
                     System.out.println("\nOrder is invalid, because the target country given does not belong to player : "
@@ -167,11 +169,13 @@ public class Order {
      * @param p_gameState current state of the game
      * @param p_player player whose order is being executed
      */
-    public void executeDeploy(Order p_order, GameState p_gameState, Player p_player) {
+    public void executeDeploy(Order p_order, GameState p_gameState) {
         for (Country l_country: p_gameState.getD_map().getCountriesList()) {
             if (l_country.getD_name().equalsIgnoreCase(p_order.getD_targetCountryName())) {
+                // If there is no army then set number of armies, else add to the armies
                 Integer l_armiesToChange = l_country.getD_army() == null ? p_order.getD_numberOfArmiesToDeploy()
                         : l_country.getD_army() + p_order.getD_numberOfArmiesToDeploy();
+
                 l_country.setD_army(l_armiesToChange);
             }
         }
