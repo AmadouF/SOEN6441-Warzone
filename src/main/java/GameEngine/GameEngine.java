@@ -29,7 +29,7 @@ public class GameEngine {
     private GameState d_gameState;
 
     /**
-     * Helper to change the state of a map object
+     * Stores the information about the
      */
    private  MapHelper d_mapHelper;
 
@@ -91,6 +91,14 @@ public class GameEngine {
         }
     }
 
+    /**
+     *
+     * This method takes the command from the user like editmap, savemap, showmap etc.
+     * @param p_commandInput command from the user
+     * @throws InvalidMap
+     * @throws IOException
+     * @throws InvalidCommand
+     */
     public void processCommand(String p_commandInput) throws InvalidMap, IOException, InvalidCommand {
         Command l_playerCommand = new Command(p_commandInput);
         String l_firstCommand = l_playerCommand.getFirstCommand();
@@ -143,6 +151,11 @@ public class GameEngine {
         }
     }
 
+    /**
+     * This method is used to load map file
+     * @param p_command command of lading map
+     * @throws InvalidCommand
+     */
     public void loadMap(Command p_command) throws InvalidCommand {
         List < Map < String, String >> l_listOfOperations = p_command.getListOfOperationsAndArguments();
         if (CollectionUtils.isEmpty(l_listOfOperations)) {
