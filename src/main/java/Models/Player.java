@@ -119,11 +119,10 @@ public class Player {
      * @throws IOException Exception
      */
     public void issue_order() throws IOException{
-        Scanner sc=new Scanner(System.in);
-        System.out.println("Enter Deployment order: ");
+        BufferedReader sc= new BufferedReader(new InputStreamReader(System.in));
         PlayerHelper l_playerHelper = new PlayerHelper();
 		System.out.println("\nEnter command to deploy reinforcement armies on the map for player : " + this.getPlayerName());
-        String l_enteredCommand=sc.nextLine();
+        String l_enteredCommand=sc.readLine();
         Command l_command=new Command(l_enteredCommand);
 
         if (l_command.getFirstCommand().equalsIgnoreCase("deploy") && l_enteredCommand.split(" ").length == 3) {
@@ -131,7 +130,6 @@ public class Player {
 		} else {
 			System.out.println("Invalid command. Kindly provide command in Format of : deploy countryID <CountryName> <num> (until all reinforcements have been placed)");;
 		}
-        sc.close();
     }
     /**
      * This method gives the next order that is to be executed
