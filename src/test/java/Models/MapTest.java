@@ -9,7 +9,9 @@ import org.junit.Test;
 import Exceptions.InvalidMap;
 
 import java.util.*;
-
+/**
+ * This class tests the functionality of Map module.
+ */
 public class MapTest {
     /**
      * Pointer for the Map object
@@ -35,6 +37,7 @@ public class MapTest {
 
     /**
      * Tests the validity of the map.
+     * @throws InvalidMap Exception
      */
     @Test
     public void testIsValidMap() throws InvalidMap{
@@ -43,6 +46,7 @@ public class MapTest {
     }
     /**
      * Tests the map with no continent.
+     * @throws InvalidMap Exception
      */
     @Test (expected = InvalidMap.class)
     public void testNoContinent() throws InvalidMap{
@@ -64,6 +68,7 @@ public class MapTest {
 
     /**
      * Tests the map with the countries are connected.
+     * @throws InvalidMap Exception
      */
     @Test
     public void testCountriesConnectedSuccess() throws InvalidMap{
