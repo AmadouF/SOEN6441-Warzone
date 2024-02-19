@@ -14,7 +14,7 @@ jobs:
         with:
           java-version: 21
       - name: Maven Clean Install
-        run: mvn clean install
+        run: mvn clean install -DskipTests
       - name: Run Junit Tests
         run: mvn test
       - name: Generate JavaDoc

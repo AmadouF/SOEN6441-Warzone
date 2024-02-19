@@ -108,7 +108,14 @@ public class GameEngine {
                 commonCommandExecutorWithNoArguments(l_playerCommand, l_firstCommand);
                 break;
 
-            case "editcontinent", "editneighbor", "editcountry":
+            case "editcontinent":
+                commonCommandExecutorWithArgumentsAndOperations(l_playerCommand, l_firstCommand);
+                break;
+            
+            case "editneighbor":
+                commonCommandExecutorWithArgumentsAndOperations(l_playerCommand, l_firstCommand);
+                break;
+            case "editcountry":
                 commonCommandExecutorWithArgumentsAndOperations(l_playerCommand, l_firstCommand);
                 break;
 
