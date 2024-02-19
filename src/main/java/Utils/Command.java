@@ -25,7 +25,7 @@ public class Command {
     /**
      * Constructor will set the values of the d_playerCommand and d_rootCommand date members.
      * 
-     * @param d_playerCommand
+     * @param d_playerCommand Entered player command
      */
     public Command(String p_playerCommand) {
         this.d_playerCommand = p_playerCommand.trim().replaceAll("\\s+", " ");

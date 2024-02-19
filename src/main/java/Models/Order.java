@@ -167,7 +167,6 @@ public class Order {
      *
      * @param p_order order which is being executed
      * @param p_gameState current state of the game
-     * @param p_player player whose order is being executed
      */
     public void executeDeploy(Order p_order, GameState p_gameState) {
         for (Country l_country: p_gameState.getD_map().getCountriesList()) {
