@@ -1,0 +1,57 @@
+name: Maven Build Automation for Project
+
+on: push
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: 21
+          distribution: adopt
+
+      - name: Build Project with Maven
+        run: mvn clean install -DskipTests 
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: 21
+          distribution: adopt
+
+      - name: Run Unit Tests with Maven
+        run: mvn test
+
+  javadoc:
+    name: Generate Javadoc
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: 21
+          distribution: adopt
+
+      - name: Generate Javadoc with Maven
+        run: mvn javadoc:javadoc -DskipTests 
+        
+  
