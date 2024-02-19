@@ -61,6 +61,25 @@ public class MapTest {
         d_Map.setContinents(l_Continents);
         d_Map.isValidMap();
     }
+
+    /**
+     * Tests the map with the countries are connected.
+     */
+    @Test
+    public void testCountriesConnectedSuccess() throws InvalidMap{
+        d_Map.addContinent("Europe", 4);
+
+        d_Map.addCountry("Germany", "Europe");
+        d_Map.addCountry("Spain", "Europe");
+        d_Map.addCountry("France", "Europe");
+
+        d_Map.addNeighbour("France", "Spain");
+        d_Map.addNeighbour("Spain", "Germany");
+        d_Map.addNeighbour("Germany", "France");
+        d_Map.addNeighbour("France", "Germany");
+
+        assertTrue(d_Map.areCountriesConnected());
+    }
     /**
      * Tests the map with the countries not connected.
      * @throws InvalidMap exception
