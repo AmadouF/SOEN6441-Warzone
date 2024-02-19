@@ -261,7 +261,7 @@ public class MapHelper {
                 l_currentMap.addNeighbour(l_country, l_neighbour);
             }
 			
-            if(p_operation.equalsIgnoreCase("remove") && p_argument.split(" ").length==1){
+            if(p_operation.equalsIgnoreCase("remove") && p_argument.split(" ").length==2){
                 String l_country=p_argument.split(" ")[0];
                 
                 String l_neighbour=p_argument.trim().split(" ")[1];
