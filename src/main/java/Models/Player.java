@@ -115,7 +115,7 @@ public class Player {
         return this.d_reinforcement;
     }
     /**
-     * This methods takes the input for the deployment order
+     * This method takes the input for the deployment order
      * @throws IOException Exception
      */
     public void issue_order() throws IOException{

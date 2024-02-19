@@ -293,7 +293,7 @@ public class Map {
         
     }
     /**
-     * This methos checks whether all the countries are connected or not. [Directed connected graph]
+     * This method checks whether all the countries are connected or not. [Directed connected graph]
      * @return True or False. Are the countries connected or not.
      * @throws InvalidMap exception
      */
