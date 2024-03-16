@@ -51,7 +51,7 @@ public class MapHelper {
             List<String> l_countries=l_fileData.subList(l_countriesDataStart, l_countriesDataEnd);
             List<Country> l_countriesObj=createCountryObjects(l_countries);
             l_continentsObj = linkCountryContinents(l_countriesObj, l_continentsObj);
-
+            l_map.setContinents(l_continentsObj);
             int l_bordersDataStart=l_fileData.indexOf(Constants.BORDERS)+1;
             int l_bordersDataEnd=l_fileData.size();
             List<String> l_borders=l_fileData.subList(l_bordersDataStart, l_bordersDataEnd);
