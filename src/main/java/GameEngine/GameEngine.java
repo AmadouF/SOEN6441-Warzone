@@ -6,17 +6,13 @@ import Exceptions.InvalidMap;
 import Helpers.MapHelper;
 import Helpers.PlayerHelper;
 import Models.GameState;
-import Models.Order;
 import Models.Phase;
-import Models.Player;
 import Models.StartUpPhase;
 import Utils.Command;
 import Views.MapView;
 import org.apache.commons.collections4.CollectionUtils;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
 
