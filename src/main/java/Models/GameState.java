@@ -1,5 +1,7 @@
 package Models;
 
+import Views.LogWriterView;
+
 import java.util.List;
 
 /**
@@ -31,7 +33,13 @@ public class GameState {
     /**
      * Log Entry Buffer to write messages to log file
      */
-    LogEntryBuffer d_logEntryBuffer = new LogEntryBuffer();
+    LogEntryBuffer d_logEntryBuffer;
+    LogWriterView d_logWriterView;
+
+    public GameState(){
+        d_logEntryBuffer = new LogEntryBuffer();
+        d_logWriterView = new LogWriterView(d_logEntryBuffer);
+    }
 
     /**
      * Getter method to get the game map

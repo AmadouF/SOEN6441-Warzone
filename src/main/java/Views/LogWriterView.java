@@ -13,10 +13,13 @@ import java.nio.file.StandardOpenOption;
 
 public class LogWriterView implements Observer {
 
+    public LogWriterView(LogEntryBuffer p_logEntryBuffer){
+        p_logEntryBuffer.addObserver(this);
+    }
     LogEntryBuffer d_logEntryBuffer;
     @Override
-    public void update(Observable l_observable) {
-        d_logEntryBuffer = (LogEntryBuffer) l_observable;
+    public void update(Observable p_observable) {
+        d_logEntryBuffer = (LogEntryBuffer) p_observable;
         File l_logfile = new File(Constants.GAMELOGS_FILE_NAME);
         String l_logMessage = d_logEntryBuffer.getD_logMessage();
 

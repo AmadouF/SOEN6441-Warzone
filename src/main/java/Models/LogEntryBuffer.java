@@ -13,8 +13,6 @@ public class LogEntryBuffer extends  Observable{
      * Constructor to add LogWriter Observer object to the list of observers
      */
     public LogEntryBuffer(){
-        LogWriterView l_logWriter = new LogWriterView();
-        this.addObserver(l_logWriter);
     }
 
     /**
