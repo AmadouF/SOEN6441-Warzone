@@ -186,7 +186,7 @@ public class PlayerHelper {
      * @param p_players list of all available players
      * @param p_continents list of all available continents
      */
-    private void assignContinents(List<Player> p_players, List<Continent> p_continents) {
+    public void assignContinents(List<Player> p_players, List<Continent> p_continents) {
         for (Player l_pl : p_players) {
             List<String> l_countriesOwned = new ArrayList<String>();
 
