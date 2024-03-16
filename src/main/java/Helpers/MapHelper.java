@@ -121,9 +121,9 @@ public class MapHelper {
 			}
 		}
         //assigns the neighboring countries list for the appropriate country object
-		for (Country c : p_countries) {
-			List<Integer> l_adjacentCountries = l_countryNeighbors.get(c.getD_id());
-			c.setD_adjacentCountryIds(l_adjacentCountries);
+		for (Country l_country : p_countries) {
+			List<Integer> l_adjacentCountries = l_countryNeighbors.get(l_country.getD_id());
+			l_country.setD_adjacentCountryIds(l_adjacentCountries);
 		}
 
 
@@ -283,10 +283,10 @@ public class MapHelper {
      * @return List of Continents after connecting the countries
      */
     public List<Continent> linkCountryContinents(List<Country> p_countries, List<Continent> p_continents) {
-		for (Country c : p_countries) {
+		for (Country l_country : p_countries) {
 			for (Continent cont : p_continents) {
-				if (cont.getD_id().equals(c.getD_continentId())) {
-					cont.addCountry(c);
+				if (cont.getD_id().equals(l_country.getD_continentId())) {
+					cont.addCountry(l_country);
 				}
 			}
 		}

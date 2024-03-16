@@ -11,22 +11,22 @@ public class GameState {
     /**
      * Map object to store the game map details for the current game
      */
-    Map d_map;
+    private Map d_map;
 
     /**
      * List of Players in the current game
      */
-    List<Player> d_players;
+    private List<Player> d_players;
 
     /**
      * list of orders in queue left to be executed.
      */
-    List<Order> d_ordersToBeExecuted;
+    private List<Order> d_ordersToBeExecuted;
 
     /**
      * Error message
      */
-    String d_error;
+    private String d_error;
 
     /**
      * Getter method to get the game map
