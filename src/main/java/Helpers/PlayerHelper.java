@@ -215,50 +215,6 @@ public class PlayerHelper {
     }
 
     /**
-     * creates the deploy order on the commands entered by the player.
-     *
-     * @param p_commandEntered command entered by the user
-     * @param p_player player to create deploy order
-     */
-    public void createDeployOrder(String p_commandEntered, Player p_player) {
-        List<Order> l_orders = CollectionUtils.isEmpty(p_player.getIssuedOrders()) ? new ArrayList<>()
-                : p_player.getIssuedOrders();
-
-        String l_countryName = p_commandEntered.split(" ")[1];
-        String l_noOfArmies = p_commandEntered.split(" ")[2];
-
-        if (!isValidArmies(p_player, l_noOfArmies)) {
-            System.out.println(
-                    "Player does not have enough reinforcements to deploy!! Aborted.");
-        } else {
-            Order l_order = new Order(p_commandEntered.split(" ")[0], l_countryName,
-                    Integer.parseInt(l_noOfArmies));
-
-            l_orders.add(l_order);
-            p_player.setIssuedOrders(l_orders);
-
-            // Updating reinforcements of the player
-            int l_reinforcements = p_player.getReinforcements() - Integer.parseInt(l_noOfArmies);
-            p_player.setReinforcement(l_reinforcements);
-
-            System.out.println("Order has been created and added to queue.");
-        }
-    }
-
-    /**
-     * Used to test number of armies entered in deploy command to check that player
-     * cannot deploy more armies than they have.
-     *
-     * @param p_player player to create deploy order
-     * @param p_noOfArmies number of armies to deploy
-     *
-     * @return boolean to validate armies to deploy
-     */
-    public boolean isValidArmies(Player p_player, String p_noOfArmies) {
-        return p_player.getReinforcements() >= Integer.parseInt(p_noOfArmies);
-    }
-
-    /**
      * Calculates armies of player based on countries and continents owned.
      *
      * @param p_player player for which armies have to be calculated
@@ -362,5 +318,10 @@ public class PlayerHelper {
      */
     public boolean isMapLoaded(GameState p_gameState) {
         return p_gameState.getD_map() != null;
+    }
+
+    public Player findPlayerByName(String p_playerName, GameState p_gameState) {
+        return p_gameState.getD_players().stream().filter(l_pl -> l_pl.getPlayerName().equals(p_playerName))
+                .findFirst().orElse(null);
     }
 }

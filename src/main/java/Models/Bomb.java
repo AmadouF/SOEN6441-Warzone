@@ -90,6 +90,6 @@ public class Bomb implements Card {
         this.d_orderExecutionLog = "\n******* Bomb card order issued by " + this.d_playerInitiator.getPlayerName() + " *******\n"
                 + System.lineSeparator() + "Creating a bomb order on " + this.d_targetCountryName;
 
-        // TODO: Log the message
+        System.out.println(System.lineSeparator() + this.d_orderExecutionLog);
     }
 }
