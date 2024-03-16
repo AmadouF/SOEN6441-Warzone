@@ -12,6 +12,7 @@ import Models.Continent;
 import Models.Country;
 import Models.GameState;
 import Models.Map;
+import Constants.Constants;
 
 /**
  * This class processes the map functions like loading, reading, editing and saving the map.
@@ -39,19 +40,19 @@ public class MapHelper {
 		
         // parses the continents , countries and borders on the basis of the labels mentioned in the file.
         if(l_fileData!=null && !l_fileData.isEmpty()){
-            int l_continentsDataStart=l_fileData.indexOf("[continents]")+1;
-            int l_continentsDataEnd=l_fileData.indexOf("[countries]")-1;
+            int l_continentsDataStart=l_fileData.indexOf(Constants.CONTINENTS)+1;
+            int l_continentsDataEnd=l_fileData.indexOf(Constants.COUNTRIES)-1;
             List<String> l_continents=l_fileData.subList(l_continentsDataStart, l_continentsDataEnd);
             List<Continent> l_continentsObj=createContinentObjects(l_continents);
             l_map.setContinents(l_continentsObj);
 
-            int l_countriesDataStart=l_fileData.indexOf("[countries]")+1;
-            int l_countriesDataEnd=l_fileData.indexOf("[borders]")-1;
+            int l_countriesDataStart=l_fileData.indexOf(Constants.COUNTRIES)+1;
+            int l_countriesDataEnd=l_fileData.indexOf(Constants.BORDERS)-1;
             List<String> l_countries=l_fileData.subList(l_countriesDataStart, l_countriesDataEnd);
             List<Country> l_countriesObj=createCountryObjects(l_countries);
             l_continentsObj = linkCountryContinents(l_countriesObj, l_continentsObj);
 
-            int l_bordersDataStart=l_fileData.indexOf("[borders]")+1;
+            int l_bordersDataStart=l_fileData.indexOf(Constants.BORDERS)+1;
             int l_bordersDataEnd=l_fileData.size();
             List<String> l_borders=l_fileData.subList(l_bordersDataStart, l_bordersDataEnd);
             l_countriesObj=setConnectivity(l_countriesObj,l_borders);
@@ -347,7 +348,7 @@ public class MapHelper {
      * @throws IOException Exception
     */
     private void writeContinentMetadata(GameState p_gameState, FileWriter p_writer) throws IOException {
- 		p_writer.write(System.lineSeparator() + "[continents]" + System.lineSeparator());
+ 		p_writer.write(System.lineSeparator() + Constants.CONTINENTS + System.lineSeparator());
  		for (Continent l_continent : p_gameState.getD_map().getContinentsList()) {
  			p_writer.write(
  					l_continent.getD_name().concat(" ").concat(l_continent.getD_value().toString())
@@ -366,7 +367,7 @@ public class MapHelper {
  		List<String> l_bordersList = new ArrayList<>();
 
  		//Writes the countries data and creates the adjacent countries list/ borders list
- 		p_writer.write(System.lineSeparator() + "[countries]" + System.lineSeparator());
+ 		p_writer.write(System.lineSeparator() + Constants.COUNTRIES + System.lineSeparator());
  		for (Country l_country : p_gameState.getD_map().getCountriesList()) {
  			l_countryMetaData = new String();
  			l_countryMetaData = l_country.getD_id().toString().concat(" ").concat(l_country.getD_name())
@@ -385,7 +386,7 @@ public class MapHelper {
 
         //Writes the borders data
  		if (null != l_bordersList && !l_bordersList.isEmpty()) {
- 			p_writer.write(System.lineSeparator() + "[borders]" + System.lineSeparator());
+ 			p_writer.write(System.lineSeparator() + Constants.BORDERS + System.lineSeparator());
  			for (String l_borderStr : l_bordersList) {
  				p_writer.write(l_borderStr + System.lineSeparator());
  			}
