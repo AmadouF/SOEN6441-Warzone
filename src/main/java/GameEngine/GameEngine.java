@@ -7,7 +7,9 @@ import Helpers.MapHelper;
 import Helpers.PlayerHelper;
 import Models.GameState;
 import Models.Order;
+import Models.Phase;
 import Models.Player;
+import Models.StartUpPhase;
 import Utils.Command;
 import Views.MapView;
 import org.apache.commons.collections4.CollectionUtils;
@@ -38,6 +40,8 @@ public class GameEngine {
      */
     private PlayerHelper d_playerHelper;
 
+    private Phase d_currentPhase;
+
     /**
      * Constructor for GameEngine
      * This initiates a new blank GameState
@@ -46,6 +50,7 @@ public class GameEngine {
         d_gameState = new GameState();
         d_mapHelper = new MapHelper();
         d_playerHelper = new PlayerHelper();
+        d_currentPhase = new StartUpPhase(this, d_gameState);
     }
 
     /**
@@ -58,151 +63,34 @@ public class GameEngine {
     }
 
     /**
+     *  Getter method for current game phase
+     *
+     * @return the current phase Object
+     */
+	public Phase getD_CurrentPhase(){
+		return d_currentPhase;
+	}
+
+    /**
      * Main method to start game
      * @param p_args the program doesn't use default command line arguments
      */
     public static void main(String[] p_args) {
         GameEngine l_gameEngine = new GameEngine();
-
-        l_gameEngine.startGame();
+        l_gameEngine.getD_CurrentPhase().startPhase();
     }
 
     /**
-     * This method starts an infinite loop which processes the input commands from the players
-     */
-    private void startGame() {
+	 * It's used to update context.
+	 *
+	 * @param p_phase new Phase to set in Game context
+	 */
+	private void setPhase(Phase p_currentPhase){
+		d_currentPhase = p_currentPhase;
+	}
 
-        BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        while (true) {
-            try {
-                System.out.println("-------- Enter Command to be executed [enter 'exit' to quit] --------");
-                String l_command = l_bufferedReader.readLine();
 
-                //checking for exit command
-                if ("exit".equalsIgnoreCase(l_command.trim())) {
-                    System.out.println("---------------- Thanks for Playing ----------------");
-                    System.exit(0);
-                }
 
-                processCommand(l_command);
-            } catch (Exception l_exception) {
-                l_exception.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     *
-     * This method takes the command from the user like editmap, savemap, showmap etc.
-     * @param p_commandInput command from the user
-     * @throws InvalidMap
-     * @throws IOException
-     * @throws InvalidCommand
-     */
-    public void processCommand(String p_commandInput) throws InvalidMap, IOException, InvalidCommand {
-        Command l_playerCommand = new Command(p_commandInput);
-        String l_firstCommand = l_playerCommand.getFirstCommand();
-
-        switch (l_firstCommand) {
-            case "editmap":
-                commonCommandExecutorWithArgumentsOnly(l_playerCommand, l_firstCommand);
-                break;
-
-            case "savemap":
-                checkIfMapIsLoaded();
-                commonCommandExecutorWithArgumentsOnly(l_playerCommand, l_firstCommand);
-                break;
-
-            case "validatemap":
-                checkIfMapIsLoaded();
-                commonCommandExecutorWithNoArguments(l_playerCommand, l_firstCommand);
-                break;
-
-            case "showmap":
-                commonCommandExecutorWithNoArguments(l_playerCommand, l_firstCommand);
-                break;
-
-            case "editcontinent":
-                commonCommandExecutorWithArgumentsAndOperations(l_playerCommand, l_firstCommand);
-                break;
-            
-            case "editneighbor":
-                commonCommandExecutorWithArgumentsAndOperations(l_playerCommand, l_firstCommand);
-                break;
-            case "editcountry":
-                commonCommandExecutorWithArgumentsAndOperations(l_playerCommand, l_firstCommand);
-                break;
-
-            case "gameplayer":
-                checkIfMapIsLoaded();
-                gamePlayer(l_playerCommand, l_firstCommand);
-                break;
-
-            case "loadmap":
-                loadMap(l_playerCommand);
-                break;
-
-            case "assigncountries":
-                assignCountries(l_playerCommand);
-                break;
-            default:
-                throw new InvalidMap(" !!!  Base command Invalid  !!!");
-
-        }
-    }
-
-    /**
-     * This method is used to load map file
-     * @param p_command command of lading map
-     * @throws InvalidCommand
-     */
-    public void loadMap(Command p_command) throws InvalidCommand {
-        List < Map < String, String >> l_listOfOperations = p_command.getListOfOperationsAndArguments();
-        if (CollectionUtils.isEmpty(l_listOfOperations)) {
-            throw new InvalidCommand("No arguments and operations are provided for the laodmap");
-        }
-        for (Map < String, String > l_map: l_listOfOperations) {
-            if (p_command.validateArgumentAndOperation(l_map)) {
-                Models.Map l_inputMap = d_mapHelper.load(d_gameState,
-                    l_map.get(Constants.ARGUMENT));
-                try {
-                    if (!l_inputMap.isValidMap()) {
-                        // Clear the map in case of an unsuccessful load
-                        d_gameState.setD_map(new Models.Map());
-                    } else {
-                        System.out.println("The maps has been loaded");
-                    }
-                } catch (InvalidMap l_invalidMapException) {
-                    System.out.println(l_invalidMapException.getMessage());
-                    d_gameState.setD_map(new Models.Map());
-                }
-            } else {
-                throw new InvalidCommand("The command for loadmap is invalid");
-            }
-        }
-
-    }
-
-    /**
-     * This method is used to add game player to the current game
-     * @param p_command command object storing input command data
-     * @param baseCommand base command of the gameplayer command input string
-     * @throws InvalidCommand
-     */
-    public void gamePlayer(Command p_command, String baseCommand) throws InvalidCommand {
-        List < Map < String, String >> l_listOfOperations = p_command.getListOfOperationsAndArguments();
-        if (CollectionUtils.isEmpty(l_listOfOperations)) {
-            throw new InvalidCommand("No arguments and operations are provided for " + baseCommand);
-        }
-        for (Map < String, String > l_map: l_listOfOperations) {
-            if (p_command.validateArgumentAndOperation(l_map)) {
-                d_playerHelper.updatePlayers(d_gameState, l_map.get(Constants.OPERATION), l_map.get(Constants.ARGUMENT));
-            } else {
-                throw new InvalidCommand("No arguments or operations are provided for " + baseCommand);
-            }
-        }
-
-    }
 
     /**
      * This method is used to execute command which have both arguments and operations
@@ -212,7 +100,7 @@ public class GameEngine {
      * @throws InvalidMap
      * @throws InvalidCommand
      */
-    private void commonCommandExecutorWithArgumentsAndOperations(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
+    public void commonCommandExecutorWithArgumentsAndOperations(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
         checkIfMapIsLoaded();
         List < Map < String, String >> l_listOfOperations = p_command.getListOfOperationsAndArguments();
 
@@ -243,7 +131,7 @@ public class GameEngine {
      * @throws InvalidMap
      * @throws InvalidCommand
      */
-    private void commonCommandExecutorWithArgumentsOnly(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
+    public void commonCommandExecutorWithArgumentsOnly(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
 
         List<Map<String, String>> l_listOfOperationsAndArguments = p_command.getListOfOperationsAndArguments();
 
@@ -277,7 +165,7 @@ public class GameEngine {
      * @throws InvalidMap
      * @throws InvalidCommand
      */
-    private void commonCommandExecutorWithNoArguments(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
+    public void commonCommandExecutorWithNoArguments(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
         if (CollectionUtils.isEmpty(p_command.getListOfOperationsAndArguments())) {
                 if("validatemap".equals(baseCommand)) {
                     Models.Map l_currentMap = d_gameState.getD_map();
@@ -299,26 +187,9 @@ public class GameEngine {
      * This is method is check if map file is loading
      * @throws InvalidCommand
      */
-    private void checkIfMapIsLoaded() throws InvalidCommand {
+    public void checkIfMapIsLoaded() throws InvalidCommand {
         if (d_gameState.getD_map() == null) {
             throw new InvalidCommand("Cannot execute this command, Map is required to be loaded first");
-        }
-    }
-
-    /**
-     * This method is used to start the game loop with already loaded map file
-     * @param p_command command object with assign country argument
-     * @throws InvalidCommand
-     * @throws IOException
-     */
-    public void assignCountries(Command p_command) throws InvalidCommand, IOException {
-        checkIfMapIsLoaded();
-        List<Map<String, String>> l_listOfOperationsAndArguments = p_command.getListOfOperationsAndArguments();
-        if (CollectionUtils.isEmpty(l_listOfOperationsAndArguments)) {
-            d_playerHelper.assignCountries(d_gameState);
-            startGameLoop();
-        } else {
-            throw new InvalidCommand("Invalid command. No arguments expected for command 'assigncountries'");
         }
     }
 
@@ -326,7 +197,7 @@ public class GameEngine {
      * This method is used to start the game and assign armies to the players, take order from the player
      * @throws IOException
      */
-    private void startGameLoop() throws IOException {
+    public void startGameLoop() throws IOException {
         System.out.println("\n\n ------------ Game Starting Now -------------- \n");
         for (int l_i=1; CollectionUtils.isNotEmpty(d_gameState.getD_players()) && d_gameState.getD_players().size()>1 ; l_i++) {
             System.out.println("\n\n ------------ Round " + l_i + " -------------- \n");
