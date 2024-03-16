@@ -300,8 +300,8 @@ public class Map {
     public boolean areCountriesConnected() throws InvalidMap {
         // HashMap<Country, Boolean> l_visitedCountryMap = new HashMap<Country, Boolean>();
 
-        for (Country c : d_countriesList) {
-            d_countryNeighbours.put(c, false);
+        for (Country l_country : d_countriesList) {
+            d_countryNeighbours.put(l_country, false);
         }
         dfsCountry(d_countriesList.get(0));
 
@@ -346,8 +346,8 @@ public class Map {
     public boolean isContinentConnected(Continent p_continent) throws InvalidMap{
         HashMap<Country, Boolean> l_visitedCountryMap = new HashMap<Country, Boolean>();
 
-        for (Country c : p_continent.getD_countries()) {
-            l_visitedCountryMap.put(c, false);
+        for (Country l_country : p_continent.getD_countries()) {
+            l_visitedCountryMap.put(l_country, false);
         }
         dfs(p_continent.getD_countries().get(0), l_visitedCountryMap, p_continent);
 
