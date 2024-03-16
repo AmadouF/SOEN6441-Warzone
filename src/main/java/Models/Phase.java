@@ -78,14 +78,7 @@ public abstract class Phase {
                 d_gameEngine.commonCommandExecutorWithNoArguments(l_playerCommand, l_firstCommand);
                 break;
 
-            case "editcontinent":
-                d_gameEngine.commonCommandExecutorWithArgumentsAndOperations(l_playerCommand, l_firstCommand);
-                break;
-            
-            case "editneighbor":
-                d_gameEngine.commonCommandExecutorWithArgumentsAndOperations(l_playerCommand, l_firstCommand);
-                break;
-            case "editcountry":
+            case "editcontinent", "editneighbor", "editcountry":
                 d_gameEngine.commonCommandExecutorWithArgumentsAndOperations(l_playerCommand, l_firstCommand);
                 break;
 
