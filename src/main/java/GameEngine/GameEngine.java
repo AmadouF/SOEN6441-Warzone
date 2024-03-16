@@ -212,7 +212,7 @@ public class GameEngine {
      * @throws InvalidMap
      * @throws InvalidCommand
      */
-    private void commonCommandExecutorWithArgumentsAndOperations(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
+    public void commonCommandExecutorWithArgumentsAndOperations(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
         checkIfMapIsLoaded();
         List < Map < String, String >> l_listOfOperations = p_command.getListOfOperationsAndArguments();
 
@@ -243,7 +243,7 @@ public class GameEngine {
      * @throws InvalidMap
      * @throws InvalidCommand
      */
-    private void commonCommandExecutorWithArgumentsOnly(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
+    public void commonCommandExecutorWithArgumentsOnly(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
 
         List<Map<String, String>> l_listOfOperationsAndArguments = p_command.getListOfOperationsAndArguments();
 
@@ -277,7 +277,7 @@ public class GameEngine {
      * @throws InvalidMap
      * @throws InvalidCommand
      */
-    private void commonCommandExecutorWithNoArguments(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
+    public void commonCommandExecutorWithNoArguments(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
         if (CollectionUtils.isEmpty(p_command.getListOfOperationsAndArguments())) {
                 if("validatemap".equals(baseCommand)) {
                     Models.Map l_currentMap = d_gameState.getD_map();
@@ -299,7 +299,7 @@ public class GameEngine {
      * This is method is check if map file is loading
      * @throws InvalidCommand
      */
-    private void checkIfMapIsLoaded() throws InvalidCommand {
+    public void checkIfMapIsLoaded() throws InvalidCommand {
         if (d_gameState.getD_map() == null) {
             throw new InvalidCommand("Cannot execute this command, Map is required to be loaded first");
         }
