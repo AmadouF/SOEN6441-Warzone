@@ -10,6 +10,8 @@ import java.util.Random;
  * This service class handles the players.
  */
 public class PlayerHelper {
+    String d_playerLog;
+
     /**
      * Checks if player name exists in given existing player list.
      *
@@ -318,6 +320,22 @@ public class PlayerHelper {
      */
     public boolean isMapLoaded(GameState p_gameState) {
         return p_gameState.getD_map() != null;
+    }
+
+    public boolean checkForMoreOrders(List<Player> p_playersList) {
+        for (Player l_player: p_playersList) {
+            if (l_player.getMoreOrders()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void setD_playerLog(String p_playerLog) {
+        this.d_playerLog = p_playerLog;
+
+        System.out.println(p_playerLog);
     }
 
     public Player findPlayerByName(String p_playerName, GameState p_gameState) {
