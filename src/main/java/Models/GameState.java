@@ -29,6 +29,11 @@ public class GameState {
     private String d_error;
 
     /**
+     * Log Entry Buffer to write messages to log file
+     */
+    LogEntryBuffer d_logEntryBuffer = new LogEntryBuffer();
+
+    /**
      * Getter method to get the game map
      *
      * @return Map
@@ -98,5 +103,14 @@ public class GameState {
      */
     public void setError(String p_error) {
         this.d_error = p_error;
+    }
+
+    /**
+     *
+     * @param p_logMessage Message to be logged
+     * @param p_logType Type of Log : Start, end, Phase, Command, Order
+     */
+    public void addLogMessage(String p_logMessage, String p_logType) {
+        d_logEntryBuffer.logMessage(p_logMessage, p_logType);
     }
 }
