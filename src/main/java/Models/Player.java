@@ -8,6 +8,7 @@ import Helpers.PlayerHelper;
 import Utils.Command;
 import org.apache.commons.collections4.CollectionUtils;
 
+import Models.issueOrderPhase;
 import java.io.*;
 
 /**
@@ -280,8 +281,8 @@ public class Player {
     }
 
     //need to implement.
-    public void issue_order(IssueOrderPhase p_issueOrderPhase) throws InvalidCommand, IOException, InvalidMap {
-        p_issueOrderPhase.askForOrder(this);
+    public void issue_order(issueOrderPhase p_issueOrderPhase) throws InvalidCommand, IOException, InvalidMap {
+        p_issueOrderPhase.requestNewOrder();
     }
 
     public void createAdvanceOrder(String p_commandEntered, GameState p_gameState) {
