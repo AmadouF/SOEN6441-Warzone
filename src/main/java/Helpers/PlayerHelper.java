@@ -10,8 +10,14 @@ import java.util.Random;
  * This service class handles the players.
  */
 public class PlayerHelper {
+    /**
+     * log messages of player related operations
+     */
     String d_playerLog;
 
+    /**
+     * Log message of country and continent assignment
+     */
     String d_assignmentLog = "Country / Continent Assignment: ";
 
     /**
@@ -337,6 +343,12 @@ public class PlayerHelper {
         return p_gameState.getD_map() != null;
     }
 
+    /**
+     * Checks if the players have more orders or not
+     *
+     * @param p_playersList List of players
+     * @return true or false
+     */
     public boolean checkForMoreOrders(List<Player> p_playersList) {
         for (Player l_player: p_playersList) {
             if (l_player.getMoreOrders()) {
@@ -347,6 +359,11 @@ public class PlayerHelper {
         return false;
     }
 
+    /**
+     * Resets the players info before issuing new orders
+     *
+     * @param p_players List of the players
+     */
     public void resetPlayers(List<Player> p_players) {
         for (Player l_player: p_players) {
             // If only the player is not Neutral player then change orders flag
@@ -358,12 +375,24 @@ public class PlayerHelper {
         }
     }
 
+    /**
+     * Sets the log message of player operations
+     *
+     * @param p_playerLog log message
+     */
     public void setD_playerLog(String p_playerLog) {
         this.d_playerLog = p_playerLog;
 
         System.out.println(p_playerLog);
     }
 
+    /**
+     * Finds the player in the game by name
+     *
+     * @param p_playerName Name of the player
+     * @param p_gameState current state of the game
+     * @return Player
+     */
     public Player findPlayerByName(String p_playerName, GameState p_gameState) {
         return p_gameState.getD_players().stream().filter(l_pl -> l_pl.getPlayerName().equals(p_playerName))
                 .findFirst().orElse(null);

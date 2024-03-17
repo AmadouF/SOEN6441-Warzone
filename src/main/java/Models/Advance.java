@@ -6,13 +6,43 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents the advance order given by the player
+ */
 public class Advance implements Order {
+    /**
+     * Name of the source country
+     */
     String d_sourceCountryName;
+
+    /**
+     * Name of the target country
+     */
     String d_targetCountryName;
+
+    /**
+     * Number of armies to advance from source to target
+     */
     Integer d_numberOfArmiesToAdvance;
+
+    /**
+     * Player who initiated the advance order
+     */
     Player d_playerInitiator;
+
+    /**
+     * Stores log of execution
+     */
     String d_orderExecutionLog;
 
+    /**
+     * This constructor receives all values required to create advance order
+     *
+     * @param p_playerInitiator Player who initiated the command
+     * @param p_sourceCountryName Name of the source country
+     * @param p_targetCountryName Name of the target country
+     * @param p_numberOfArmiesToAdvance Number of armies to advance
+     */
     public Advance(Player p_playerInitiator, String p_sourceCountryName, String p_targetCountryName,
                    Integer p_numberOfArmiesToAdvance) {
         this.d_playerInitiator = p_playerInitiator;
@@ -21,16 +51,31 @@ public class Advance implements Order {
         this.d_numberOfArmiesToAdvance = p_numberOfArmiesToAdvance;
     }
 
+    /**
+     * Gets the name of the order
+     *
+     * @return String
+     */
     @Override
     public String getOrderName() {
         return "advance";
     }
 
+    /**
+     * Gets the details of the order
+     *
+     * @return String
+     */
     private String currentOrder() {
         return "Advance order - advance " + this.d_numberOfArmiesToAdvance + " armies from "
                 + this.d_sourceCountryName + " to " + this.d_targetCountryName;
     }
 
+    /**
+     * Executes the advance order
+     *
+     * @param p_gameState current state of the game
+     */
     @Override
     public void execute(GameState p_gameState) {
         if (isValid(p_gameState)) {
@@ -54,6 +99,12 @@ public class Advance implements Order {
         }
     }
 
+    /**
+     * Validates to command before the execution
+     *
+     * @param p_gameState current state of the game
+     * @return true or false
+     */
     @Override
     public boolean isValid(GameState p_gameState) {
         Country l_country = d_playerInitiator.getOwnedCountries().stream()
@@ -98,6 +149,12 @@ public class Advance implements Order {
         return true;
     }
 
+    /**
+     * Gets the owner of the target country
+     *
+     * @param p_gameState current state of the game
+     * @return Player - Owner of the country
+     */
     private Player getPlayerOfTargetCountry(GameState p_gameState) {
         Player l_playerOfTargetCountry = null;
 
@@ -114,11 +171,24 @@ public class Advance implements Order {
         return l_playerOfTargetCountry;
     }
 
+    /**
+     * Deploys the armies to target country (Because target country is owned by the initiator himself)
+     *
+     * @param p_targetCountry target country
+     */
     public void deployArmiesToTarget(Country p_targetCountry) {
         Integer l_updatedTargetContArmies = p_targetCountry.getD_army() + this.d_numberOfArmiesToAdvance;
         p_targetCountry.setD_army(l_updatedTargetContArmies);
     }
 
+    /**
+     * Removes the target country from its owner and assign it to attacker player
+     * hence, conquering the country
+     *
+     * @param p_gameState current state of the game
+     * @param p_playerOfTargetCountry Owner of target country
+     * @param p_targetCountry target country
+     */
     private void conquerTargetCountry(GameState p_gameState, Player p_playerOfTargetCountry, Country p_targetCountry) {
         p_targetCountry.setD_army(d_numberOfArmiesToAdvance);
 
@@ -135,6 +205,14 @@ public class Advance implements Order {
         this.updateContinents(this.d_playerInitiator, p_playerOfTargetCountry, p_gameState);
     }
 
+    /**
+     * Updates to continents after removing and adding new country
+     * this will be called when the player conquers the counntry
+     *
+     * @param p_playerOfSourceCountry Player of the source country
+     * @param p_playerOfTargetCountry Player of the target country
+     * @param p_gameState current state of the game
+     */
     private void updateContinents(Player p_playerOfSourceCountry, Player p_playerOfTargetCountry,
                                   GameState p_gameState) {
         System.out.println("Updating continents of players...");
@@ -151,6 +229,14 @@ public class Advance implements Order {
         l_playerHelper.assignContinents(l_playersList, p_gameState.getD_map().getContinentsList());
     }
 
+    /**
+     * Calculates the result of the order
+     *
+     * @param p_gameState current state of the game
+     * @param p_playerOfTargetCountry Owner of the target country
+     * @param p_targetCountry target country
+     * @param p_sourceCountry source country
+     */
     private void getOrderResult(GameState p_gameState, Player p_playerOfTargetCountry, Country p_targetCountry,
                                 Country p_sourceCountry) {
         Integer l_armiesInBattle = this.d_numberOfArmiesToAdvance < p_targetCountry.getD_army()
@@ -168,6 +254,15 @@ public class Advance implements Order {
         this.updateContinents(this.d_playerInitiator, p_playerOfTargetCountry, p_gameState);
     }
 
+    /**
+     * Generates army values according to warzone rules
+     * Attacking army - 60%
+     * Defending army - 70%
+     *
+     * @param p_size size of the total army
+     * @param p_role role of the army (Attacker or Defender)
+     * @return List of values of all army units
+     */
     private List<Integer> generateRandomArmyUnits(int p_size, String p_role) {
         List<Integer> l_armyList = new ArrayList<>();
 
@@ -183,10 +278,26 @@ public class Advance implements Order {
         return l_armyList;
     }
 
+    /**
+     * Generated a random integer between two values
+     *
+     * @param p_max max value
+     * @param p_min min value
+     * @return integer
+     */
     private static int getRandomInteger(int p_max, int p_min) {
         return ((int) (Math.random() * (p_max - p_min))) + p_min;
     }
 
+    /**
+     * Decides the result of the battle
+     *
+     * @param p_sourceCountry source country
+     * @param p_targetCountry target country
+     * @param p_attackerArmies attacking army
+     * @param p_defenderArmies defending army
+     * @param p_playerOfTargetCountry Owner of the target country
+     */
     private void getBattleResult(Country p_sourceCountry, Country p_targetCountry, List<Integer> p_attackerArmies,
                                  List<Integer> p_defenderArmies, Player p_playerOfTargetCountry) {
         Integer l_attackerArmiesLeft = this.d_numberOfArmiesToAdvance > p_targetCountry.getD_army()
@@ -208,6 +319,15 @@ public class Advance implements Order {
                 p_playerOfTargetCountry);
     }
 
+    /**
+     * Handles the army units survived after the end of battle
+     *
+     * @param p_attackerArmiesLeft units left in attacking army
+     * @param p_defenderArmiesLeft units left in defending army
+     * @param p_sourceCountry source country
+     * @param p_targetCountry target country
+     * @param p_playerOfTargetCountry owner of the target country
+     */
     public void handleSurvivingArmies(Integer p_attackerArmiesLeft, Integer p_defenderArmiesLeft,
                                       Country p_sourceCountry, Country p_targetCountry, Player p_playerOfTargetCountry) {
         if (p_defenderArmiesLeft == 0) {
@@ -239,11 +359,22 @@ public class Advance implements Order {
         }
     }
 
+    /**
+     * Gets the log of execution
+     *
+     * @return String
+     */
     @Override
     public String orderExecutionLog() {
         return this.d_orderExecutionLog;
     }
 
+    /**
+     * Sets the log message of execution
+     *
+     * @param p_orderExecutionLog log message
+     * @param p_typeOfLog type of the log
+     */
     public void setD_orderExecutionLog(String p_orderExecutionLog, String p_typeOfLog) {
         this.d_orderExecutionLog = p_orderExecutionLog;
 
@@ -254,6 +385,9 @@ public class Advance implements Order {
         }
     }
 
+    /**
+     * Prints the details about the advance order
+     */
     @Override
     public void printOrder() {
         this.d_orderExecutionLog = "\n******* Advance order issued by " + this.d_playerInitiator.getPlayerName()

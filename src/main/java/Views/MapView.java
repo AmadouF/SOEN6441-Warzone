@@ -107,7 +107,7 @@ public class MapView {
      * @return Returns the Formatted String
      */
     private String getFormattedCountryName(int p_index, String p_countryName) {
-        // Prefixing one digit number with 0 to get double digits
+        // Prefixing one-digit number with 0 to get double digits
         String l_indexedString = String.format("%02d. %s", p_index, p_countryName);
 
         if (d_players != null) {
@@ -138,6 +138,11 @@ public class MapView {
         System.out.println();
     }
 
+    /**
+     * Prints all cards owned by the player
+     *
+     * @param p_player Player
+     */
     private void printCardsOwnedByPlayer(Player p_player) {
         StringBuilder l_cards = new StringBuilder();
 
@@ -197,6 +202,12 @@ public class MapView {
         return l_armies;
     }
 
+    /**
+     * Gets the armies of the player given
+     *
+     * @param p_player Player
+     * @return number of armies
+     */
     private String getPlayerArmies(Player p_player) {
         return "(Player Armies - " + p_player.getReinforcements() + ")";
     }
