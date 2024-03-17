@@ -37,10 +37,25 @@ public class Player {
      * List of orders issued by the player
      */
     private List<Order> d_issuedOrders;
+    /**
+     * Tracks for more orders.
+     */
     boolean d_moreOrders;
+    /**
+     * Checks whether the player got a card per turn or not
+     */
     boolean d_oneCard = false;
+    /**
+     * Log
+     */
     String d_log;
+    /**
+     * List of owned cards
+     */
     List<String> d_ownedCards = new ArrayList<>();
+    /**
+     * List of negotiated players
+     */
     List<Player> d_negotiatedPlayers = new ArrayList<Player>();
 
     /**
@@ -147,21 +162,45 @@ public class Player {
         return this.d_reinforcement;
     }
 
+    /**
+     * Add player to negotiated players list.
+     * @param p_player Player
+     */
+
     public void addPlayerNegotiation(Player p_player) {
         this.d_negotiatedPlayers.add(p_player);
     }
 
+    /**
+     * Getter method to get whether to take more orders or not.
+     * @return True/False
+     */
     public boolean getMoreOrders() {
         return this.d_moreOrders;
     }
+
+    /**
+     * Getter method to set whether to take more orders or not.
+     * @param p_moreOrders True/False
+     */
 
     public void setMoreOrders(boolean p_moreOrders) {
         this.d_moreOrders = p_moreOrders;
     }
 
+    /**
+     * Getter method to get list of owned cards
+     * @return List of Cards
+     */
+
     public List<String> getOwnedCards() {
         return this.d_ownedCards;
     }
+
+    /**
+     * Setter method to set whether the player got one card per turn.
+     * @param p_card True/false
+     */
 
     public void setOneCard(boolean p_card) {
         this.d_oneCard = p_card;
@@ -195,7 +234,11 @@ public class Player {
         return l_order;
     }
 
-
+    /**
+     * Gets the list of names of countries owned by the player.
+     *
+     * @return list of country
+     */
     public List<String> getCountryNames() {
         List<String> l_countryNames = new ArrayList<String>();
         if (d_ownedCountries != null) {
@@ -206,7 +249,11 @@ public class Player {
         }
         return null;
     }
-
+    /**
+     * Gets the list of continent names owned by the player.
+     *
+     * @return list of continent
+     */
     public List<String> getContinentNames() {
         List<String> l_continentNames = new ArrayList<String>();
         if (d_ownedContinents != null) {
@@ -218,26 +265,39 @@ public class Player {
         return null;
     }
 
+
+    /**
+     * Sets the log.
+     * @param p_playerLog Log.
+     * @param p_typeLog Log type
+     */
     public void setD_playerLog(String p_playerLog, String p_typeLog) {
         this.d_log = p_playerLog;
         if (p_typeLog.equals("error")) System.err.println(p_playerLog);
         else if (p_typeLog.equals("log")) System.out.println(p_playerLog);
     }
 
+    /**
+     * Getter method to get the log.
+     * @return Log.
+     */
     public String getLog() {
         return this.d_log;
     }
 
-    public void checkForMoreOrders() throws IOException {
+    /**
+     * Checks if there are more order to be accepted or not.
+     * @throws IOException exception
+     */
+    public void checkMoreOrders() throws IOException {
         Scanner sc = new Scanner(System.in);
-        System.out.println("\nDo you still want to give order for player : " + this.getPlayerName()
-                + " in next turn ? \nPress Y for Yes or N for No");
+        System.out.println("\nDo you still want to give order for player : " + this.getPlayerName() + " in next turn ? \nPress Y for Yes or N for No");
         String l_moreOrders = sc.nextLine();
         if (l_moreOrders.equalsIgnoreCase("Y") || l_moreOrders.equalsIgnoreCase("N")) {
             this.setMoreOrders(l_moreOrders.equalsIgnoreCase("Y") ? true : false);
         } else {
             System.err.println("Invalid Input Passed.");
-            this.checkForMoreOrders();
+            this.checkMoreOrders();
         }
     }
 
@@ -280,11 +340,23 @@ public class Player {
         return p_player.getReinforcements() >= Integer.parseInt(p_noOfArmies);
     }
 
+    /**
+     * Handles the issuing of new order
+     * @param p_issueOrderPhase Issue order phase
+     * @throws InvalidCommand invalid command exception
+     * @throws IOException I/O exception
+     * @throws InvalidMap invalid map exception
+     */
     //need to implement.
     public void issue_order(issueOrderPhase p_issueOrderPhase) throws InvalidCommand, IOException, InvalidMap {
         p_issueOrderPhase.requestNewOrder();
     }
 
+    /**
+     * creates the advance order on the commands entered by the player.
+     * @param p_commandEntered entered command.
+     * @param p_gameState Current game state
+     */
     public void createAdvanceOrder(String p_commandEntered, GameState p_gameState) {
         try {
             if (p_commandEntered.split(" ").length == 4) {
@@ -305,6 +377,12 @@ public class Player {
         }
     }
 
+    /**
+     * Checks whether the country exists in the map.
+     * @param p_country Country
+     * @param p_gameState Current Game state
+     * @return True/false if country exists or not.
+     */
     private Boolean checkCountryExists(String p_country, GameState p_gameState) {
         if (p_gameState.getD_map().getCountryByName(p_country) == null) {
             this.setD_playerLog("Country doesn't exists in map.", "error");
@@ -313,6 +391,12 @@ public class Player {
         return true;
     }
 
+    /**
+     * Checks for 0 armies
+     * @param p_armies number of armies
+     * @return True/false if the armies are zero or not
+     */
+
     private Boolean checkZeroArmies(String p_armies) {
         if (Integer.parseInt(p_armies) == 0) {
             this.setD_playerLog("No armies to advance.", "error");
@@ -320,6 +404,14 @@ public class Player {
         }
         return false;
     }
+
+    /**
+     * Checks if countries given advance order are adjacent or not.
+     * @param p_gameState Current game state
+     * @param p_srcCountry Source country
+     * @param p_trgCountry target Country
+     * @return True /false if countries are adjacent or not
+     */
 
     @SuppressWarnings("unlikely-arg-type")
     public boolean checkAdjacency(GameState p_gameState, String p_srcCountry, String p_trgCountry) {
@@ -332,6 +424,10 @@ public class Player {
         }
         return true;
     }
+
+    /**
+     * assigns random card to the player upon winning a territory.
+     */
 
     public void assignCard() {
         if (!d_oneCard) {
@@ -347,9 +443,20 @@ public class Player {
         }
     }
 
+    /**
+     * Removes the cards from owned cards list.
+     * @param p_card Card name
+     */
+
     public void removeCard(String p_card) {
         this.d_ownedCards.remove(p_card);
     }
+
+    /**
+     * Validates the negotiation
+     * @param p_trgCountry target country
+     * @return True/false on whether the negotiation took place or not.
+     */
 
     public boolean negotiationValidation(String p_trgCountry) {
 
@@ -360,10 +467,19 @@ public class Player {
         return true;
     }
 
+    /**
+     * Resets the negotiated players list.
+     */
+
     public void clearNegotiatedPlayers() {
         d_negotiatedPlayers.clear();
     }
 
+    /**
+     * Checks for the valid arguments of commmand
+     * @param p_command enetered command
+     * @return True/false
+     */
     public boolean validArguments(String p_command) {
         if (p_command.split(" ")[0].equalsIgnoreCase("airlift")) return p_command.split(" ").length == 4;
         else if (p_command.split(" ")[0].equalsIgnoreCase("blockade") || p_command.split(" ")[0].equalsIgnoreCase("bomb") || p_command.split(" ")[0].equalsIgnoreCase("negotiate")) {
@@ -372,6 +488,11 @@ public class Player {
 
     }
 
+    /**
+     * handles the card commands
+     * @param p_command entered command
+     * @param p_gameState current game state
+     */
     public void handleCardCommands(String p_command, GameState p_gameState) {
         if (validArguments(p_command)) {
             switch (p_command.split(" ")[0]) {
@@ -415,6 +536,7 @@ public class Player {
             }
         } else {
             this.setD_playerLog("Invalid Card Command Passed! Check Arguments!", "error");
+            p_gameState.addLogMessage(getLog(),"effect");
         }
     }
 
