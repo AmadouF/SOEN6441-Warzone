@@ -152,6 +152,7 @@ public class MapHelper {
             Map l_map = new Map();
             l_map.setMapFile(p_filePath);
             p_state.setD_map(l_map);
+            p_state.addLogMessage(p_filePath + " has been created for user to edit map", "effect");
         } else {
             System.out.println("File already exists.");
             this.load(p_state, p_filePath);
@@ -159,6 +160,7 @@ public class MapHelper {
                 p_state.setD_map(new Map());
             }
             p_state.getD_map().setMapFile(p_filePath);
+            p_state.addLogMessage(p_filePath+ " already exists as a map and it is loaded for modification", "effect");
         }
     }
 
@@ -330,8 +332,10 @@ public class MapHelper {
                             writeCountryAndBoarderMetaData(p_gameState, l_writer);
                         }
                         l_writer.close();
+                        p_gameState.addLogMessage("Map Saved Successfully in "+ p_fileName, "effect");
                     }
                 } else {
+                    p_gameState.addLogMessage("Map Validation failed! Cannot save the map file!", "effect");
                     p_gameState.setError("Validation Failed");
                     return false;
                 }
@@ -339,6 +343,7 @@ public class MapHelper {
             return true;
         } catch (IOException l_e) {
             l_e.printStackTrace();
+            p_gameState.addLogMessage("Failed to save the changes in map file due to Exception !!!!", "effect");
             p_gameState.setError("Error in saving map file");
             return false;
         }

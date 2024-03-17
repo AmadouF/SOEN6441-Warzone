@@ -66,6 +66,7 @@ public class OrderExecutionPhase extends Phase {
         Order l_order = l_player.next_order();
         if (l_order != null) {
           l_order.printOrder();
+          d_gameState.addLogMessage(l_order.orderExecutionLog(), "effect");
           l_order.execute(d_gameState);
         }
       }

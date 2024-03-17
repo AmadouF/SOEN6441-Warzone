@@ -64,6 +64,7 @@ public abstract class Phase {
     public void processCommand(String p_commandInput) throws InvalidMap, IOException, InvalidCommand {
         Command l_playerCommand = new Command(p_commandInput);
         String l_firstCommand = l_playerCommand.getFirstCommand();
+        d_gameState.addLogMessage(l_playerCommand.getD_playerCommand(), "command");
 
         switch (l_firstCommand) {
             case "editmap":
