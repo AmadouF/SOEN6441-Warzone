@@ -63,11 +63,13 @@ public void requestNewOrder() throws InvalidCommand, IOException, InvalidMap{
     System.out.println("\n Please enter a valid command:");
     String l_enteredCommand=sc.readLine();
 
+    d_gameState.addLogMessage("[ Player: "+this.d_current_player.getPlayerName()+"] " + l_enteredCommand, "order");
     performCommand(l_enteredCommand);
 }
 
 public void performCommand(String p_command) throws InvalidCommand, IOException, InvalidMap{
     processCommand(p_command);
+    d_gameState.addLogMessage(this.d_current_player.getLog(), "effect");
 
 }
 
