@@ -29,6 +29,8 @@ public abstract class Phase {
 
     protected GameEngine d_gameEngine;
 
+    public String d_phase_name;
+
 
     public Phase(GameEngine p_currentGameEngine, GameState p_currentGameState){
         d_gameEngine = p_currentGameEngine;
@@ -45,6 +47,10 @@ public abstract class Phase {
      */
     public GameState getD_gameState() {
         return d_gameState;
+    }
+
+    public String getPhaseName(){
+        return d_phase_name;
     }
 
     /**
@@ -105,7 +111,7 @@ public abstract class Phase {
      * @param p_command command of lading map
      * @throws InvalidCommand
      */
-    protected abstract void loadMap(Command p_command) throws InvalidCommand;
+    protected abstract void loadMap(Command p_command) throws InvalidCommand, IOException, InvalidMap;
 
     /**
      * This method is used to add game player to the current game
@@ -113,7 +119,7 @@ public abstract class Phase {
      * @param baseCommand base command of the gameplayer command input string
      * @throws InvalidCommand
      */
-    protected abstract void gamePlayer(Command p_command, String baseCommand) throws InvalidCommand;
+    protected abstract void gamePlayer(Command p_command, String baseCommand) throws InvalidCommand, IOException, InvalidMap;
 
     /**
      * This method is used to start the game loop with already loaded map file
@@ -121,10 +127,18 @@ public abstract class Phase {
      * @throws InvalidCommand
      * @throws IOException
      */
-    protected abstract void assignCountries(Command p_command) throws InvalidCommand, IOException;
+    protected abstract void assignCountries(Command p_command) throws InvalidCommand, IOException, InvalidMap;
 
     /**
      * This is the methods initializing the current phase
      */
     public abstract void startPhase();
+
+    /**
+     * Method to the print that the current command can't be executed in the current state
+     */
+    public void printCommandInvalidInCurrentState(){
+        //TODO add log
+        System.out.println("The entered command cannot be executed in the current state of the game. Please try again.");
+    }
 }
