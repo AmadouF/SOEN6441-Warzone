@@ -82,17 +82,6 @@ public class GameEngine {
         l_gameEngine.getD_CurrentPhase().startPhase();
     }
 
-    /**
-	 * It's used to update context.
-	 *
-	 * @param p_phase new Phase to set in Game context
-	 */
-	private void setPhase(Phase p_currentPhase){
-        System.out.println(p_currentPhase.getPhaseName());
-		d_currentPhase = p_currentPhase;
-        p_currentPhase.startPhase();
-	}
-
 
     /**
      * This method is used to execute command which have both arguments and operations
