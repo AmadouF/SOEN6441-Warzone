@@ -33,7 +33,7 @@ public class Diplomacy implements Card {
         this.setD_orderExecutionLog("Negotiation with " + l_targetPlayer.getPlayerName()
         + " approached by " + d_issuingPlayer.getPlayerName() + "is successful!!", "default");
 
-        // TODO: Update the log
+        p_gameState.addLogMessage(orderExecutionLog(), "effect");
     }
 
     @Override
@@ -50,9 +50,9 @@ public class Diplomacy implements Card {
         this.d_orderExecutionLog = p_orderExecutionLog;
 
         if (p_logType.equals("error")) {
-            // TODO: Log error
+            System.err.println(p_orderExecutionLog);
         } else {
-            // TODO: Log message
+            System.out.println(p_orderExecutionLog);
         }
     }
 
@@ -64,7 +64,8 @@ public class Diplomacy implements Card {
 
         if (!p_gameState.getD_players().contains(l_targetPlayer)) {
             this.setD_orderExecutionLog("Provided player does not exist!!", "error");
-            // TODO: Update the log
+
+            p_gameState.addLogMessage(orderExecutionLog(), "effect");
 
             return false;
         }

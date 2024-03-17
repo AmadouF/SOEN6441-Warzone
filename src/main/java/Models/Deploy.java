@@ -27,16 +27,19 @@ public class Deploy implements Order {
 
                     l_country.setD_army(l_finalArmies);
 
-                    // TODO: Log the order execution
+                    this.setD_orderExecutionLog(this.d_numberOfArmiesToDeploy + " armies has been deployed" +
+                            " successfully on target country - " + this.d_targetCountryName, "default");
                 }
             }
         } else {
-            // TODO: Log the error
+            this.setD_orderExecutionLog("Deploy order - deploy " + this.d_targetCountryName +
+                    " " + this.d_numberOfArmiesToDeploy + " is aborted because the country is now owned by the player - "
+                    + this.d_playerInitiator.getPlayerName(), "error");
 
             d_playerInitiator.setReinforcement(d_playerInitiator.getReinforcements() + this.d_numberOfArmiesToDeploy);
         }
 
-        // TODO: update the Log
+        p_gameState.addLogMessage(orderExecutionLog(), "effect");
     }
 
     @Override
@@ -58,9 +61,9 @@ public class Deploy implements Order {
         this.d_orderExecutionLog = p_orderExecutionLog;
 
         if (p_typeOfLog.equals("error")) {
-            // TODO: Log the error
+            System.err.println(p_orderExecutionLog);
         } else {
-            // TODO: Log the message
+            System.out.println(p_orderExecutionLog);
         }
     }
 

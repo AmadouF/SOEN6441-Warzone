@@ -50,7 +50,7 @@ public class Advance implements Order {
                 getOrderResult(p_gameState, l_playerOfTargetCountry, l_targetCountry, l_sourceCountry);
             }
         } else {
-            // TODO: Log update
+            p_gameState.addLogMessage(orderExecutionLog(), "error");
         }
     }
 
@@ -65,7 +65,7 @@ public class Advance implements Order {
                     + this.d_sourceCountryName + " does not belong to the player - " +
                     this.d_playerInitiator.getPlayerName(), "error");
 
-            // TODO: Update log
+            p_gameState.addLogMessage(orderExecutionLog(), "effect");
             return false;
         }
 
@@ -73,7 +73,7 @@ public class Advance implements Order {
             this.setD_orderExecutionLog(this.currentOrder() + " is aborted because given number of armies exceeds " +
                     "the armies of source country - " + this.d_sourceCountryName, "error");
 
-            // TODO: Update log
+            p_gameState.addLogMessage(orderExecutionLog(), "effect");
             return false;
         }
 
@@ -82,7 +82,7 @@ public class Advance implements Order {
                     this.d_sourceCountryName + " has " + l_country.getD_army() + " armies and all of those cannot be given in advance order " +
                     ", at least one army has be in the country", "error");
 
-            // TODO: Update log
+            p_gameState.addLogMessage(orderExecutionLog(), "effect");
             return false;
         }
 
@@ -91,7 +91,7 @@ public class Advance implements Order {
                     this.d_playerInitiator.getPlayerName() +
                     " has negotiation pact with the source country's owner", "error");
 
-            // TODO: Update log
+            p_gameState.addLogMessage(orderExecutionLog(), "effect");
             return false;
         }
 
@@ -130,7 +130,7 @@ public class Advance implements Order {
                         + p_targetCountry.getD_name() + " and armies : " + p_targetCountry.getD_army(),
                 "default");
 
-        // TODO: Update log
+        p_gameState.addLogMessage(orderExecutionLog(), "effect");
 
         this.updateContinents(this.d_playerInitiator, p_playerOfTargetCountry, p_gameState);
     }
@@ -163,7 +163,8 @@ public class Advance implements Order {
         this.getBattleResult(p_sourceCountry, p_targetCountry, l_attackerArmies, l_defenderArmies,
                 p_playerOfTargetCountry);
 
-        // TODO: Log message
+        p_gameState.addLogMessage(orderExecutionLog(), "effect");
+
         this.updateContinents(this.d_playerInitiator, p_playerOfTargetCountry, p_gameState);
     }
 

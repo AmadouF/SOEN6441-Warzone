@@ -29,13 +29,13 @@ public class Bomb implements Card {
             Integer l_newArmies = (int) Math.floor((double) l_numOfArmiesOnTargetCountry / 2);
             l_targetCountry.setD_army(l_newArmies);
 
-            // TODO: remove card from player
+            d_playerInitiator.removeCard("bomb");
 
             this.setD_orderExecutionLog("\nPlayer - " + this.d_playerInitiator.getPlayerName() +
                     " is bombing on country - " + l_targetCountry.getD_name() + " with armies : " + l_numOfArmiesOnTargetCountry +
                     ". New armies - " + l_targetCountry.getD_army(), "default");
 
-            // TODO: Update the log
+            p_gameState.addLogMessage(orderExecutionLog(), "effect");
         }
     }
 
@@ -47,12 +47,23 @@ public class Bomb implements Card {
 
         // Player cannot bomb his own country
         if (l_ownCountry != null) {
-            // TODO: Log error for bombing own country
+            this.setD_orderExecutionLog(this.currentOrder() + " is aborted because target" +
+                    " country is owned by Initiator player - " + this.d_playerInitiator.getPlayerName() +
+                    " and you can not bomb your own country!!", "error");
+
+            p_gameState.addLogMessage(orderExecutionLog(), "error");
 
             return false;
         }
 
-        // TODO: Check for if the player has negotiated for a pact
+        // Checking if player has a pact
+        if (!d_playerInitiator.negotiationValidation(this.d_targetCountryName)) {
+            this.setD_orderExecutionLog(this.currentOrder() + " is aborted because "
+            + d_playerInitiator.getPlayerName() + " has negotiated the pact with target country's owner",
+                    "error");
+
+            p_gameState.addLogMessage(orderExecutionLog(), "error");
+        }
 
         return true;
     }
@@ -67,9 +78,9 @@ public class Bomb implements Card {
         this.d_orderExecutionLog = p_orderExecutionLog;
 
         if (p_typeOfLog.equals("error")) {
-            // TODO: Log the error
+            System.err.println(p_orderExecutionLog);
         } else {
-            // TODO: Log the message
+            System.out.println(p_orderExecutionLog);
         }
     }
 
