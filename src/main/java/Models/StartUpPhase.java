@@ -129,15 +129,8 @@ public class StartUpPhase extends Phase{
             // Assigning army personal to each player
             d_playerHelper.assignArmies(d_gameState);
 
-            // Issuing order for players
-            while (d_playerHelper.unassignedArmiesExists(d_gameState.getD_players())) {
-                for (Player l_player : d_gameState.getD_players()) {
-                    if (l_player.getReinforcements() != null && l_player.getReinforcements() != 0)
-                        l_player.issue_order();
-                }
-            }
 
-            // Executing orders
+            // TODO put this in order execution phase
             while (d_playerHelper.unexecutedOrdersExists(d_gameState.getD_players())) {
                 for (Player l_player : d_gameState.getD_players()) {
                     Order l_order = l_player.next_order();
