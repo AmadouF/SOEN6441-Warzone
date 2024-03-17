@@ -167,12 +167,7 @@ public class MapHelper {
     public void editContinent(GameState p_state, String p_argument, String p_operation) throws IOException, InvalidMap {
 		String l_mapFileName = p_state.getD_map().getMapFile();
 
-        Map l_currentMap=null;
-        if(p_state.getD_map().getContinentsList()==null && p_state.getD_map().getCountriesList()==null){
-            l_currentMap=this.load(p_state,l_mapFileName);
-        }else{
-            l_currentMap=p_state.getD_map();
-        }
+        Map l_currentMap=getLoadedMap(p_state);
         // Segregates the add and remove operation
 		if(l_currentMap!=null) {
 
@@ -206,12 +201,7 @@ public class MapHelper {
 		String l_mapFileName= p_state.getD_map().getMapFile();
 
 
-		Map l_currentMap=null;
-        if(p_state.getD_map().getContinentsList()==null && p_state.getD_map().getCountriesList()==null){
-            l_currentMap=this.load(p_state,l_mapFileName);
-        }else{
-            l_currentMap=p_state.getD_map();
-        }
+        Map l_currentMap=getLoadedMap(p_state);
         // Segregates the add and remove operation
 		if(l_currentMap!=null) {
 
@@ -232,6 +222,13 @@ public class MapHelper {
 			p_state.getD_map().setMapFile(l_mapFileName);
 		}
 	}
+    public Map getLoadedMap(GameState p_state){
+        if(p_state.getD_map().getContinentsList()==null && p_state.getD_map().getCountriesList()==null){
+            return this.load(p_state,p_state.getD_map().getMapFile());
+        }else{
+            return p_state.getD_map();
+        }
+    }
     /**
      * This method handles the edit neighbour operation on the map.
      * @param p_state Current state of the game.
@@ -243,12 +240,8 @@ public class MapHelper {
     public void editNeighbour(GameState p_state, String p_argument, String p_operation) throws InvalidMap{
 		String l_mapFileName= p_state.getD_map().getMapFile();
 		
-        Map l_currentMap=null;
-        if(p_state.getD_map().getContinentsList()==null && p_state.getD_map().getCountriesList()==null){
-            l_currentMap=this.load(p_state,l_mapFileName);
-        }else{
-            l_currentMap=p_state.getD_map();
-        }
+        Map l_currentMap=getLoadedMap(p_state);
+
 
         // Segregates the add and remove operation
 		if(l_currentMap!=null) {
