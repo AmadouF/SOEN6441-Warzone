@@ -313,7 +313,7 @@ public class Player {
         try {
             l_trgCountry = p_command.split(" ")[1];
             l_armies = p_command.split(" ")[2];
-            if (isValidArmies(this, l_armies)) {
+            if (!isValidArmies(this, l_armies)) {
                 this.setD_playerLog(
                         "Player does not have enough reinforcements to deploy!! Aborted.", "error");
             } else {

@@ -92,7 +92,7 @@ public class Bomb implements Card {
                     " country is owned by Initiator player - " + this.d_playerInitiator.getPlayerName() +
                     " and you can not bomb your own country!!", "error");
 
-            p_gameState.addLogMessage(orderExecutionLog(), "error");
+            p_gameState.addLogMessage(orderExecutionLog(), "effect");
 
             return false;
         }
@@ -103,7 +103,9 @@ public class Bomb implements Card {
             + d_playerInitiator.getPlayerName() + " has negotiated the pact with target country's owner",
                     "error");
 
-            p_gameState.addLogMessage(orderExecutionLog(), "error");
+            p_gameState.addLogMessage(orderExecutionLog(), "effect");
+
+            return false;
         }
 
         return true;

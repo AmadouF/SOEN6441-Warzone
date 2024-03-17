@@ -1,0 +1,52 @@
+Log: 5 armies has been deployed successfully on target country - India
+Log: 5 armies has been deployed successfully on target country - India
+Log: 15 armies has been deployed successfully on target country - Canada
+Log: 5 armies has been deployed successfully on target country - India
+Log: 15 armies has been deployed successfully on target country - Canada
+Log: 5 armies has been deployed successfully on target country - India
+Log: 15 armies has been deployed successfully on target country - Canada
+Log: 5 armies has been deployed successfully on target country - India
+Log: 15 armies has been deployed successfully on target country - Canada
+Log: 5 armies has been deployed successfully on target country - India
+Log: 15 armies has been deployed successfully on target country - Canada
+Log: 
+Player - Jay is bombing on country - Nepal with armies : 4. New armies - 2
+Log: 
+Player - Jay is bombing on country - Bhutan with armies : 15. New armies - 7
+Log: 
+Player - Jay is bombing on country - Ukraine with armies : 1. New armies - 0
+Log: Negotiation with Patel approached by Jayis successful!!
+Log: Negotiation with Patel approached by Jayis successful!!
+Log: Bomb card order - bomb Nepal is aborted because Patel has negotiated the pact with target country's owner
+Log: Negotiation with Patel approached by Jayis successful!!
+Log: Bomb card order - bomb Nepal is aborted because Patel has negotiated the pact with target country's owner
+Log: Negotiation with Patel approached by Jayis successful!!
+Log: Bomb card order - bomb Nepal is aborted because Patel has negotiated the pact with target country's owner
+Log: Negotiation with Patel approached by Jayis successful!!
+Log: Bomb card order - bomb Nepal is aborted because Patel has negotiated the pact with target country's owner
+Log: Advance order - advance 15 armies from India to France is aborted because given number of armies exceeds the armies of source country - India
+Log: Advance order - advance 15 armies from Canada to France is aborted because given number of armies exceeds the armies of source country - Canada
+Log: Advance order - advance 15 armies from Russia to France is aborted because given source country - Russia does not belong to the player - Jay
+Log: Advance order - advance 15 armies from India to Canada is aborted because given number of armies exceeds the armies of source country - India
+Log: Advance order - advance 15 armies from India to France is aborted because given number of armies exceeds the armies of source country - India
+Log: Advance order - advance 15 armies from Canada to France is aborted because given number of armies exceeds the armies of source country - Canada
+Log: Advance order - advance 15 armies from Russia to France is aborted because given source country - Russia does not belong to the player - Jay
+Log: Advance order - advance 15 armies from India to Canada is aborted because given number of armies exceeds the armies of source country - India
+Log: Country / Continent Assignment: 
+Log: Country / Continent Assignment: 
+Log: Advance order - advance 15 armies from India to France is aborted because given number of armies exceeds the armies of source country - India
+Log: Advance order - advance 15 armies from Canada to France is aborted because given number of armies exceeds the armies of source country - Canada
+Log: Advance order - advance 15 armies from Russia to France is aborted because given source country - Russia does not belong to the player - Jay
+Log: Advance order - advance 15 armies from India to Canada is aborted because given number of armies exceeds the armies of source country - India
+Log: Negotiation with Patel approached by Jayis successful!!
+Log: Negotiation with Patel approached by Jayis successful!!
+Log: Bomb card order - bomb Nepal is aborted because Patel has negotiated the pact with target country's owner
+Log: 
+Player - Jay is bombing on country - Nepal with armies : 4. New armies - 2
+Log: 
+Player - Jay is bombing on country - Bhutan with armies : 15. New armies - 7
+Log: 
+Player - Jay is bombing on country - Ukraine with armies : 1. New armies - 0
+Log: Bomb card order - bomb India is aborted because target country is owned by Initiator player - Jay and you can not bomb your own country!!
+Log: 5 armies has been deployed successfully on target country - India
+Log: 15 armies has been deployed successfully on target country - Canada
