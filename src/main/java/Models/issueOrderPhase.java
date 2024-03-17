@@ -28,7 +28,7 @@ public class issueOrderPhase extends Phase{
     List<Player> l_players = d_gameState.getD_players();
     while (d_playerHelper.checkForMoreOrders(d_gameState.getD_players())) {
         for (Player l_player : l_players) {
-            if (l_player.getMoreOrders() && l_player.getPlayerName() != "Neutral"){
+            if (l_player.getMoreOrders()){
                 try{
                     l_player.issue_order(this);
                 }
