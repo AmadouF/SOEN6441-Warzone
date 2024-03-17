@@ -67,6 +67,12 @@ public class GameEngine {
 		return d_currentPhase;
 	}
 
+    public void setCurrentPhase(Phase p_currentPhase){
+        System.out.println();
+        d_currentPhase = p_currentPhase;
+    }
+
+
     /**
      * Main method to start game
      * @param p_args the program doesn't use default command line arguments
@@ -82,7 +88,9 @@ public class GameEngine {
 	 * @param p_phase new Phase to set in Game context
 	 */
 	private void setPhase(Phase p_currentPhase){
+        System.out.println(p_currentPhase.getPhaseName());
 		d_currentPhase = p_currentPhase;
+        p_currentPhase.startPhase();
 	}
 
 

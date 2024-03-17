@@ -19,6 +19,7 @@ public class issueOrderPhase extends Phase{
 
 
     public void startPhase(){
+        d_phase_name = "Issue Order Phase";
         while (isInstanceOfissueOrderPhase()) {
             issueOrders();
         }

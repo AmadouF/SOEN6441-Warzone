@@ -29,6 +29,8 @@ public abstract class Phase {
 
     protected GameEngine d_gameEngine;
 
+    public String d_phase_name;
+
 
     public Phase(GameEngine p_currentGameEngine, GameState p_currentGameState){
         d_gameEngine = p_currentGameEngine;
@@ -45,6 +47,10 @@ public abstract class Phase {
      */
     public GameState getD_gameState() {
         return d_gameState;
+    }
+
+    public String getPhaseName(){
+        return d_phase_name;
     }
 
     /**

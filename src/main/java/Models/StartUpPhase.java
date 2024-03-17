@@ -20,6 +20,7 @@ public class StartUpPhase extends Phase{
 
     public StartUpPhase(GameEngine p_currentGameEngine, GameState p_currentGameState){
         super(p_currentGameEngine, p_currentGameState);
+        d_phase_name = "StartUpPhase";
     }
     
      /**
