@@ -132,7 +132,7 @@ public abstract class Phase {
     /**
      * This is the methods initializing the current phase
      */
-    public abstract void startPhase();
+    public abstract void startPhase() throws IOException;
 
     /**
      * Method to the print that the current command can't be executed in the current state
