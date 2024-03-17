@@ -26,7 +26,7 @@ public class issueOrderPhase extends Phase{
     }
     protected void issueOrders(){
     List<Player> l_players = d_gameState.getD_players();
-    while (d_playerHelper.checkForMoreOrders(d_gameState.getD_players())) {
+    while (d_playerHelper.unassignedArmiesExists(d_gameState.getD_players())) {
         for (Player l_player : l_players) {
             if (l_player.getMoreOrders()){
                 try{
