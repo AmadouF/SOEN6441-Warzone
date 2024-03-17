@@ -1,24 +1,0 @@
-
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ë®ºâüÿÿÿÿ8áíÍÛ1
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Îë˜Ìıÿÿÿÿ8ãíÍÛ1
-r	java:S117""QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İˆü±ûÿÿÿÿ8ãíÍÛ1
-m	java:S117*"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(òÑÈ8ãíÍÛ1
-r	java:S1172"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(í¡Øâşÿÿÿÿ8ãíÍÛ1
-r	java:S117:"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‰†™›ùÿÿÿÿ8ãíÍÛ1
-r	java:S117E"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ï¹İ´ùÿÿÿÿ8ãíÍÛ1
-m	java:S117F"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öÛ8ãíÍÛ1
-f	java:S117O"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„îâÔ
-t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ùæñÃûÿÿÿÿ
-s	java:S116"WRename this field "d_playerName" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ïèØÒ8òíÍÛ1
-|	java:S116"[Rename this field "d_ownedCountries" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡¼Ê¼şÿÿÿÿ8òíÍÛ1
-x	java:S116"\Rename this field "d_ownedContinents" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘×¿8òíÍÛ1
-{	java:S116"ZRename this field "d_reinforcement" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œ¥µøÿÿÿÿ8òíÍÛ1
-u	java:S116"YRename this field "d_issuedOrders" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯ÜÈŒ8òíÍÛ1
-o	java:S100B"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÌÍ¼Ùüÿÿÿÿ8€íÍÛ1
-Z
-java:S1854F"=Remove this useless assignment to local variable "l_command".(öÛ8íÍÛ1
-L	java:S106D"+Replace this use of System.out by a logger.(šÕ°éÿÿÿÿÿ8‹íÍÛ1
-K
-java:S1481F".Remove this unused "l_command" local variable.(öÛ8ŒíÍÛ1
-X	java:S125H"<This block of commented-out lines of code should be removed.(Ñšîâ8íÍÛ1
-c	java:S100N"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(š²…

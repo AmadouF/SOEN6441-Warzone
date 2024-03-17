@@ -1,18 +1,23 @@
 
 [continents]
 Asia 4
-America 4
+America 3
+Europe 2
 
 [countries]
 1 India 1
 2 Pak 1
-2 Japan 1
-2 Canada 2
-3 USA 2
+3 Japan 1
+4 Canada 2
+5 USA 2
+6 France 3
+7 UK 3
 
 [borders]
 1 2
 2 3
-2 3
-2 3
-3 2
+3 2 4
+4 5
+5 4
+6 7
+7 5

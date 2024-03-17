@@ -13,7 +13,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.davidmoten.text.utils.WordWrap;
 
 /**
- *  MapView Class handles printing the game state to the console.
+ * MapView Class handles printing the game state to the console.
  */
 public class MapView {
     /**
@@ -57,7 +57,7 @@ public class MapView {
      * Constructor to initialise MapView with Players.
      *
      * @param p_gameState Current GameState
-     * @param p_players List of Player Objects
+     * @param p_players   List of Player Objects
      */
     public MapView(GameState p_gameState, List<Player> p_players) {
         this.d_gameState = p_gameState;
@@ -78,7 +78,7 @@ public class MapView {
      * Prints the Center String for Heading.
      *
      * @param p_width Defined width in formatting.
-     * @param p_str String to be rendered.
+     * @param p_str   String to be rendered.
      */
     private void printCenteredString(int p_width, String p_str) {
         String l_centeredString = String.format("%-" + p_width + "s", String.format("%" + (p_str.length() + (p_width - p_str.length()) / 2) + "s", p_str));
@@ -102,16 +102,15 @@ public class MapView {
     /**
      * Returns the Country Name as Formatted.
      *
-     * @param p_index Index of Countries.
+     * @param p_index       Index of Countries.
      * @param p_countryName Country Name to be rendered.
-     *
      * @return Returns the Formatted String
      */
     private String getFormattedCountryName(int p_index, String p_countryName) {
         // Prefixing one digit number with 0 to get double digits
         String l_indexedString = String.format("%02d. %s", p_index, p_countryName);
 
-        if(d_players != null) {
+        if (d_players != null) {
             String l_armies = "( Armies :" + getCountryArmies(p_countryName) + " )";
             l_indexedString = String.format("%02d. %s %s", p_index, p_countryName, l_armies);
         }
@@ -124,14 +123,14 @@ public class MapView {
      *
      * @param p_adjCountries List of adjacent countries to be rendered.
      */
-    private void printFormattedAdjacentCountryName(List<Country> p_adjCountries){
+    private void printFormattedAdjacentCountryName(List<Country> p_adjCountries) {
         StringBuilder l_commaSeparatedCountries = new StringBuilder();
 
         // Creating comma separated countries
-        for(int i = 0; i < p_adjCountries.size(); i++) {
+        for (int i = 0; i < p_adjCountries.size(); i++) {
             l_commaSeparatedCountries.append(p_adjCountries.get(i).getD_name());
 
-            if(i < p_adjCountries.size() - 1)
+            if (i < p_adjCountries.size() - 1)
                 l_commaSeparatedCountries.append(", ");
         }
         String l_adjacentCountry = "Connections : " + WordWrap.from(l_commaSeparatedCountries.toString()).maxWidth(Constants.CONSOLE_WIDTH).wrap();
@@ -139,14 +138,30 @@ public class MapView {
         System.out.println();
     }
 
+    private void printCardsOwnedByPlayer(Player p_player) {
+        StringBuilder l_cards = new StringBuilder();
+
+        for (int i = 0; i < p_player.getOwnedCards().size(); i++) {
+            l_cards.append(p_player.getOwnedCards().get(i));
+
+            if (i < p_player.getOwnedCards().size() - 1) {
+                l_cards.append(", ");
+            }
+        }
+
+        String l_ownedCards = "Owned cards - " + WordWrap.from(l_cards.toString()).maxWidth(Constants.CONSOLE_WIDTH).wrap();
+        System.out.println(l_ownedCards);
+        System.out.println();
+    }
+
     /**
      * Prints the Player details in formatted settings.
      *
-     * @param p_index Index of the Player
+     * @param p_index  Index of the Player
      * @param p_player Player Object
      */
     private void printPlayerDetails(Integer p_index, Player p_player) {
-        String l_playerDetails = String.format("%02d. %-8s", p_index, p_player.getPlayerName());
+        String l_playerDetails = String.format("%02d. %s %-10s", p_index, p_player.getPlayerName(), getPlayerArmies(p_player));
         System.out.println(l_playerDetails);
     }
 
@@ -160,7 +175,7 @@ public class MapView {
         printCenteredString(Constants.CONSOLE_WIDTH, "Players in the Game");
         printSeparator();
 
-        for (Player player: d_players) {
+        for (Player player : d_players) {
             l_count++;
             printPlayerDetails(l_count, player);
         }
@@ -170,7 +185,6 @@ public class MapView {
      * Gets the number of armies for a country.
      *
      * @param p_countryName name of the country
-     *
      * @return number of armies
      */
     private Integer getCountryArmies(String p_countryName) {
@@ -183,8 +197,12 @@ public class MapView {
         return l_armies;
     }
 
+    private String getPlayerArmies(Player p_player) {
+        return "(Player Armies - " + p_player.getReinforcements() + ")";
+    }
+
     /**
-	 * This method displays the list of continents and countries present in the map files
+     * This method displays the list of continents and countries present in the map files
      * alongside current state of the game.
      */
     public void showMap() {
@@ -192,14 +210,14 @@ public class MapView {
             printPlayers();
         }
 
-        if(CollectionUtils.isNotEmpty(d_continents)) {
+        if (CollectionUtils.isNotEmpty(d_continents)) {
             d_continents.forEach(l_continent -> {
                 printContinentName(l_continent.getD_name());
 
                 List<Country> l_continentCountries = l_continent.getD_countries();
-                final int[] l_countryIndex = { 1 };
+                final int[] l_countryIndex = {1};
 
-                if(CollectionUtils.isNotEmpty(l_continentCountries)) {
+                if (CollectionUtils.isNotEmpty(l_continentCountries)) {
                     l_continentCountries.forEach((l_country) -> {
                         String l_formattedCountryName = getFormattedCountryName(l_countryIndex[0]++, l_country.getD_name());
                         System.out.println(l_formattedCountryName);
