@@ -79,6 +79,9 @@ public class GameEngine {
      */
     public static void main(String[] p_args) throws IOException{
         GameEngine l_gameEngine = new GameEngine();
+
+        l_gameEngine.getD_CurrentPhase().getD_gameState().addLogMessage(Constants.STARTING_THE_GAME_LOG_MESSAGE, "start");
+        l_gameEngine.commonGameEngineLogger("------- Startup Phase -------", "phase");
         l_gameEngine.getD_CurrentPhase().startPhase();
     }
 
@@ -182,6 +185,20 @@ public class GameEngine {
         if (d_gameState.getD_map() == null) {
             throw new InvalidCommand("Cannot execute this command, Map is required to be loaded first");
         }
+    }
+
+    /**
+     * Common method to print log to console and also add to log file
+     *
+     * @param p_log Message to be logged
+     * @param p_logType Type of log message
+     */
+    public void commonGameEngineLogger(String p_log, String p_logType) {
+        d_currentPhase.getD_gameState().addLogMessage(p_log, p_logType);
+        String l_printMessage = p_logType.equalsIgnoreCase("phase")
+                ? "\n\n ----------- " + p_log + "-------------- \n\n"
+                : p_log;
+        System.out.println(l_printMessage);
     }
 
 
