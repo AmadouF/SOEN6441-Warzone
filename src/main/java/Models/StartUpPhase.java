@@ -128,25 +128,9 @@ public class StartUpPhase extends Phase{
 
             // Assigning army personal to each player
             d_playerHelper.assignArmies(d_gameState);
+            
 
 
-            // TODO put this in order execution phase
-            while (d_playerHelper.unexecutedOrdersExists(d_gameState.getD_players())) {
-                for (Player l_player : d_gameState.getD_players()) {
-                    Order l_order = l_player.next_order();
-                    if (l_order != null)
-                        l_order.execute(d_gameState, l_player);
-                }
-            }
-            MapView l_view = new MapView(d_gameState, d_gameState.getD_players());
-            l_view.showMap();
-
-            System.out.println("Press 'y' to continue for next turn or else press 'n' to exit");
-            BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-            String l_continue = l_bufferedReader.readLine();
-            if (l_continue.equalsIgnoreCase("n")){
-                break;
-            }
         }
     }
     

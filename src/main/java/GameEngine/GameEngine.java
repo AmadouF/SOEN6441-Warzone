@@ -77,7 +77,7 @@ public class GameEngine {
      * Main method to start game
      * @param p_args the program doesn't use default command line arguments
      */
-    public static void main(String[] p_args) {
+    public static void main(String[] p_args) throws IOException{
         GameEngine l_gameEngine = new GameEngine();
         l_gameEngine.getD_CurrentPhase().startPhase();
     }
