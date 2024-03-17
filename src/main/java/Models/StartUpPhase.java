@@ -87,6 +87,8 @@ public class StartUpPhase extends Phase{
         if (CollectionUtils.isEmpty(l_listOfOperationsAndArguments)) {
             d_playerHelper.assignCountries(d_gameState);
             startGameLoop();
+            issueOrderPhase l_issueOrderPhase = new issueOrderPhase(d_gameEngine, d_gameState);
+            d_gameEngine.setCurrentPhase(l_issueOrderPhase);
         } else {
             throw new InvalidCommand("Invalid command. No arguments expected for command 'assigncountries'");
         }
