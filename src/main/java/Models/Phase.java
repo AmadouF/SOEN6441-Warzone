@@ -71,14 +71,14 @@ public abstract class Phase {
                 break;
 
             case "savemap":
-                if(!d_gameEngine.checkIfMapIsLoaded()){
+                if(d_gameEngine.checkIfMapIsNotLoaded(l_firstCommand)){
                     break;
                 }
                 d_gameEngine.commonCommandExecutorWithArgumentsOnly(l_playerCommand, l_firstCommand);
                 break;
 
             case "validatemap":
-                if(!d_gameEngine.checkIfMapIsLoaded()){
+                if(d_gameEngine.checkIfMapIsNotLoaded(l_firstCommand)){
                     break;
                 }
                 d_gameEngine.commonCommandExecutorWithNoArguments(l_playerCommand, l_firstCommand);
@@ -93,7 +93,7 @@ public abstract class Phase {
                 break;
 
             case "gameplayer":
-                if(!d_gameEngine.checkIfMapIsLoaded()){
+                if(d_gameEngine.checkIfMapIsNotLoaded(l_firstCommand)){
                     break;
                 }
                 gamePlayer(l_playerCommand, l_firstCommand);
@@ -104,7 +104,7 @@ public abstract class Phase {
                 break;
 
             case "assigncountries":
-                if(!d_gameEngine.checkIfMapIsLoaded()){
+                if(d_gameEngine.checkIfMapIsNotLoaded(l_firstCommand)){
                     break;
                 }
                 assignCountries(l_playerCommand);

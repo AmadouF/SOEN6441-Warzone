@@ -89,32 +89,32 @@ public class GameEngine {
     /**
      * This method is used to execute command which have both arguments and operations
      * @param p_command command object storing argument and operations
-     * @param baseCommand base command of the current command input string
+     * @param p_firstCommand base command of the current command input string
      * @throws IOException
      * @throws InvalidMap
      * @throws InvalidCommand
      */
-    public void commonCommandExecutorWithArgumentsAndOperations(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
-        if(!checkIfMapIsLoaded()){
+    public void commonCommandExecutorWithArgumentsAndOperations(Command p_command, String p_firstCommand) throws IOException, InvalidMap, InvalidCommand {
+        if(checkIfMapIsNotLoaded(p_firstCommand)){
             return;
         }
         List < Map < String, String >> l_listOfOperations = p_command.getListOfOperationsAndArguments();
 
         if (CollectionUtils.isEmpty(l_listOfOperations)) {
-            throw new InvalidCommand("No arguments and operations are provided for " + baseCommand);
+            throw new InvalidCommand("No arguments and operations are provided for " + p_firstCommand);
         }
 
         for (Map < String, String > l_map: l_listOfOperations) {
             if (p_command.validateArgumentAndOperation(l_map)) {
-                if("editcontinent".equals(baseCommand)) {
+                if("editcontinent".equals(p_firstCommand)) {
                     d_mapHelper.editContinent(d_gameState, l_map.get(Constants.ARGUMENT), l_map.get(Constants.OPERATION));
-                } else if ("editcountry".equals(baseCommand)) {
+                } else if ("editcountry".equals(p_firstCommand)) {
                     d_mapHelper.editCountry(d_gameState, l_map.get(Constants.ARGUMENT), l_map.get(Constants.OPERATION));
-                } else if ("editneighbor".equals(baseCommand)) {
+                } else if ("editneighbor".equals(p_firstCommand)) {
                     d_mapHelper.editNeighbour(d_gameState, l_map.get(Constants.ARGUMENT), l_map.get(Constants.OPERATION));
                 }
             } else {
-                throw new InvalidCommand("Invalid arguments provided for " + baseCommand);
+                throw new InvalidCommand("Invalid arguments provided for " + p_firstCommand);
             }
         }
     }
@@ -183,12 +183,12 @@ public class GameEngine {
      * This is method is check if map file is loading
      * @throws InvalidCommand
      */
-    public boolean checkIfMapIsLoaded() {
+    public boolean checkIfMapIsNotLoaded(String p_firstCommand) {
         if (d_gameState.getD_map() == null) {
-            commonGameEngineLogger("Cannot execute this command, Map is required to be loaded first", "effect");
-            return false;
+            commonGameEngineLogger("!!! Cannot execute command <" + p_firstCommand+">, Map is required to be loaded first !!!", "effect");
+            return true;
         }
-        return true;
+        return false;
     }
 
     /**
