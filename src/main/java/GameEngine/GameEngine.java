@@ -95,7 +95,9 @@ public class GameEngine {
      * @throws InvalidCommand
      */
     public void commonCommandExecutorWithArgumentsAndOperations(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
-        checkIfMapIsLoaded();
+        if(!checkIfMapIsLoaded()){
+            return;
+        }
         List < Map < String, String >> l_listOfOperations = p_command.getListOfOperationsAndArguments();
 
         if (CollectionUtils.isEmpty(l_listOfOperations)) {
@@ -181,10 +183,12 @@ public class GameEngine {
      * This is method is check if map file is loading
      * @throws InvalidCommand
      */
-    public void checkIfMapIsLoaded() throws InvalidCommand {
+    public boolean checkIfMapIsLoaded() {
         if (d_gameState.getD_map() == null) {
-            throw new InvalidCommand("Cannot execute this command, Map is required to be loaded first");
+            commonGameEngineLogger("Cannot execute this command, Map is required to be loaded first", "effect");
+            return false;
         }
+        return true;
     }
 
     /**

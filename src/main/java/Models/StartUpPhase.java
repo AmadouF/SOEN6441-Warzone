@@ -82,7 +82,7 @@ public class StartUpPhase extends Phase{
      * @throws IOException
      */
     public void assignCountries(Command p_command) throws InvalidCommand, IOException {
-        d_gameEngine.checkIfMapIsLoaded();
+
         List<Map<String, String>> l_listOfOperationsAndArguments = p_command.getListOfOperationsAndArguments();
         if (CollectionUtils.isEmpty(l_listOfOperationsAndArguments)) {
             d_playerHelper.assignCountries(d_gameState);
