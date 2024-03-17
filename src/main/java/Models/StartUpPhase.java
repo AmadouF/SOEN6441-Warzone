@@ -99,7 +99,7 @@ public class StartUpPhase extends Phase{
      */
     public void startPhase()  {
         BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        while (true) {
+        while (isInstanceOfstartupPhase()) {
             try {
                 System.out.println("-------- Enter Command to be executed [enter 'exit' to quit] --------");
                 String l_command = l_bufferedReader.readLine();
@@ -132,6 +132,10 @@ public class StartUpPhase extends Phase{
 
 
         }
+    }
+
+    private boolean isInstanceOfstartupPhase(){
+        return d_gameEngine.getD_CurrentPhase() instanceof StartUpPhase;
     }
     
 }
