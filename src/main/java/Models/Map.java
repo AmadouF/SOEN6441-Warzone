@@ -407,8 +407,13 @@ public class Map {
      */
     public void addNeighbour(String p_countryName, String p_neighbourName) throws InvalidMap{
         if(d_countriesList!=null){
-            if(getCountryByName(p_countryName)!=null && getCountryByName(p_neighbourName)!=null){
-                d_countriesList.get(d_countriesList.indexOf(getCountryByName(p_countryName))).addAdjacentCountry(getCountryByName(p_neighbourName).getD_id());
+            Country l_currentCountry = getCountryByName(p_countryName);
+            Country neighborCountry = getCountryByName(p_neighbourName);
+            if(l_currentCountry!=null && neighborCountry!=null){
+                if (l_currentCountry.getD_adjacentCountryIds().contains(neighborCountry.getD_id())){
+                    throw new InvalidMap(neighborCountry.getD_name() + " is already a neighbour of " + l_currentCountry.getD_name() + " !");
+                }
+                d_countriesList.get(d_countriesList.indexOf(l_currentCountry)).addAdjacentCountry(neighborCountry.getD_id());
             } else{
                 throw new InvalidMap("Invalid Neighbour Pair! Either of the Countries Doesn't exist!");
             }
