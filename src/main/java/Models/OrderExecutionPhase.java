@@ -82,16 +82,15 @@ public class OrderExecutionPhase extends Phase {
     protected void executeOrders() {
         System.out.println("Starting Order Execution Phase");
         while (d_playerHelper.unexecutedOrdersExists(d_gameState.getD_players())) {
-            for (Player l_player: d_gameState.getD_players()) {
-                Order l_order = l_player.next_order();
-                if (l_order != null) {
-                    l_order.printOrder();
-                    l_order.execute(d_gameState);
-                }
+          for (Player l_player: d_gameState.getD_players()) {
+            Order l_order = l_player.next_order();
+            if (l_order != null) {
+              l_order.printOrder();
+              d_gameState.addLogMessage(l_order.orderExecutionLog(), "effect");
+              l_order.execute(d_gameState);
             }
+            // TODO reset players data
         }
-        // TODO reset players data
-    }
 
     /**
      * Loads a map.
