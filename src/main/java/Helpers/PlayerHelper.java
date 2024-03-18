@@ -11,6 +11,16 @@ import java.util.Random;
  */
 public class PlayerHelper {
     /**
+     * log messages of player related operations
+     */
+    String d_playerLog;
+
+    /**
+     * Log message of country and continent assignment
+     */
+    String d_assignmentLog = "Country / Continent Assignment: ";
+
+    /**
      * Checks if player name exists in given existing player list.
      *
      * @param p_existingPlayers existing players list present in game
@@ -57,7 +67,7 @@ public class PlayerHelper {
                 removePlayer(p_existingPlayers, l_updatedPlayers, l_enteredPlayerName, l_playerNameAlreadyExists);
                 break;
             default:
-                System.out.println("Invalid Operation on Players");
+                setD_playerLog("Invalid operation on players!!");
         }
 
         return l_updatedPlayers;
@@ -72,11 +82,11 @@ public class PlayerHelper {
      */
     private void addPlayer(List<Player> p_existingPlayers, String p_enteredName, boolean p_playerNameExists) {
         if(p_playerNameExists) {
-            System.out.print("Player with name : " + p_enteredName + " already Exists. Aborted.");
+            setD_playerLog("Player with name : " + p_enteredName + " already Exists. Aborted.");
         } else {
             Player l_newPlayer = new Player(p_enteredName);
             p_existingPlayers.add(l_newPlayer);
-            System.out.println("Player with name : " + l_newPlayer.getPlayerName() + " has been added successfully.");
+            setD_playerLog("Player with name : " + l_newPlayer.getPlayerName() + " has been added successfully.");
         }
     }
 
@@ -94,11 +104,11 @@ public class PlayerHelper {
             for (Player l_player : p_existingPlayers) {
                 if (l_player.getPlayerName().equalsIgnoreCase(p_enteredPlayerName)) {
                     p_updatedPlayers.remove(l_player);
-                    System.out.print("Player with name : " + p_enteredPlayerName + " has been removed successfully.");
+                    setD_playerLog("Player with name : " + p_enteredPlayerName + " has been removed successfully.");
                 }
             }
         } else {
-            System.out.print("Player with name : " + p_enteredPlayerName + " does not Exist. Aborted.");
+            setD_playerLog("Player with name : " + p_enteredPlayerName + " does not Exist. Aborted.");
         }
     }
 
@@ -123,17 +133,19 @@ public class PlayerHelper {
      * @param p_gameState current game state with map and player information
      */
     public void assignCountries(GameState p_gameState) {
-        if (!arePlayersAvailabe(p_gameState))
+        if (!arePlayersAvailabe(p_gameState)) {
+            p_gameState.addLogMessage("Please add players before continuing!!", "effect");
             return;
+        }
 
         List<Country> l_countries = p_gameState.getD_map().getCountriesList();
 
         int l_countriesPerPlayer = (int) Math.floor((double) l_countries.size() / p_gameState.getD_players().size());
         this.assignRandomCountries(l_countriesPerPlayer, l_countries, p_gameState.getD_players());
 
-//        System.out.println("__" + p_gameState.getD_map().getContinentsList());
         this.assignContinents(p_gameState.getD_players(), p_gameState.getD_map().getContinentsList());
 
+        p_gameState.addLogMessage(d_assignmentLog, "effect");
         System.out.println("Assigned countries successfully!!");
 
     }
@@ -169,6 +181,9 @@ public class PlayerHelper {
                 System.out.println("Player : " + l_pl.getPlayerName() + " is assigned with country : "
                         + l_randomCountry.getD_name());
 
+                d_assignmentLog += "Player : " + l_pl.getPlayerName() + " is assigned with country : "
+                        + l_randomCountry.getD_name();
+
                 l_remainingCountries.remove(l_randomCountry);
             }
         }
@@ -186,7 +201,7 @@ public class PlayerHelper {
      * @param p_players list of all available players
      * @param p_continents list of all available continents
      */
-    private void assignContinents(List<Player> p_players, List<Continent> p_continents) {
+    public void assignContinents(List<Player> p_players, List<Continent> p_continents) {
         for (Player l_pl : p_players) {
             List<String> l_countriesOwned = new ArrayList<String>();
 
@@ -208,54 +223,13 @@ public class PlayerHelper {
                         l_pl.getOwnedContinents().add(l_cont);
                         System.out.println("Player : " + l_pl.getPlayerName() + " is assigned with continent : "
                                 + l_cont.getD_name());
+
+                        d_assignmentLog += "Player : " + l_pl.getPlayerName() + " is assigned with continent : "
+                                + l_cont.getD_name();
                     }
                 }
             }
         }
-    }
-
-    /**
-     * creates the deploy order on the commands entered by the player.
-     *
-     * @param p_commandEntered command entered by the user
-     * @param p_player player to create deploy order
-     */
-    public void createDeployOrder(String p_commandEntered, Player p_player) {
-        List<Order> l_orders = CollectionUtils.isEmpty(p_player.getIssuedOrders()) ? new ArrayList<>()
-                : p_player.getIssuedOrders();
-
-        String l_countryName = p_commandEntered.split(" ")[1];
-        String l_noOfArmies = p_commandEntered.split(" ")[2];
-
-        if (!isValidArmies(p_player, l_noOfArmies)) {
-            System.out.println(
-                    "Player does not have enough reinforcements to deploy!! Aborted.");
-        } else {
-            Order l_order = new Order(p_commandEntered.split(" ")[0], l_countryName,
-                    Integer.parseInt(l_noOfArmies));
-
-            l_orders.add(l_order);
-            p_player.setIssuedOrders(l_orders);
-
-            // Updating reinforcements of the player
-            int l_reinforcements = p_player.getReinforcements() - Integer.parseInt(l_noOfArmies);
-            p_player.setReinforcement(l_reinforcements);
-
-            System.out.println("Order has been created and added to queue.");
-        }
-    }
-
-    /**
-     * Used to test number of armies entered in deploy command to check that player
-     * cannot deploy more armies than they have.
-     *
-     * @param p_player player to create deploy order
-     * @param p_noOfArmies number of armies to deploy
-     *
-     * @return boolean to validate armies to deploy
-     */
-    public boolean isValidArmies(Player p_player, String p_noOfArmies) {
-        return p_player.getReinforcements() >= Integer.parseInt(p_noOfArmies);
     }
 
     /**
@@ -291,7 +265,9 @@ public class PlayerHelper {
     public void assignArmies(GameState p_gameState) {
         for (Player l_pl : p_gameState.getD_players()) {
             int l_armies = this.calculateArmiesForPlayer(l_pl);
-            System.out.println("Player : " + l_pl.getPlayerName() + " has been assigned with " + l_armies + " armies.");
+            this.setD_playerLog("Player : " + l_pl.getPlayerName() + " has been assigned with " + l_armies + " armies.");
+
+            p_gameState.addLogMessage(this.d_playerLog, "effect");
 
             l_pl.setReinforcement(l_armies);
         }
@@ -342,7 +318,8 @@ public class PlayerHelper {
      */
     public void updatePlayers(GameState p_gameState, String p_operation, String p_argument) {
         if (!isMapLoaded(p_gameState)) {
-            System.out.println("Map not loaded!! Please load the map to add player: " + p_argument);
+            this.setD_playerLog("Map not loaded!! Please load the map to add player: " + p_argument);
+            p_gameState.addLogMessage(this.d_playerLog, "effect");
             return;
         }
 
@@ -350,6 +327,8 @@ public class PlayerHelper {
 
         if (CollectionUtils.isNotEmpty(l_updatedPlayers)) {
             p_gameState.setD_players(l_updatedPlayers);
+
+            p_gameState.addLogMessage(d_playerLog, "effect");
         }
     }
 
@@ -362,5 +341,60 @@ public class PlayerHelper {
      */
     public boolean isMapLoaded(GameState p_gameState) {
         return p_gameState.getD_map() != null;
+    }
+
+    /**
+     * Checks if the players have more orders or not
+     *
+     * @param p_playersList List of players
+     * @return true or false
+     */
+    public boolean checkForMoreOrders(List<Player> p_playersList) {
+        for (Player l_player: p_playersList) {
+            if (l_player.getMoreOrders()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Resets the players info before issuing new orders
+     *
+     * @param p_players List of the players
+     */
+    public void resetPlayers(List<Player> p_players) {
+        for (Player l_player: p_players) {
+            // If only the player is not Neutral player then change orders flag
+            if (!l_player.getPlayerName().equalsIgnoreCase("Neutral"))
+                l_player.setMoreOrders(true);
+
+            l_player.setOneCard(false);
+            l_player.clearNegotiatedPlayers();
+        }
+    }
+
+    /**
+     * Sets the log message of player operations
+     *
+     * @param p_playerLog log message
+     */
+    public void setD_playerLog(String p_playerLog) {
+        this.d_playerLog = p_playerLog;
+
+        System.out.println(p_playerLog);
+    }
+
+    /**
+     * Finds the player in the game by name
+     *
+     * @param p_playerName Name of the player
+     * @param p_gameState current state of the game
+     * @return Player
+     */
+    public Player findPlayerByName(String p_playerName, GameState p_gameState) {
+        return p_gameState.getD_players().stream().filter(l_pl -> l_pl.getPlayerName().equals(p_playerName))
+                .findFirst().orElse(null);
     }
 }

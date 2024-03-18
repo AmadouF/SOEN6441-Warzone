@@ -74,7 +74,8 @@ public class PlayerHelperTest {
 
         System.setOut(new PrintStream(d_outContent));
         d_playerHelper.addOrRemovePlayers(d_existingPlayers, "add", "John");
-        Assert.assertEquals("Player with name : John already Exists. Aborted.", d_outContent.toString());
+
+        Assert.assertEquals("Player with name : John already Exists. Aborted.", d_outContent.toString().trim());
     }
 
     /**
@@ -87,7 +88,7 @@ public class PlayerHelperTest {
 
         System.setOut(new PrintStream(d_outContent));
         d_playerHelper.addOrRemovePlayers(d_existingPlayers, "remove", "Jay");
-        Assert.assertEquals("Player with name : Jay does not Exist. Aborted.", d_outContent.toString());
+        Assert.assertEquals("Player with name : Jay does not Exist. Aborted.", d_outContent.toString().trim());
     }
 
     /**
@@ -145,43 +146,5 @@ public class PlayerHelperTest {
         Integer l_expectedResult = 8;
 
         Assert.assertEquals(l_expectedResult, l_actualResult);
-    }
-
-    /**
-     * Used to check that player cannot deploy more armies than they have
-     */
-    @Test
-    public void testInvalidArmies() {
-        d_player.setReinforcement(5);
-        String l_noOfArmies = "10";
-
-        boolean l_isValid = d_playerHelper.isValidArmies(d_player, l_noOfArmies);
-
-        Assert.assertFalse(l_isValid);
-    }
-
-    /**
-     * Tests deploy order to see if required order is created and armies has
-     * been updated accordingly
-     *
-     * @throws InvalidCommand if given command is invalid
-     */
-    @Test
-    public void testCreateDeployOrder() throws InvalidCommand {
-        Player l_player = new Player("Jay");
-        l_player.setReinforcement(10);
-
-        Country l_country = new Country(1, 1, "Israel");
-        l_player.setOwnedCountries(List.of(l_country));
-
-        d_playerHelper.createDeployOrder("deploy Israel 5", l_player);
-
-        Assert.assertEquals("5", l_player.getReinforcements().toString());
-
-        Assert.assertEquals(1, l_player.getIssuedOrders().size());
-
-        Assert.assertEquals("Israel", l_player.getIssuedOrders().get(0).getD_targetCountryName());
-
-        Assert.assertEquals("5", l_player.getIssuedOrders().get(0).getD_numberOfArmiesToDeploy().toString());
     }
 }

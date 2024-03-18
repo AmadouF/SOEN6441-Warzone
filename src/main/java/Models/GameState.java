@@ -1,5 +1,7 @@
 package Models;
 
+import Views.LogWriterView;
+
 import java.util.List;
 
 /**
@@ -11,22 +13,33 @@ public class GameState {
     /**
      * Map object to store the game map details for the current game
      */
-    Map d_map;
+    private Map d_map;
 
     /**
      * List of Players in the current game
      */
-    List<Player> d_players;
+    private List<Player> d_players;
 
     /**
      * list of orders in queue left to be executed.
      */
-    List<Order> d_ordersToBeExecuted;
+    private List<Order> d_ordersToBeExecuted;
 
     /**
      * Error message
      */
-    String d_error;
+    private String d_error;
+
+    /**
+     * Log Entry Buffer to write messages to log file
+     */
+    LogEntryBuffer d_logEntryBuffer;
+    LogWriterView d_logWriterView;
+
+    public GameState(){
+        d_logEntryBuffer = new LogEntryBuffer();
+        d_logWriterView = new LogWriterView(d_logEntryBuffer);
+    }
 
     /**
      * Getter method to get the game map
@@ -98,5 +111,14 @@ public class GameState {
      */
     public void setError(String p_error) {
         this.d_error = p_error;
+    }
+
+    /**
+     *
+     * @param p_logMessage Message to be logged
+     * @param p_logType Type of Log : Start, end, Phase, Command, Order
+     */
+    public void addLogMessage(String p_logMessage, String p_logType) {
+        d_logEntryBuffer.logMessage(p_logMessage, p_logType);
     }
 }
