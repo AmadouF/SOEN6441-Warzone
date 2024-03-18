@@ -1,6 +1,5 @@
 package Models;
 
-
 import Exceptions.InvalidCommand;
 import Exceptions.InvalidMap;
 import GameEngine.GameEngine;
@@ -10,28 +9,31 @@ import Utils.Command;
 
 import java.io.IOException;
 
-
+/**
+ * This class represents a phase in the game.
+ */
 public abstract class Phase {
-        /**
-     * Stores the information about current Game State
-     */
+    
+    /** Stores the information about current Game State */
     protected GameState d_gameState;
 
-    /**
-     * Stores the information about the
-     */
-    protected  MapHelper d_mapHelper;
+    /** Stores the map helper information */
+    protected MapHelper d_mapHelper;
 
-    /**
-     * Helper to change the state of a player object
-     */
+    /** Helper to change the state of a player object */
     protected PlayerHelper d_playerHelper;
 
+    /** The game engine */
     protected GameEngine d_gameEngine;
 
+    /** The name of the phase */
     public String d_phase_name;
 
-
+    /**
+     * Constructor for Phase.
+     * @param p_currentGameEngine The current game engine.
+     * @param p_currentGameState The current game state.
+     */
     public Phase(GameEngine p_currentGameEngine, GameState p_currentGameState){
         d_gameEngine = p_currentGameEngine;
         d_gameState = p_currentGameState;
@@ -41,25 +43,27 @@ public abstract class Phase {
     }
 
     /**
-     *  Getter method for current game state
-     *
-     * @return the current GameState Object
+     * Getter method for current game state.
+     * @return The current GameState object.
      */
     public GameState getD_gameState() {
         return d_gameState;
     }
 
+    /**
+     * Getter method for phase name.
+     * @return The phase name.
+     */
     public String getPhaseName(){
         return d_phase_name;
     }
 
     /**
-     *
-     * This method takes the command from the user like editmap, savemap, showmap etc.
-     * @param p_commandInput command from the user
-     * @throws InvalidMap
-     * @throws IOException
-     * @throws InvalidCommand
+     * Processes a command from the user.
+     * @param p_commandInput The command from the user.
+     * @throws InvalidMap Thrown if the map is invalid.
+     * @throws IOException Thrown if an IO error occurs.
+     * @throws InvalidCommand Thrown if the command is invalid.
      */
     public void processCommand(String p_commandInput) throws InvalidMap, IOException, InvalidCommand {
         Command l_playerCommand = new Command(p_commandInput);
@@ -112,40 +116,45 @@ public abstract class Phase {
                 break;
             default:
                 throw new InvalidMap(" !!!  Base command Invalid  !!!");
-
         }
     }
 
     /**
-     * This method is used to load map file
-     * @param p_command command of lading map
-     * @throws InvalidCommand
+     * This method is used to load a map file.
+     * @param p_command The command for loading the map.
+     * @throws InvalidCommand Thrown if the command is invalid.
+     * @throws IOException Thrown if an IO error occurs.
+     * @throws InvalidMap Thrown if the map is invalid.
      */
     protected abstract void loadMap(Command p_command) throws InvalidCommand, IOException, InvalidMap;
 
     /**
-     * This method is used to add game player to the current game
-     * @param p_command command object storing input command data
-     * @param baseCommand base command of the gameplayer command input string
-     * @throws InvalidCommand
+     * This method is used to add a game player to the current game.
+     * @param p_command The command object storing input command data.
+     * @param baseCommand The base command of the gameplayer command input string.
+     * @throws InvalidCommand Thrown if the command is invalid.
+     * @throws IOException Thrown if an IO error occurs.
+     * @throws InvalidMap Thrown if the map is invalid.
      */
     protected abstract void gamePlayer(Command p_command, String baseCommand) throws InvalidCommand, IOException, InvalidMap;
 
     /**
-     * This method is used to start the game loop with already loaded map file
-     * @param p_command command object with assign country argument
-     * @throws InvalidCommand
-     * @throws IOException
+     * This method is used to start the game loop with an already loaded map file.
+     * @param p_command The command object with assign country argument.
+     * @throws InvalidCommand Thrown if the command is invalid.
+     * @throws IOException Thrown if an IO error occurs.
+     * @throws InvalidMap Thrown if the map is invalid.
      */
     protected abstract void assignCountries(Command p_command) throws InvalidCommand, IOException, InvalidMap;
 
     /**
-     * This is the methods initializing the current phase
+     * This method initializes the current phase.
+     * @throws IOException Thrown if an IO error occurs.
      */
     public abstract void startPhase() throws IOException;
 
     /**
-     * Method to the print that the current command can't be executed in the current state
+     * Prints that the current command cannot be executed in the current state.
      */
     public void printCommandInvalidInCurrentState(){
         //TODO add log
