@@ -24,7 +24,7 @@ public class LogWriterView implements Observer {
         String l_logMessage = d_logEntryBuffer.getD_logMessage();
 
         try{
-            if(l_logMessage.equals("Initializing the Game ......"+System.lineSeparator())) {
+            if(l_logMessage.startsWith(Constants.STARTING_THE_GAME_LOG_MESSAGE)) {
                 Files.newBufferedWriter(Paths.get(Constants.GAMELOGS_FILE_NAME), StandardOpenOption.TRUNCATE_EXISTING).write(" ");
             }
             Files.write(Paths.get(Constants.GAMELOGS_FILE_NAME), l_logMessage.getBytes(StandardCharsets.US_ASCII), StandardOpenOption.CREATE, StandardOpenOption.APPEND);

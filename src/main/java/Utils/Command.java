@@ -13,6 +13,14 @@ import java.util.Map;
  * The class Command is a util processing the command strings entered by the user.
  */
 public class Command {
+    public String getD_playerCommand() {
+        return d_playerCommand;
+    }
+
+    public String getD_rootCommand() {
+        return d_rootCommand;
+    }
+
     /**
      * d_playerCommand represents the input command from the player
      */

@@ -68,6 +68,7 @@ public abstract class Phase {
     public void processCommand(String p_commandInput) throws InvalidMap, IOException, InvalidCommand {
         Command l_playerCommand = new Command(p_commandInput);
         String l_firstCommand = l_playerCommand.getFirstCommand();
+        d_gameState.addLogMessage(l_playerCommand.getD_playerCommand(), "command");
 
         switch (l_firstCommand) {
             case "editmap":
@@ -75,12 +76,16 @@ public abstract class Phase {
                 break;
 
             case "savemap":
-                d_gameEngine.checkIfMapIsLoaded();
+                if(d_gameEngine.checkIfMapIsNotLoaded(l_firstCommand)){
+                    break;
+                }
                 d_gameEngine.commonCommandExecutorWithArgumentsOnly(l_playerCommand, l_firstCommand);
                 break;
 
             case "validatemap":
-                d_gameEngine.checkIfMapIsLoaded();
+                if(d_gameEngine.checkIfMapIsNotLoaded(l_firstCommand)){
+                    break;
+                }
                 d_gameEngine.commonCommandExecutorWithNoArguments(l_playerCommand, l_firstCommand);
                 break;
 
@@ -93,7 +98,9 @@ public abstract class Phase {
                 break;
 
             case "gameplayer":
-                d_gameEngine.checkIfMapIsLoaded();
+                if(d_gameEngine.checkIfMapIsNotLoaded(l_firstCommand)){
+                    break;
+                }
                 gamePlayer(l_playerCommand, l_firstCommand);
                 break;
 
@@ -102,6 +109,9 @@ public abstract class Phase {
                 break;
 
             case "assigncountries":
+                if(d_gameEngine.checkIfMapIsNotLoaded(l_firstCommand)){
+                    break;
+                }
                 assignCountries(l_playerCommand);
                 break;
             default:
