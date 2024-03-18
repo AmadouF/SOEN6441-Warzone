@@ -3,7 +3,7 @@ package Constants;
 /**
  * This class holds constant data members used throughout the application.
  */
-public class Constants {
+public final class Constants {
 
     /**
      * Represents the key for accessing arguments in maps.
@@ -44,4 +44,5 @@ public class Constants {
      * Represents the message logged when the game starts.
      */
     public static final String STARTING_THE_GAME_LOG_MESSAGE = "----------- Starting the Game -----------" + System.lineSeparator();
+
 }

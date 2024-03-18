@@ -27,9 +27,9 @@ public class GameEngine {
     private GameState d_gameState;
 
     /**
-     * Stores the information about the
+     * Stores the information about the map
      */
-   private  MapHelper d_mapHelper;
+    private MapHelper d_mapHelper;
 
     /**
      * Helper to change the state of a player object
@@ -50,7 +50,7 @@ public class GameEngine {
     }
 
     /**
-     *  Getter method for current game state
+     * Getter method for current game state
      *
      * @return the current GameState Object
      */
@@ -59,26 +59,33 @@ public class GameEngine {
     }
 
     /**
-     *  Getter method for current game phase
+     * Getter method for current game phase
      *
      * @return the current phase Object
      */
-	public Phase getD_CurrentPhase(){
-		return d_currentPhase;
-	}
+    public Phase getD_CurrentPhase() {
+        return d_currentPhase;
+    }
 
+    /**
+     * Sets the current phase of the game engine and starts the phase
+     *
+     * @param p_currentPhase the phase to set
+     * @throws IOException
+     */
     public void setCurrentPhase(Phase p_currentPhase) throws IOException {
         System.out.println();
         d_currentPhase = p_currentPhase;
         d_currentPhase.startPhase();
     }
 
-
     /**
-     * Main method to start game
+     * Main method to start the game
+     *
      * @param p_args the program doesn't use default command line arguments
+     * @throws IOException
      */
-    public static void main(String[] p_args) throws IOException{
+    public static void main(String[] p_args) throws IOException {
         GameEngine l_gameEngine = new GameEngine();
 
         l_gameEngine.getD_CurrentPhase().getD_gameState().addLogMessage(Constants.STARTING_THE_GAME_LOG_MESSAGE, "start");
@@ -86,28 +93,28 @@ public class GameEngine {
         l_gameEngine.getD_CurrentPhase().startPhase();
     }
 
-
     /**
-     * This method is used to execute command which have both arguments and operations
-     * @param p_command command object storing argument and operations
+     * Executes commands which have both arguments and operations
+     *
+     * @param p_command      command object storing argument and operations
      * @param p_firstCommand base command of the current command input string
      * @throws IOException
      * @throws InvalidMap
      * @throws InvalidCommand
      */
     public void commonCommandExecutorWithArgumentsAndOperations(Command p_command, String p_firstCommand) throws IOException, InvalidMap, InvalidCommand {
-        if(checkIfMapIsNotLoaded(p_firstCommand)){
+        if (checkIfMapIsNotLoaded(p_firstCommand)) {
             return;
         }
-        List < Map < String, String >> l_listOfOperations = p_command.getListOfOperationsAndArguments();
+        List<Map<String, String>> l_listOfOperations = p_command.getListOfOperationsAndArguments();
 
         if (CollectionUtils.isEmpty(l_listOfOperations)) {
             throw new InvalidCommand("No arguments and operations are provided for " + p_firstCommand);
         }
 
-        for (Map < String, String > l_map: l_listOfOperations) {
+        for (Map<String, String> l_map : l_listOfOperations) {
             if (p_command.validateArgumentAndOperation(l_map)) {
-                if("editcontinent".equals(p_firstCommand)) {
+                if ("editcontinent".equals(p_firstCommand)) {
                     d_mapHelper.editContinent(d_gameState, l_map.get(Constants.ARGUMENT), l_map.get(Constants.OPERATION));
                 } else if ("editcountry".equals(p_firstCommand)) {
                     d_mapHelper.editCountry(d_gameState, l_map.get(Constants.ARGUMENT), l_map.get(Constants.OPERATION));
@@ -121,9 +128,10 @@ public class GameEngine {
     }
 
     /**
-     * This method is used to execute command which have arguments only and no operations
-     * @param p_command command object storing arguments
-     * @param baseCommand base command of the current command input string
+     * Executes commands which have arguments only and no operations
+     *
+     * @param p_command    command object storing arguments
+     * @param baseCommand  base command of the current command input string
      * @throws IOException
      * @throws InvalidMap
      * @throws InvalidCommand
@@ -138,13 +146,12 @@ public class GameEngine {
 
         for (Map<String, String> l_map : l_listOfOperationsAndArguments) {
             if (p_command.validateArgumentsOnly(l_map)) {
-                if("editmap".equals(baseCommand)) {
+                if ("editmap".equals(baseCommand)) {
                     d_mapHelper.editMap(d_gameState, l_map.get(Constants.ARGUMENT));
-                } else if("savemap".equals(baseCommand)) {
+                } else if ("savemap".equals(baseCommand)) {
                     if (d_mapHelper.saveMap(d_gameState, l_map.get(Constants.ARGUMENT))) {
                         System.out.println("savemap has successfully updated the map in file");
-                    }
-                    else {
+                    } else {
                         System.out.println(d_gameState.getError());
                     }
                 }
@@ -155,47 +162,50 @@ public class GameEngine {
     }
 
     /**
-     * This method is used to execute command which have no arguments
-     * @param p_command command object with no arguments
-     * @param baseCommand base command of the current command input string
+     * Executes commands which have no arguments
+     *
+     * @param p_command    command object with no arguments
+     * @param baseCommand  base command of the current command input string
      * @throws IOException
      * @throws InvalidMap
      * @throws InvalidCommand
      */
     public void commonCommandExecutorWithNoArguments(Command p_command, String baseCommand) throws IOException, InvalidMap, InvalidCommand {
         if (CollectionUtils.isEmpty(p_command.getListOfOperationsAndArguments())) {
-                if("validatemap".equals(baseCommand)) {
-                    Models.Map l_currentMap = d_gameState.getD_map();
-                    if (l_currentMap.isValidMap()) {
-                        System.out.println("!!!!! Map Validation Successful !!!!!");
-                    } else {
-                        System.out.println("!!!!! Map Validation Failed !!!!!");
-                    }
-                } else if("showmap".equals(baseCommand)) {
-                    MapView l_mapView = new MapView(d_gameState);
-                    l_mapView.showMap();
+            if ("validatemap".equals(baseCommand)) {
+                Models.Map l_currentMap = d_gameState.getD_map();
+                if (l_currentMap.isValidMap()) {
+                    System.out.println("!!!!! Map Validation Successful !!!!!");
+                } else {
+                    System.out.println("!!!!! Map Validation Failed !!!!!");
                 }
-            } else {
-                throw new InvalidCommand("Invalid Command. No arguments are allowed for : " + baseCommand);
+            } else if ("showmap".equals(baseCommand)) {
+                MapView l_mapView = new MapView(d_gameState);
+                l_mapView.showMap();
             }
+        } else {
+            throw new InvalidCommand("Invalid Command. No arguments are allowed for : " + baseCommand);
+        }
     }
 
     /**
-     * This is method is check if map file is loading
-     * @throws InvalidCommand
+     * Checks if the map is loaded
+     *
+     * @param p_firstCommand the command being checked
+     * @return true if map is not loaded, false otherwise
      */
     public boolean checkIfMapIsNotLoaded(String p_firstCommand) {
         if (d_gameState.getD_map() == null) {
-            commonGameEngineLogger("!!! Cannot execute command <" + p_firstCommand+">, Map is required to be loaded first !!!", "effect");
+            commonGameEngineLogger("!!! Cannot execute command <" + p_firstCommand + ">, Map is required to be loaded first !!!", "effect");
             return true;
         }
         return false;
     }
 
     /**
-     * Common method to print log to console and also add to log file
+     * Logs a message to console and adds it to the log file
      *
-     * @param p_log Message to be logged
+     * @param p_log     Message to be logged
      * @param p_logType Type of log message
      */
     public void commonGameEngineLogger(String p_log, String p_logType) {
@@ -205,6 +215,4 @@ public class GameEngine {
                 : p_log;
         System.out.println(l_printMessage);
     }
-
-
 }
