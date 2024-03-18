@@ -35,7 +35,7 @@ public class OrderExecutionPhase extends Phase {
       if (isGameOver(d_gameState)) {
         break;
       }
-      while (d_playerHelper.unexecutedOrdersExists(d_gameState.getD_players())) {
+      while (d_gameState.getD_players().size() != 0) {
         System.out.println("Press 'y' to continue for next turn or press 'n' to exit");
         try {
           BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -105,6 +105,10 @@ public class OrderExecutionPhase extends Phase {
    * @throws InvalidMap      Thrown if the map is invalid.
    */
   public void loadMap(Command p_command) throws InvalidCommand, IOException, InvalidMap {
+    printCommandInvalidInCurrentState();
+  }
+
+  public void deployCommand(String p_command) throws InvalidCommand, IOException, InvalidMap {
     printCommandInvalidInCurrentState();
   }
 

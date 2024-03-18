@@ -5,20 +5,39 @@
 
 Command Executed: loadmap map1.txt
 
-Command Executed: editneighbor --add France UK
+Command Executed: gameplayer -add aa
+Log: Player with name : aa has been added successfully.
 
-Command Executed: editneighbor --add France germany
+Command Executed: gameplayer -add bb
+Log: Player with name : bb has been added successfully.
 
-Command Executed: showmap
+Command Executed: assigncountries
+Log: Country / Continent Assignment: Player : aa is assigned with country : CanadaPlayer : aa is assigned with country : USAPlayer : aa is assigned with country : JapanPlayer : bb is assigned with country : FrancePlayer : bb is assigned with country : IndiaPlayer : bb is assigned with country : PakPlayer : aa is assigned with country : UKPlayer : aa is assigned with continent : America
+Log: Player : aa has been assigned with 6 armies.
+Log: Player : bb has been assigned with 3 armies.
 
-Command Executed: editcountry --add Germany Europe
+Order Issued: [ Player: aa] deploy France 2
 
-Command Executed: showmap
+Command Executed: deploy France 2
+Log: Deploy order has been added to queue for execution. For player: aa
+Log: Deploy order has been added to queue for execution. For player: aa
 
-Command Executed: editneighbor --add France Germany
+Order Issued: [ Player: bb] deploy UK 2
 
-Command Executed: showmap
+Command Executed: deploy UK 2
+Log: Deploy order has been added to queue for execution. For player: bb
+Log: Deploy order has been added to queue for execution. For player: bb
 
-Command Executed: editneighbor --add France Germany
+----------Order Execution Phase----------
+Log: 
+******* Deploy order issued by aa *******
 
-Command Executed: showmap
+Deploy 2 armies to France
+Log: Deploy order - deploy France 2 is aborted because the country is now owned by the player - aa
+Log: 
+******* Deploy order issued by bb *******
+
+Deploy 2 armies to UK
+Log: Deploy order - deploy UK 2 is aborted because the country is now owned by the player - bb
+Log: Player : aa has been assigned with 6 armies.
+Log: Player : bb has been assigned with 3 armies.

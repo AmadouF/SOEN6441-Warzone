@@ -130,6 +130,12 @@ public class issueOrderPhase extends Phase{
         performCommand(l_enteredCommand);
     }
 
+    protected void deployCommand(String p_command) throws IOException {
+        d_current_player.createDeployOrder(p_command);
+        d_gameState.addLogMessage(this.d_current_player.getLog(), "effect");
+        d_playerHelper.checkForMoreOrders(d_gameState.getD_players());
+    }
+
     /**
      * Performs a command.
      * This method processes the command entered by the player and logs the effect.

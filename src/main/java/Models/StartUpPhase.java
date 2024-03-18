@@ -98,6 +98,11 @@ public class StartUpPhase extends Phase {
         }
     }
 
+
+    public void deployCommand(String p_command) throws InvalidCommand, IOException, InvalidMap {
+        printCommandInvalidInCurrentState();
+      }
+
     /**
      * This method starts an infinite loop which processes the input commands from the players.
      */
