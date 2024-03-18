@@ -117,6 +117,19 @@ public abstract class Phase {
             case "deploy":
                 deployCommand(p_commandInput);
                 break;
+
+            case "advance":
+                advanceCommand(p_commandInput);
+                break;
+
+            case "airlift":
+            case "blockade":
+            case "negotiate":
+            case "bomb":
+                {
+                    CardCommand(p_commandInput);
+                    break;
+                }
                 
             default:
                 throw new InvalidMap(" !!!  Base command Invalid  !!!");
@@ -160,6 +173,17 @@ public abstract class Phase {
      * @throws InvalidMap Thrown if the map is invalid.
      */
     protected abstract void deployCommand(String p_command) throws InvalidCommand, IOException, InvalidMap;
+
+    /**
+     * This method is used to tp perfomr deploy command.
+     * @param p_command The command object with assign country argument.
+     * @throws InvalidCommand Thrown if the command is invalid.
+     * @throws IOException Thrown if an IO error occurs.
+     * @throws InvalidMap Thrown if the map is invalid.
+     */
+    protected abstract void advanceCommand(String p_command) throws InvalidCommand, IOException, InvalidMap;
+
+    protected abstract void CardCommand(String p_command) throws InvalidCommand, IOException, InvalidMap;
 
     /**
      * This method initializes the current phase.

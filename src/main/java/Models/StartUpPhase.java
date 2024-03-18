@@ -149,4 +149,12 @@ public class StartUpPhase extends Phase {
     private boolean isInstanceOfstartupPhase(){
         return d_gameEngine.getD_CurrentPhase() instanceof StartUpPhase;
     }
+
+    public void CardCommand(String p_command) throws InvalidCommand, IOException, InvalidMap {
+        printCommandInvalidInCurrentState();
+      }
+    
+    public void advanceCommand(String p_command) throws InvalidCommand, IOException, InvalidMap {
+        printCommandInvalidInCurrentState();
+      }
 }

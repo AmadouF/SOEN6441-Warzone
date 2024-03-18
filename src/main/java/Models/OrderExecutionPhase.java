@@ -112,6 +112,14 @@ public class OrderExecutionPhase extends Phase {
     printCommandInvalidInCurrentState();
   }
 
+  public void advanceCommand(String p_command) throws InvalidCommand, IOException, InvalidMap {
+    printCommandInvalidInCurrentState();
+  }
+
+  public void CardCommand(String p_command) throws InvalidCommand, IOException, InvalidMap {
+    printCommandInvalidInCurrentState();
+  }
+
   /**
    * Assigns countries to players.
    *
