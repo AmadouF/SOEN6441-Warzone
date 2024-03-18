@@ -1,6 +1,6 @@
 package TestSuites;
 
-import Helpers.MapHelper;
+import Helpers.MapHelperTest;
 import Helpers.PlayerHelperTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -11,6 +11,6 @@ import org.junit.runners.Suite.SuiteClasses;
  *
  */
 @RunWith(Suite.class)
-@SuiteClasses({ MapHelper.class, PlayerHelperTest.class })
+@SuiteClasses({ MapHelperTest.class, PlayerHelperTest.class })
 public class HelpersTestSuite {
 }
