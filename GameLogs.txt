@@ -1,0 +1,24 @@
+----------- Starting the Game -----------
+
+
+----------------- Startup Phase -----------------
+
+Command Executed: loadmap map1.txt
+
+Command Executed: editneighbor --add France UK
+
+Command Executed: editneighbor --add France germany
+
+Command Executed: showmap
+
+Command Executed: editcountry --add Germany Europe
+
+Command Executed: showmap
+
+Command Executed: editneighbor --add France Germany
+
+Command Executed: showmap
+
+Command Executed: editneighbor --add France Germany
+
+Command Executed: showmap
