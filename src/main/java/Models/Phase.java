@@ -37,7 +37,6 @@ public abstract class Phase {
     public Phase(GameEngine p_currentGameEngine, GameState p_currentGameState){
         d_gameEngine = p_currentGameEngine;
         d_gameState = p_currentGameState;
-        d_gameState = new GameState();
         d_mapHelper = new MapHelper();
         d_playerHelper = new PlayerHelper();
     }

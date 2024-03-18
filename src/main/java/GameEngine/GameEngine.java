@@ -67,9 +67,10 @@ public class GameEngine {
 		return d_currentPhase;
 	}
 
-    public void setCurrentPhase(Phase p_currentPhase){
+    public void setCurrentPhase(Phase p_currentPhase) throws IOException {
         System.out.println();
         d_currentPhase = p_currentPhase;
+        d_currentPhase.startPhase();
     }
 
 
