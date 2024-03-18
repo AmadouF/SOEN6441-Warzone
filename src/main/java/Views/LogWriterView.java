@@ -11,12 +11,29 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
+/**
+ * This class is used to update the log file whenever there is change in state derived from LogEntryBuffer class
+ */
+
 public class LogWriterView implements Observer {
 
+    /**
+     * Constructor of to add LogWriterView Observer object to the list of observers
+     * @param p_logEntryBuffer
+     */
     public LogWriterView(LogEntryBuffer p_logEntryBuffer){
         p_logEntryBuffer.addObserver(this);
     }
+
+    /**
+     * Updated LogEntryBuffer Observable Object.
+     */
     LogEntryBuffer d_logEntryBuffer;
+
+    /**
+     * Writes/Appends updated LogEntryBuffer Object into the log file.
+     * @param p_observable Object of LogEntryBuffer class
+     */
     @Override
     public void update(Observable p_observable) {
         d_logEntryBuffer = (LogEntryBuffer) p_observable;

@@ -36,7 +36,7 @@ public class issueOrderPhase extends Phase{
      * Starts the issue order phase.
      * This method executes until all players have issued their orders.
      */
-    public void startPhase(){
+    public void startPhase() throws IOException {
         d_phase_name = "Issue Order Phase";
         while (isInstanceOfissueOrderPhase()) {
             issueOrders();
@@ -47,12 +47,13 @@ public class issueOrderPhase extends Phase{
      * Issues orders to players.
      * This method iterates through players and allows them to issue orders.
      */
-    protected void issueOrders(){
+    protected void issueOrders() throws IOException {
         List<Player> l_players = d_gameState.getD_players();
         while (d_playerHelper.unassignedArmiesExists(d_gameState.getD_players())) {
             for (Player l_player : l_players) {
                 if (l_player.getMoreOrders()){
                     try{
+                        this.d_current_player = l_player;
                         l_player.issue_order(this);
                     }
                     catch (IOException | InvalidCommand | InvalidMap l_exception) {
@@ -62,7 +63,10 @@ public class issueOrderPhase extends Phase{
             }
 
         }
-        //TODO change phase here
+
+        this.d_gameEngine.commonGameEngineLogger("Order Execution Phase", "phase");
+        this.d_gameEngine.setCurrentPhase(new OrderExecutionPhase(this.d_gameEngine, d_gameState));
+
     }
 }
 
@@ -119,7 +123,7 @@ public class issueOrderPhase extends Phase{
      */
     public void requestNewOrder() throws InvalidCommand, IOException, InvalidMap{
         BufferedReader sc= new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("\n " + "[ Player: "+ this.d_current_player.getPlayerName()+ "] " + "Please enter a valid command:");
+        System.out.println("\n " + "[ Player: "+ this.d_current_player.getPlayerName()+ "] " + "Please enter a command to issue order:");
         String l_enteredCommand=sc.readLine();
 
         d_gameState.addLogMessage("[ Player: "+this.d_current_player.getPlayerName()+"] " + l_enteredCommand, "order");

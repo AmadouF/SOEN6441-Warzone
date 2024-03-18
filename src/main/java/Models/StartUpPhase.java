@@ -90,7 +90,7 @@ public class StartUpPhase extends Phase {
         List<Map<String, String>> l_listOfOperationsAndArguments = p_command.getListOfOperationsAndArguments();
         if (CollectionUtils.isEmpty(l_listOfOperationsAndArguments)) {
             d_playerHelper.assignCountries(d_gameState);
-            //startGameLoop();
+            d_playerHelper.assignArmies(d_gameState);
             issueOrderPhase l_issueOrderPhase = new issueOrderPhase(d_gameEngine, d_gameState);
             d_gameEngine.setCurrentPhase(l_issueOrderPhase);
         } else {

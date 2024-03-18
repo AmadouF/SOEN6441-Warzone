@@ -2,6 +2,10 @@ package Models;
 
 import Views.LogWriterView;
 
+/**
+ * This Class is used to take the order for notifying the state and get the log message
+ */
+
 public class LogEntryBuffer extends  Observable{
 
     /**
