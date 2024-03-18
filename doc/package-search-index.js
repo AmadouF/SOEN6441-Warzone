@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"Constants"},{"l":"Exceptions"},{"l":"GameEngine"},{"l":"Helpers"},{"l":"Models"},{"l":"Utils"},{"l":"Views"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"Constants"},{"l":"Exceptions"},{"l":"GameEngine"},{"l":"Helpers"},{"l":"Models"},{"l":"TestSuites"},{"l":"Utils"},{"l":"Views"}];updateSearchResults();
