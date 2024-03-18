@@ -136,6 +136,21 @@ public class issueOrderPhase extends Phase{
         d_playerHelper.checkForMoreOrders(d_gameState.getD_players());
     }
 
+    protected void CardCommand(String p_enteredCommand) throws IOException {
+    	if(d_current_player.getOwnedCards().contains(p_enteredCommand.split(" ")[0])) {
+    		d_current_player.handleCardCommands(p_enteredCommand, d_gameState);
+            d_gameState.addLogMessage(this.d_current_player.getLog(), "effect");
+    	}  
+        d_playerHelper.checkForMoreOrders(d_gameState.getD_players());
+    }
+
+    protected void advanceCommand(String p_command) throws IOException {
+        d_current_player.createAdvanceOrder(p_command, d_gameState);
+        d_gameState.addLogMessage(this.d_current_player.getLog(), "effect");
+        d_playerHelper.checkForMoreOrders(d_gameState.getD_players());
+    }
+
+
     /**
      * Performs a command.
      * This method processes the command entered by the player and logs the effect.
