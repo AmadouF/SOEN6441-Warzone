@@ -90,7 +90,7 @@ public class StartUpPhase extends Phase {
         List<Map<String, String>> l_listOfOperationsAndArguments = p_command.getListOfOperationsAndArguments();
         if (CollectionUtils.isEmpty(l_listOfOperationsAndArguments)) {
             d_playerHelper.assignCountries(d_gameState);
-            startGameLoop();
+            //startGameLoop();
             issueOrderPhase l_issueOrderPhase = new issueOrderPhase(d_gameEngine, d_gameState);
             d_gameEngine.setCurrentPhase(l_issueOrderPhase);
         } else {
@@ -116,7 +116,7 @@ public class StartUpPhase extends Phase {
 
                 processCommand(l_command);
             } catch (Exception l_exception) {
-                l_exception.printStackTrace();
+                this.d_gameEngine.commonGameEngineLogger(l_exception.getMessage(), "effect");
             }
         }
     }
@@ -130,8 +130,10 @@ public class StartUpPhase extends Phase {
         for (int l_i = 1; CollectionUtils.isNotEmpty(d_gameState.getD_players()) && d_gameState.getD_players().size() > 1; l_i++) {
             System.out.println("\n\n ------------ Round " + l_i + " -------------- \n");
 
+
             // Assigning army personnel to each player
             d_playerHelper.assignArmies(d_gameState);
+
         }
     }
 
