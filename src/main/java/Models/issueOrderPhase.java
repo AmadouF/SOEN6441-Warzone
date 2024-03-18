@@ -119,7 +119,7 @@ public class issueOrderPhase extends Phase{
      */
     public void requestNewOrder() throws InvalidCommand, IOException, InvalidMap{
         BufferedReader sc= new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("\n Please enter a valid command:");
+        System.out.println("\n " + "[ Player: "+ this.d_current_player.getPlayerName()+ "] " + "Please enter a valid command:");
         String l_enteredCommand=sc.readLine();
 
         d_gameState.addLogMessage("[ Player: "+this.d_current_player.getPlayerName()+"] " + l_enteredCommand, "order");
