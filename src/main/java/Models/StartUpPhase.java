@@ -98,7 +98,12 @@ public class StartUpPhase extends Phase {
         }
     }
 
-
+    /**
+     * This method is used to start deploy troops.
+     * @param p_command The command object with assign country argument.
+     * @throws InvalidCommand Thrown if the command is invalid.
+     * @throws IOException Thrown if an IO error occurs.
+     */
     public void deployCommand(String p_command) throws InvalidCommand, IOException, InvalidMap {
         printCommandInvalidInCurrentState();
       }
@@ -150,10 +155,22 @@ public class StartUpPhase extends Phase {
         return d_gameEngine.getD_CurrentPhase() instanceof StartUpPhase;
     }
 
+    /**
+     * This method is used to handle cards.
+     * @param p_command The command object with assign country argument.
+     * @throws InvalidCommand Thrown if the command is invalid.
+     * @throws IOException Thrown if an IO error occurs.
+     */
     public void CardCommand(String p_command) throws InvalidCommand, IOException, InvalidMap {
         printCommandInvalidInCurrentState();
       }
     
+    /**
+     * This method is used to advance troops
+     * @param p_command The command object with assign country argument.
+     * @throws InvalidCommand Thrown if the command is invalid.
+     * @throws IOException Thrown if an IO error occurs.
+     */
     public void advanceCommand(String p_command) throws InvalidCommand, IOException, InvalidMap {
         printCommandInvalidInCurrentState();
       }
